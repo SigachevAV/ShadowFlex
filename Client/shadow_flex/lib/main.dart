@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shadow_flex/pages/characteristics.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,10 +30,13 @@ class _MainPagesVievState extends State<MainPagesViev> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("ShadowFlex"),
+      ),
       body: PageView(
         controller: controller,
         children: [
-          Center(child: Text("1")),
+          CharacteristicsPage(),
           Center(child: Text("2")),
           Center(child: Text("3")),
         ],
