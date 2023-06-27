@@ -2,6 +2,6 @@ import 'package:flutter/material.dart';
 
 class MyTextStyle {
   TextStyle GetTextDecoration() {
-    return TextStyle(fontSize: 20);
+    return TextStyle(fontSize: 17);
   }
 }
