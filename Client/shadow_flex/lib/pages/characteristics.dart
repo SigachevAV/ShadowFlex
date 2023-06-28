@@ -54,7 +54,7 @@ class _CharacteristicsPageState extends State<CharacteristicsPage> {
           AbillytyRow(
             name: "Огнестрельное оружие",
             offset: 1,
-            index: 1100,
+            index: 130,
           ),
         ],
       ),

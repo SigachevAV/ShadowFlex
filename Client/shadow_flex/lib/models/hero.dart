@@ -190,6 +190,15 @@ class HeroData {
     }
   }
 
+  void SetAbillyty(int _index, int _value) {
+    if (_value > 6 || _value < 0) {
+      throw Exception("Incorrect value");
+    }
+    List<int> index = indexParse(_index);
+    CheckBounce(index);
+    abilites[index[0]][index[1]][index[2]] = _value;
+  }
+
   List<int> Roll(int _index, int _mod) {
     num? pool = 0 + _mod;
     List<int> roll = List.empty(growable: true);

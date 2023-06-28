@@ -3,6 +3,7 @@ import 'package:shadow_flex/pages/characteristics.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/navigation_bar.dart';
+import 'package:shadow_flex/widgets/square_fab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +50,12 @@ class _MainPagesVievState extends State<MainPagesViev> {
           Center(child: Text("3")),
         ],
       ),
-      bottomNavigationBar: NavigationBarShadowFlex(),
+      floatingActionButton: SquareFAB(() => {}, Icons.pages),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: SafeArea(
+        child: NavigationBarShadowFlex(),
+        bottom: false,
+      ),
     );
   }
 }

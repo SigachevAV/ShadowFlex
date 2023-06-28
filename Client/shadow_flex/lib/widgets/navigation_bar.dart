@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -21,7 +20,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
   void OnArrowUpPress() {
     setState(() {
       isVisible = true;
-      appBarHeight = 0.15;
+      appBarHeight = 0.1;
       return;
     });
   }
@@ -29,7 +28,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
   void OnArrowDownPress() {
     setState(() {
       isVisible = false;
-      appBarHeight = 0.1;
+      appBarHeight = 0.05;
       return;
     });
   }
@@ -45,37 +44,42 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
         }
       },
       child: BottomAppBar(
-          child: FractionallySizedBox(
-        heightFactor: appBarHeight,
-        child: Container(
-          color: ColorShemeMine().GetUninteractiveDark(),
-          child: Flexible(
-            fit: FlexFit.loose,
-            child: Row(
-              children: [
-                Visibility(
+        child: FractionallySizedBox(
+          heightFactor: appBarHeight,
+          child: Container(
+            color: ColorShemeMine().GetUninteractiveDark(),
+            child: Flexible(
+              fit: FlexFit.loose,
+              child: Row(
+                children: [
+                  Visibility(
                     visible: !isVisible,
                     child: Flexible(
-                        child: MaterialButton(
-                      onPressed: OnArrowUpPress,
-                      child: Icon(
-                        Icons.arrow_circle_up_sharp,
-                        color: ColorShemeMine().GetAkcent(),
+                      child: MaterialButton(
+                        onPressed: OnArrowUpPress,
+                        child: Icon(
+                          Icons.arrow_circle_up_sharp,
+                          color: ColorShemeMine().GetAkcent(),
+                        ),
                       ),
-                    ))),
-                Visibility(
+                    ),
+                  ),
+                  Visibility(
                     visible: isVisible,
                     child: Flexible(
-                        child: MaterialButton(
-                      onPressed: OnArrowDownPress,
-                      child: Icon(Icons.arrow_circle_down_sharp,
-                          color: ColorShemeMine().GetAkcent()),
-                    ))),
-              ],
+                      child: MaterialButton(
+                        onPressed: OnArrowDownPress,
+                        child: Icon(Icons.arrow_circle_down_sharp,
+                            color: ColorShemeMine().GetAkcent()),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
