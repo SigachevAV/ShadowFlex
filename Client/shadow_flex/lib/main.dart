@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/pages/characteristics.dart';
+import 'package:shadow_flex/style/color_sheme.dart';
+import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,8 +33,13 @@ class _MainPagesVievState extends State<MainPagesViev> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
-        title: Text("ShadowFlex"),
+        backgroundColor: ColorShemeMine().GetUninteractiveDark(),
+        title: Text(
+          "ShadowFlex",
+          style: MyTextStyle().GetTextAkcentDecoration(),
+        ),
       ),
       body: PageView(
         controller: controller,
@@ -41,6 +49,7 @@ class _MainPagesVievState extends State<MainPagesViev> {
           Center(child: Text("3")),
         ],
       ),
+      bottomNavigationBar: NavigationBarShadowFlex(),
     );
   }
 }

@@ -25,34 +25,39 @@ class _CharacteristicsPageState extends State<CharacteristicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AbillytyRow(
-          name: "Тело",
-          offset: 0,
-          index: 0,
-        ),
-        AbillytyRow(
-          name: "Ловкость",
-          offset: 0,
-          index: 100,
-        ),
-        AbillytyRow(
-          name: "Атлетика",
-          offset: 1,
-          index: 110,
-        ),
-        AbillytyRow(
-          name: "Ближний бой",
-          offset: 1,
-          index: 120,
-        ),
-        AbillytyRow(
-          name: "Огнестрельное оружие",
-          offset: 1,
-          index: 130,
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: 20,
+          ),
+          AbillytyRow(
+            name: "Тело",
+            offset: 0,
+            index: 0,
+          ),
+          AbillytyRow(
+            name: "Ловкость",
+            offset: 0,
+            index: 100,
+          ),
+          AbillytyRow(
+            name: "Атлетика",
+            offset: 1,
+            index: 110,
+          ),
+          AbillytyRow(
+            name: "Ближний бой",
+            offset: 1,
+            index: 120,
+          ),
+          AbillytyRow(
+            name: "Огнестрельное оружие",
+            offset: 1,
+            index: 1100,
+          ),
+        ],
+      ),
     );
   }
 }

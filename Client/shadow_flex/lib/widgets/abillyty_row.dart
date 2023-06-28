@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
+import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 
 class AbillytyRow extends StatefulWidget {
@@ -56,20 +57,20 @@ class _AbillytyRowState extends State<AbillytyRow> {
           child: Row(
             children: [
               Spacer(
-                flex: 1 + 1 * widget.offset,
+                flex: 3 + 2 * widget.offset,
               ),
               Container(
-                width: 200,
+                width: 250,
                 child: Text(
                   widget.name,
                   style: style,
                 ),
               ),
               Spacer(
-                flex: 10 - widget.offset,
+                flex: 10 - 2 * widget.offset,
               ),
               Container(
-                width: 30,
+                width: 20,
                 height: 30,
                 child: Center(
                   child: Text(
@@ -79,11 +80,32 @@ class _AbillytyRowState extends State<AbillytyRow> {
                 ),
               ),
               Spacer(
-                flex: 1,
+                flex: 3,
               ),
             ],
           ),
         ),
+        Row(
+          children: [
+            Flexible(
+              child: Container(),
+              flex: 1 + 1 * widget.offset,
+            ),
+            Flexible(
+              child: Container(
+                height: 1,
+                color: ColorShemeMine().GetUnderlineDark(),
+              ),
+              flex: 15 - widget.offset,
+            ),
+            Container(
+              width: 10,
+            ),
+            Spacer(
+              flex: 1,
+            )
+          ],
+        )
       ],
     );
   }

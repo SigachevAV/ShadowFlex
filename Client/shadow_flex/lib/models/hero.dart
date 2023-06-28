@@ -49,6 +49,9 @@ class HeroData {
       result.add(i % 10);
       i = i ~/ 10;
     }
+    if (result.length == 4) {
+      result[2] += result.removeAt(3);
+    }
     result = result.reversed.toList();
     return result;
   }
