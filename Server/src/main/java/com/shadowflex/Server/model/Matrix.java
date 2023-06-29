@@ -25,6 +25,15 @@ public class Matrix implements Serializable {
         private boolean outsider;
         private boolean user;
         private boolean admin;
+
+        @Override
+        public String toString() {
+            StringBuilder result = new StringBuilder();
+            if(outsider) result.append("outsider");
+            if(user) result.append(", user");
+            if(admin) result.append(", admin");
+            return result.toString();
+        }
     }
 
     @Id

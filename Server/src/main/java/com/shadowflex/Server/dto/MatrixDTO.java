@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class MatrixDTO implements Serializable {
     private String name;
     private String access;
-    private String isLegal;
+    private String legal;
     private String check;
     private String description;
 }

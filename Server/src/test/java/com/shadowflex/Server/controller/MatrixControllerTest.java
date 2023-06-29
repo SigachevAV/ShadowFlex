@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AdeptsController.class)
+@WebMvcTest(MatrixController.class)
 @Import({MatrixToDtoConverter.class, LanguageConverter.class})
 class MatrixControllerTest {
     private final String basePath = "/matrix";
@@ -60,7 +60,9 @@ class MatrixControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Имя")));
+                .andExpect(jsonPath("$.name", is("Имя")))
+                .andExpect(jsonPath("$.legal", is("LEGAL")))
+                .andExpect(jsonPath("$.access", is("outsider, admin")));
     }
 
     @Test
