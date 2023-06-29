@@ -3,7 +3,9 @@ package com.shadowflex.Server.util;
 import com.shadowflex.Server.dto.AdeptDTO;
 import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.model.Adept;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AdeptToDtoConverter {
     public AdeptDTO convert(Adept adept, Language lang) {
         AdeptDTO dto = new AdeptDTO();

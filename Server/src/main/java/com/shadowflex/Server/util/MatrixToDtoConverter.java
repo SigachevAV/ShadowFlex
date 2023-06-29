@@ -3,7 +3,9 @@ package com.shadowflex.Server.util;
 import com.shadowflex.Server.dto.MatrixDTO;
 import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.model.Matrix;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MatrixToDtoConverter {
     public MatrixDTO convert(Matrix matrix, Language lang) {
         MatrixDTO matrixDTO = new MatrixDTO();
