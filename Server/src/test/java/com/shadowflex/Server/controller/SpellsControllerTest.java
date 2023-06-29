@@ -4,7 +4,6 @@ import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
-import com.shadowflex.Server.util.LanguageConverter;
 import com.shadowflex.Server.util.SpellToDtoConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,17 +27,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SpellsController.class)
-@Import({SpellToDtoConverter.class, LanguageConverter.class, })
+@Import(SpellToDtoConverter.class)
 class SpellsControllerTest {
     private final String basePath = "/spells";
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private SpellRepository spellRepository;
+    private final Spell spell;
 
-    @BeforeEach
-    void setUp() {
-        Spell testSpell = Spell.builder()
+    {
+        spell = Spell.builder()
                 .id(1L)
                 .nameRu("Заклинание")
                 .nameEn("Spell")
@@ -51,7 +50,11 @@ class SpellsControllerTest {
                 .descriptionEn("Some text")
                 .descriptionRu("Некоторый текст")
                 .build();
-        Mockito.when(spellRepository.findById(1L)).thenReturn(Optional.of(testSpell));
+    }
+
+    @BeforeEach
+    void setUp() {
+        Mockito.when(spellRepository.findById(1L)).thenReturn(Optional.of(spell));
     }
 
     @Test

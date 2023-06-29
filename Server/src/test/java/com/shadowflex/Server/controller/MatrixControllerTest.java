@@ -4,7 +4,6 @@ import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Matrix;
 import com.shadowflex.Server.repository.MatrixRepository;
-import com.shadowflex.Server.util.LanguageConverter;
 import com.shadowflex.Server.util.MatrixToDtoConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,17 +27,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MatrixController.class)
-@Import({MatrixToDtoConverter.class, LanguageConverter.class})
+@Import(MatrixToDtoConverter.class)
 class MatrixControllerTest {
     private final String basePath = "/matrix";
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private MatrixRepository matrixRepository;
+    private final Matrix matrix;
 
-    @BeforeEach // TODO: beforeAll?
-    void setUp() {
-        Matrix matrix = Matrix.builder()
+    {
+        matrix = Matrix.builder()
                 .id(1L)
                 .nameEn("Name")
                 .nameRu("Имя")
@@ -49,6 +48,10 @@ class MatrixControllerTest {
                 .descriptionRu("Описание")
                 .descriptionEn("Description")
                 .build();
+    }
+
+    @BeforeEach
+    void setUp() {
         Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix));
     }
 

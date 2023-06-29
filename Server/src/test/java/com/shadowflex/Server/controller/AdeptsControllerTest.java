@@ -5,7 +5,6 @@ import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Adept;
 import com.shadowflex.Server.repository.AdeptRepository;
 import com.shadowflex.Server.util.AdeptToDtoConverter;
-import com.shadowflex.Server.util.LanguageConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -28,17 +27,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AdeptsController.class)
-@Import({AdeptToDtoConverter.class, LanguageConverter.class})
+@Import(AdeptToDtoConverter.class)
 class AdeptsControllerTest {
     private final String basePath = "/adepts";
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private AdeptRepository adeptRepository;
+    private final Adept adept;
 
-    @BeforeEach
-    void setUp() {
-        Adept adept = Adept.builder()
+    {
+        adept = Adept.builder()
                 .nameRu("Имя")
                 .nameEn("Name")
                 .cost("Cost")
@@ -46,6 +45,10 @@ class AdeptsControllerTest {
                 .descriptionEn("Text")
                 .descriptionRu("Текст")
                 .build();
+    }
+
+    @BeforeEach
+    void setUp() {
         Mockito.when(adeptRepository.findById(1L)).thenReturn(Optional.of(adept));
     }
 
