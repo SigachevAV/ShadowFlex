@@ -1,6 +1,7 @@
 package com.shadowflex.Server.util;
 
 import com.shadowflex.Server.dto.SpellDTO;
+import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.model.Spell;
 import org.springframework.stereotype.Component;
 
@@ -36,9 +37,8 @@ public class SpellToDtoConverter {
                 spellDTO.setName(spell.getNameEn());
                 spellDTO.setDescription(spell.getDescriptionEn());
             }
-            default -> {
-                // TODO: lang exception
-            }
+            default ->
+                throw new InvalidLanguageException("Invalid language: " + lang.name());
         }
 
         return spellDTO;

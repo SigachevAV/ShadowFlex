@@ -1,11 +1,15 @@
 package com.shadowflex.Server.controller;
 
 import com.shadowflex.Server.dto.SpellDTO;
+import com.shadowflex.Server.exception.SpellNotFoundException;
+import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
 import com.shadowflex.Server.util.Language;
 import com.shadowflex.Server.util.SpellToDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/spells")
@@ -21,7 +25,9 @@ public class SpellsController {
 
     @GetMapping("/{id}")
     public SpellDTO getById(@PathVariable Long id, @RequestParam("lang") Language lang) {
-        // TODO: invalid id exception + ? invalid lang exc ?
-        return repository.findById(id).map(value -> mapper.convert(value, lang)).orElse(null);
+        Optional<Spell> spellOptional = repository.findById(id);
+        if(spellOptional.isEmpty())
+            throw new SpellNotFoundException("Spell " + id + " not found");
+        return mapper.convert(spellOptional.get(), lang);
     }
 }

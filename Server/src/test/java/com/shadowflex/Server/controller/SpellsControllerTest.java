@@ -1,30 +1,35 @@
 package com.shadowflex.Server.controller;
 
+import com.shadowflex.Server.exception.SpellNotFoundException;
 import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
 import com.shadowflex.Server.util.SpellToDtoConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.util.Objects;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(SpellsController.class)
 @Import(SpellToDtoConverter.class)
+@Slf4j
 class SpellsControllerTest {
     private final String basePath = "/spells";
     @Autowired
@@ -73,11 +78,25 @@ class SpellsControllerTest {
     }
 
     @Test
-    void getById_invalidLang_success() throws Exception {
+    void getById_invalidId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/0")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof SpellNotFoundException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Spell 0 not found"
+                ));
+    }
+
+    @Test
+    void getById_invalidLang() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/1")
                         .param("lang", "br")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentTypeMismatchException));
     }
 }
