@@ -8,7 +8,6 @@ import com.shadowflex.Server.util.Language;
 import com.shadowflex.Server.util.LanguageConverter;
 import com.shadowflex.Server.util.SpellToDtoConverter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -16,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/spells")
 @RequiredArgsConstructor
-@Slf4j
 public class SpellsController {
     private final SpellRepository repository;
     private final SpellToDtoConverter dtoConverter;
