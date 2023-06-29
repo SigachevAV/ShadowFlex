@@ -1,10 +1,11 @@
 package com.shadowflex.Server.controller;
 
+import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.SpellNotFoundException;
 import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
+import com.shadowflex.Server.util.LanguageConverter;
 import com.shadowflex.Server.util.SpellToDtoConverter;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,7 +16,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -28,8 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SpellsController.class)
-@Import(SpellToDtoConverter.class)
-@Slf4j
+@Import({SpellToDtoConverter.class, LanguageConverter.class, })
 class SpellsControllerTest {
     private final String basePath = "/spells";
     @Autowired
@@ -97,6 +96,9 @@ class SpellsControllerTest {
                         .param("lang", "br")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentTypeMismatchException));
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidLanguageException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
+                ));
     }
 }
