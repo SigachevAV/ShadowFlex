@@ -6,14 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "adept_power")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Adept {
-    public enum Activation {MIN, MAJ, PAS};
+public class Adept implements Serializable {
+    public enum Activation {MIN, MAJ, PAS}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

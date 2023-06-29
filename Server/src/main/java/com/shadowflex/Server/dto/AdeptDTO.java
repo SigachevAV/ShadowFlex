@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdeptDTO {
+public class AdeptDTO implements Serializable {
     private String name;
     private String cost;
     private String activation;
