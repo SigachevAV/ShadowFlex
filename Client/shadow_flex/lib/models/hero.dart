@@ -1,14 +1,26 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HeroData {
   List abilites = List.generate(11,
       ((index) => List.generate(5, (index) => List.generate(7, (index) => 0))));
+  final Future<SharedPreferences> _preferences =
+      SharedPreferences.getInstance();
 
   static final HeroData _instanse = HeroData._internal();
 
   factory HeroData() {
     return _instanse;
+  }
+
+  void Load() {
+    if (_preferences.then(
+            (SharedPreferences preferences) => preferences.getString('hero')) ==
+        null) {
+      return;
+    }
   }
 
   HeroData._internal() {
@@ -237,4 +249,9 @@ class HeroData {
     }
     return roll;
   }
+
+  Map<String, dynamic> toJson() => {
+        'abilites': abilites,
+      };
+  HeroData.fromJson(Map<String, dynamic> json) : abilites = json['abilites'];
 }
