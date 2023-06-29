@@ -1,46 +1,40 @@
 package com.shadowflex.Server.util;
 
 import com.shadowflex.Server.dto.SpellDTO;
-import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.model.Spell;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SpellToDtoConverter {
     public SpellDTO convert(Spell spell, Language lang) {
-        // basic initialisation
+        // TODO: nullpointer exceptions??
         SpellDTO spellDTO = SpellDTO.builder()
                 .duration(spell.getDuration().name())
                 .type(spell.getType().name())
                 .dv(spell.getDv())
                 .build();
-        spellDTO.setDamage(switch (spell.getDamage()) {
-            case P -> "P";
-            case S -> "S";
-            case SPEC -> "Special";
+        spellDTO.setDamage(formatDamage(spell));
+        spellDTO.setRange(formatRange(spell));
+        spellDTO.setName(lang == Language.ru ? spell.getNameRu() : spell.getNameEn());
+        spellDTO.setDescription(lang == Language.ru ? spell.getDescriptionRu() : spell.getDescriptionEn());
+        return spellDTO;
+    }
 
-        });
-        spellDTO.setRange(switch (spell.getRange()) {
+    private static String formatRange(Spell spell) {
+        return switch (spell.getRange()) {
             case LOS -> "Los";
             case LOSA -> "Los(A)";
             case TOUCH -> "Touch";
             case SPEC -> "Special";
-        });
+        };
+    }
 
-        // localization
-        switch (lang) {
-            case ru -> {
-                spellDTO.setName(spell.getNameRu());
-                spellDTO.setDescription(spell.getDescriptionRu());
-            }
-            case en -> {
-                spellDTO.setName(spell.getNameEn());
-                spellDTO.setDescription(spell.getDescriptionEn());
-            }
-            default ->
-                throw new InvalidLanguageException("Invalid language: " + lang.name());
-        }
+    private static String formatDamage(Spell spell) {
+        return switch (spell.getDamage()) {
+            case P -> "P";
+            case S -> "S";
+            case SPEC -> "Special";
 
-        return spellDTO;
+        };
     }
 }
