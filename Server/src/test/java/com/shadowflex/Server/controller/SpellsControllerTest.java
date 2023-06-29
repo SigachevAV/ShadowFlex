@@ -1,7 +1,7 @@
 package com.shadowflex.Server.controller;
 
 import com.shadowflex.Server.exception.InvalidLanguageException;
-import com.shadowflex.Server.exception.SpellNotFoundException;
+import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
 import com.shadowflex.Server.util.LanguageConverter;
@@ -83,7 +83,7 @@ class SpellsControllerTest {
                         .param("lang", "ru")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof SpellNotFoundException))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(result -> assertEquals(
                         Objects.requireNonNull(result.getResolvedException()).getMessage(), "Spell 0 not found"
                 ));

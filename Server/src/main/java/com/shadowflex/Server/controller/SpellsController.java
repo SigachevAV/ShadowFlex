@@ -1,7 +1,7 @@
 package com.shadowflex.Server.controller;
 
 import com.shadowflex.Server.dto.SpellDTO;
-import com.shadowflex.Server.exception.SpellNotFoundException;
+import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
 import com.shadowflex.Server.util.Language;
@@ -27,7 +27,7 @@ public class SpellsController {
         Language lang = languageConverter.convert(langParam);
         Optional<Spell> spellOptional = repository.findById(id);
         if(spellOptional.isEmpty())
-            throw new SpellNotFoundException("Spell " + id + " not found");
+            throw new NotFoundException("Spell " + id + " not found");
         return dtoConverter.convert(spellOptional.get(), lang);
     }
 }

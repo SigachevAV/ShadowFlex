@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
-    @ExceptionHandler(SpellNotFoundException.class)
-    public ResponseEntity<String> handleSpellNotFoundException(RuntimeException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleNotFoundException(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
