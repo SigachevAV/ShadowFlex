@@ -57,10 +57,8 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                     child: Flexible(
                       child: MaterialButton(
                         onPressed: OnArrowUpPress,
-                        child: Icon(
-                          Icons.arrow_circle_up_sharp,
-                          color: ColorShemeMine().GetAkcent(),
-                        ),
+                        child: Icon(Icons.arrow_drop_up_sharp,
+                            color: ColorShemeMine().GetAkcent(), size: 40),
                       ),
                     ),
                   ),
@@ -69,8 +67,11 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                     child: Flexible(
                       child: MaterialButton(
                         onPressed: OnArrowDownPress,
-                        child: Icon(Icons.arrow_circle_down_sharp,
-                            color: ColorShemeMine().GetAkcent()),
+                        child: Icon(
+                          Icons.arrow_drop_down_sharp,
+                          color: ColorShemeMine().GetAkcent(),
+                          size: 40,
+                        ),
                       ),
                     ),
                   ),

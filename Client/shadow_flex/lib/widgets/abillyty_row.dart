@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
@@ -22,6 +23,8 @@ class _AbillytyRowState extends State<AbillytyRow> {
   TextStyle style = MyTextStyle().GetTextDecoration();
   HeroData heroData = HeroData();
   SetupVar setupVar = SetupVar();
+  int stat = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,6 +54,16 @@ class _AbillytyRowState extends State<AbillytyRow> {
                     ),
                   );
                 },
+              );
+            } else {
+              showMaterialNumberPicker(
+                context: context,
+                title: 'Pick Your Age',
+                maxNumber: 6,
+                minNumber: 0,
+                selectedNumber: heroData.GetAbility(widget.index),
+                onChanged: (value) =>
+                    setState(() => heroData.SetAbillyty(widget.index, value)),
               );
             }
           },

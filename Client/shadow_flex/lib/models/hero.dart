@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:math';
+import 'dart:developer';
 
 class HeroData {
   List abilites = List.generate(11,
