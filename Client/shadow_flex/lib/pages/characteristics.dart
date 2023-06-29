@@ -56,6 +56,7 @@ class _CharacteristicsPageState extends State<CharacteristicsPage> {
             offset: 1,
             index: 130,
           ),
+          
         ],
       ),
     );
