@@ -4,12 +4,15 @@ import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Adept;
 import com.shadowflex.Server.repository.AdeptRepository;
+import com.shadowflex.Server.util.AdeptToDtoConverter;
+import com.shadowflex.Server.util.LanguageConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AdeptsController.class)
+@Import({AdeptToDtoConverter.class, LanguageConverter.class})
 class AdeptsControllerTest {
     private final String basePath = "/adepts";
     @Autowired
