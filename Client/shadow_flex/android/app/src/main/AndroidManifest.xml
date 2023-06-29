@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shadow_flex">
-   <application
-        android:label="shadow_flex"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="pp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
