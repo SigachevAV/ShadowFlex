@@ -1,6 +1,7 @@
 package com.shadowflex.Server.controller;
 
 import com.shadowflex.Server.dto.AdeptDTO;
+import com.shadowflex.Server.dto.AdeptSimpleDTO;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Adept;
 import com.shadowflex.Server.repository.AdeptRepository;
@@ -31,10 +32,10 @@ public class AdeptsController {
     }
 
     @GetMapping
-    public Iterable<AdeptDTO> getAll(@RequestParam("lang") String langParam) {
+    public Iterable<AdeptSimpleDTO> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
         return repository.findAll().stream()
-                .map(value -> dtoConverter.convert(value, lang))
+                .map(value -> dtoConverter.convertToSimple(value, lang))
                 .collect(Collectors.toList());
     }
 }

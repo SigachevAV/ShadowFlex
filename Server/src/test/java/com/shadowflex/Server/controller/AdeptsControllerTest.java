@@ -38,6 +38,7 @@ class AdeptsControllerTest {
 
     {
         adept1 = Adept.builder()
+                .id(1L)
                 .nameRu("Имя")
                 .nameEn("Name")
                 .cost("Cost")
@@ -45,7 +46,9 @@ class AdeptsControllerTest {
                 .descriptionEn("Text")
                 .descriptionRu("Текст")
                 .build();
+
         adept2 = Adept.builder()
+                .id(2L)
                 .nameRu("Имя (2)")
                 .nameEn("Name (2)")
                 .cost("Cost (2)")
@@ -121,6 +124,7 @@ class AdeptsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[1].id", is(2)))
                 .andExpect(jsonPath("$.[1].name", is("Имя (2)")));
     }
 
@@ -134,6 +138,7 @@ class AdeptsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[1].id", is(2)))
                 .andExpect(jsonPath("$.[1].name", is("Name (2)")));
     }
 
