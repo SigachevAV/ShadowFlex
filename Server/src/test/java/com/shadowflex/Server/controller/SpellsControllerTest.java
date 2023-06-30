@@ -38,6 +38,7 @@ class SpellsControllerTest {
 
     {
         spell1 = Spell.builder()
+                .id(1L)
                 .nameRu("Заклинание")
                 .nameEn("Spell")
                 .duration(Spell.SpellDuration.S)
@@ -51,6 +52,7 @@ class SpellsControllerTest {
                 .build();
 
         spell2 = Spell.builder()
+                .id(2L)
                 .nameRu("Заклинание (2)")
                 .nameEn("Spell (2)")
                 .duration(Spell.SpellDuration.S)
@@ -130,7 +132,9 @@ class SpellsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].name", is("Заклинание (2)")));
+                .andExpect(jsonPath("$.[1].id", is(2)))
+                .andExpect(jsonPath("$.[1].name", is("Заклинание (2)")))
+                .andExpect(jsonPath("$.[1].category", is("COMBAT")));
     }
 
     @Test
@@ -143,7 +147,9 @@ class SpellsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].name", is("Spell (2)")));
+                .andExpect(jsonPath("$.[1].id", is(2)))
+                .andExpect(jsonPath("$.[1].name", is("Spell (2)")))
+                .andExpect(jsonPath("$.[1].category", is("COMBAT")));
     }
 
     @Test

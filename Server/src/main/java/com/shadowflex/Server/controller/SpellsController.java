@@ -1,6 +1,7 @@
 package com.shadowflex.Server.controller;
 
 import com.shadowflex.Server.dto.SpellDTO;
+import com.shadowflex.Server.dto.SpellSimpleDTO;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Spell;
 import com.shadowflex.Server.repository.SpellRepository;
@@ -31,10 +32,10 @@ public class SpellsController {
     }
 
     @GetMapping
-    public Iterable<SpellDTO> getAll(@RequestParam("lang") String langParam) {
+    public Iterable<SpellSimpleDTO> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
         return repository.findAll().stream()
-                .map(value -> dtoConverter.convert(value, lang))
+                .map(value -> dtoConverter.convertToSimple(value, lang))
                 .collect(Collectors.toList());
     }
 }
