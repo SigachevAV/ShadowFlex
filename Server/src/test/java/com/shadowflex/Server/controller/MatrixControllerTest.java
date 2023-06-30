@@ -35,6 +35,7 @@ class MatrixControllerTest {
     private MatrixRepository matrixRepository;
     private final Matrix matrix1;
     private final Matrix matrix2;
+    private final Matrix matrix3;
 
     {
         matrix1 = Matrix.builder()
@@ -60,6 +61,19 @@ class MatrixControllerTest {
                 .checkRu("Проверка (2)")
                 .descriptionRu("Описание (2)")
                 .descriptionEn("Description (2)")
+                .type(Matrix.Type.MINOR)
+                .build();
+
+        matrix3 = Matrix.builder()
+                .id(3L)
+                .nameEn("Name (3)")
+                .nameRu("Имя (3)")
+                .isLegal(Boolean.TRUE)
+                .access(new Matrix.Access(true, false, true))
+                .checkEn("Check (3)")
+                .checkRu("Проверка (3)")
+                .descriptionRu("Описание (3)")
+                .descriptionEn("Description (3)")
                 .type(Matrix.Type.MINOR)
                 .build();
     }
@@ -124,28 +138,30 @@ class MatrixControllerTest {
 
     @Test
     void getAll_ru_success() throws Exception {
-        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2));
+        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2, matrix3));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath)
                         .param("lang", "ru")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].name", is("Имя (2)")));
+                .andExpect(jsonPath("$.MAJOR", hasSize(1)))
+                .andExpect(jsonPath("$.MINOR", hasSize(2)))
+                .andExpect(jsonPath("$.MINOR.[0].name", is("Имя (2)")));
     }
 
     @Test
     void getAll_en_success() throws Exception {
-        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2));
+        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2, matrix3));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath)
                         .param("lang", "en")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].name", is("Name (2)")));
+                .andExpect(jsonPath("$.MAJOR", hasSize(1)))
+                .andExpect(jsonPath("$.MINOR", hasSize(2)))
+                .andExpect(jsonPath("$.MINOR.[0].name", is("Name (2)")));
     }
 
     @Test
