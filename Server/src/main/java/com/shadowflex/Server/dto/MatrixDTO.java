@@ -17,4 +17,5 @@ public class MatrixDTO implements Serializable {
     private String legal;
     private String check;
     private String description;
+    private String type;
 }

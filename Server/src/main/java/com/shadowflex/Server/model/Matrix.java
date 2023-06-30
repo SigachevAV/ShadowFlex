@@ -36,6 +36,8 @@ public class Matrix implements Serializable {
         }
     }
 
+    public enum Type {MAJOR, MINOR}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,4 +50,6 @@ public class Matrix implements Serializable {
     private String checkEn;
     private String descriptionRu;
     private String descriptionEn;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 }

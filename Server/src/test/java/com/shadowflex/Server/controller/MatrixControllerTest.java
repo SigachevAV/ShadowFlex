@@ -38,6 +38,7 @@ class MatrixControllerTest {
 
     {
         matrix1 = Matrix.builder()
+                .id(1L)
                 .nameEn("Name")
                 .nameRu("Имя")
                 .isLegal(Boolean.TRUE)
@@ -46,9 +47,11 @@ class MatrixControllerTest {
                 .checkRu("Проверка")
                 .descriptionRu("Описание")
                 .descriptionEn("Description")
+                .type(Matrix.Type.MAJOR)
                 .build();
 
         matrix2 = Matrix.builder()
+                .id(2L)
                 .nameEn("Name (2)")
                 .nameRu("Имя (2)")
                 .isLegal(Boolean.TRUE)
@@ -57,6 +60,7 @@ class MatrixControllerTest {
                 .checkRu("Проверка (2)")
                 .descriptionRu("Описание (2)")
                 .descriptionEn("Description (2)")
+                .type(Matrix.Type.MINOR)
                 .build();
     }
 

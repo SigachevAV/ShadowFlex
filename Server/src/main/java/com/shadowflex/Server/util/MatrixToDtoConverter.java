@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 public class MatrixToDtoConverter {
     public MatrixDTO convert(Matrix matrix, Language lang) {
         // TODO: nullpointer exceptions??
-        MatrixDTO matrixDTO = new MatrixDTO();
-        matrixDTO.setLegal(matrix.getIsLegal() ? "LEGAL" : "ILLEGAL");
-        matrixDTO.setAccess(matrix.getAccess().toString());
-        matrixDTO.setName(lang == Language.ru ? matrix.getNameRu() : matrix.getNameEn());
-        matrixDTO.setDescription(lang == Language.ru ? matrix.getDescriptionRu() : matrix.getDescriptionEn());
-        matrixDTO.setCheck(lang == Language.ru ? matrix.getCheckRu() : matrix.getCheckEn());
-        return matrixDTO;
+        return MatrixDTO.builder()
+                .legal(matrix.getIsLegal() ? "LEGAL" : "ILLEGAL")
+                .access(matrix.getAccess().toString())
+                .name(lang == Language.ru ? matrix.getNameRu() : matrix.getNameEn())
+                .description(lang == Language.ru ? matrix.getDescriptionRu() : matrix.getDescriptionEn())
+                .check(lang == Language.ru ? matrix.getCheckRu() : matrix.getCheckEn())
+                .type(matrix.getType().name())
+                .build();
     }
 }
