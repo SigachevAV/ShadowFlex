@@ -5,7 +5,6 @@ import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Matrix;
 import com.shadowflex.Server.repository.MatrixRepository;
 import com.shadowflex.Server.util.MatrixToDtoConverter;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -62,13 +60,10 @@ class MatrixControllerTest {
                 .build();
     }
 
-    @BeforeEach
-    void setUp() {
-        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix1));
-    }
-
     @Test
     void getById_ru_success() throws Exception {
+        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix1));
+
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/1")
                         .param("lang", "ru")
@@ -82,6 +77,8 @@ class MatrixControllerTest {
 
     @Test
     void getById_en_success() throws Exception {
+        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix1));
+
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/1")
                         .param("lang", "en")
@@ -93,6 +90,8 @@ class MatrixControllerTest {
 
     @Test
     void getById_invalidId() throws Exception {
+        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix1));
+
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/0")
                         .param("lang", "ru")
@@ -106,6 +105,8 @@ class MatrixControllerTest {
 
     @Test
     void getById_invalidLang() throws Exception {
+        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix1));
+
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/1")
                         .param("lang", "br")

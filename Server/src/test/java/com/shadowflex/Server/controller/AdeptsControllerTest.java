@@ -38,7 +38,6 @@ class AdeptsControllerTest {
 
     {
         adept1 = Adept.builder()
-                .id(1L)
                 .nameRu("Имя")
                 .nameEn("Name")
                 .cost("Cost")
@@ -47,7 +46,6 @@ class AdeptsControllerTest {
                 .descriptionRu("Текст")
                 .build();
         adept2 = Adept.builder()
-                .id(2L)
                 .nameRu("Имя (2)")
                 .nameEn("Name (2)")
                 .cost("Cost (2)")
