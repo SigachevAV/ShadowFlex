@@ -16,11 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -34,11 +35,11 @@ class MatrixControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private MatrixRepository matrixRepository;
-    private final Matrix matrix;
+    private final Matrix matrix1;
+    private final Matrix matrix2;
 
     {
-        matrix = Matrix.builder()
-                .id(1L)
+        matrix1 = Matrix.builder()
                 .nameEn("Name")
                 .nameRu("Имя")
                 .isLegal(Boolean.TRUE)
@@ -48,11 +49,22 @@ class MatrixControllerTest {
                 .descriptionRu("Описание")
                 .descriptionEn("Description")
                 .build();
+
+        matrix2 = Matrix.builder()
+                .nameEn("Name (2)")
+                .nameRu("Имя (2)")
+                .isLegal(Boolean.TRUE)
+                .access(new Matrix.Access(true, false, true))
+                .checkEn("Check (2)")
+                .checkRu("Проверка (2)")
+                .descriptionRu("Описание (2)")
+                .descriptionEn("Description (2)")
+                .build();
     }
 
     @BeforeEach
     void setUp() {
-        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix));
+        Mockito.when(matrixRepository.findById(1L)).thenReturn(Optional.of(matrix1));
     }
 
     @Test
@@ -104,4 +116,46 @@ class MatrixControllerTest {
                         Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
                 ));
     }
+
+    @Test
+    void getAll_ru_success() throws Exception {
+        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath)
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[1].name", is("Имя (2)")));
+    }
+
+    @Test
+    void getAll_en_success() throws Exception {
+        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath)
+                        .param("lang", "en")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[1].name", is("Name (2)")));
+    }
+
+    @Test
+    void getAll_invalidLang() throws Exception {
+        Mockito.when(matrixRepository.findAll()).thenReturn(List.of(matrix1, matrix2));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath)
+                        .param("lang", "br")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidLanguageException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
+                ));
+    }
+
 }

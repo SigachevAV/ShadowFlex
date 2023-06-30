@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/matrix")
@@ -27,5 +28,13 @@ public class MatrixController {
         if(spellOptional.isEmpty())
             throw new NotFoundException("Matrix action " + id + " not found");
         return dtoConverter.convert(spellOptional.get(), lang);
+    }
+
+    @GetMapping
+    public Iterable<MatrixDTO> getAll(@RequestParam("lang") String langParam) {
+        Language lang = languageConverter.convert(langParam);
+        return repository.findAll().stream()
+                .map(value -> dtoConverter.convert(value, lang))
+                .collect(Collectors.toList());
     }
 }
