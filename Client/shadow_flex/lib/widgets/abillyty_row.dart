@@ -39,6 +39,7 @@ class _AbillytyRowState extends State<AbillytyRow> {
                   int hits = roll.removeAt(0);
                   log(roll.toString());
                   return Dialog(
+                    backgroundColor: ColorShemeMine().GetBackgroundDark(),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -58,44 +59,50 @@ class _AbillytyRowState extends State<AbillytyRow> {
             } else {
               showMaterialNumberPicker(
                 context: context,
-                title: 'Pick Your Age',
+                title: widget.name,
                 maxNumber: 6,
                 minNumber: 0,
+                backgroundColor: ColorShemeMine().GetBackgroundDark(),
+                headerColor: ColorShemeMine().GetUninteractiveDark(),
+                headerTextColor: ColorShemeMine().GetAkcent(),
+                buttonTextColor: ColorShemeMine().GetTextDark(),
                 selectedNumber: heroData.GetAbility(widget.index),
                 onChanged: (value) =>
                     setState(() => heroData.SetAbillyty(widget.index, value)),
               );
             }
           },
-          child: Row(
-            children: [
-              Spacer(
-                flex: 3 + 2 * widget.offset,
-              ),
-              Container(
-                width: 250,
-                child: Text(
-                  widget.name,
-                  style: style,
+          child: Container(
+            child: Row(
+              children: [
+                Spacer(
+                  flex: 3 + 2 * widget.offset,
                 ),
-              ),
-              Spacer(
-                flex: 10 - 2 * widget.offset,
-              ),
-              Container(
-                width: 20,
-                height: 30,
-                child: Center(
+                Container(
+                  width: 250,
                   child: Text(
-                    heroData.GetAbility(widget.index).toString(),
+                    widget.name,
                     style: style,
                   ),
                 ),
-              ),
-              Spacer(
-                flex: 3,
-              ),
-            ],
+                Spacer(
+                  flex: 10 - 2 * widget.offset,
+                ),
+                Container(
+                  width: 20,
+                  height: 30,
+                  child: Center(
+                    child: Text(
+                      heroData.GetAbility(widget.index).toString(),
+                      style: style,
+                    ),
+                  ),
+                ),
+                Spacer(
+                  flex: 3,
+                ),
+              ],
+            ),
           ),
         ),
         Row(

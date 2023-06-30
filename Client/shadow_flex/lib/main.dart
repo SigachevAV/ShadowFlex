@@ -17,8 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ShadowFlex',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.fromSwatch(
+              accentColor: ColorShemeMine().GetAkcent(),
+              backgroundColor: ColorShemeMine().GetBackgroundDark()),
+          textTheme: TextTheme(bodyMedium: MyTextStyle().GetTextDecoration())),
       home: const MainPagesViev(),
     );
   }

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:developer';
+import 'dart:developer' as dev;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HeroData {
@@ -15,12 +15,19 @@ class HeroData {
     return _instanse;
   }
 
-  void Load() {
-    if (_preferences.then(
-            (SharedPreferences preferences) => preferences.getString('hero')) ==
-        null) {
-      return;
+  Future<bool> Load() async {
+    SharedPreferences preferences = await _preferences;
+    dev.log('чтение');
+    if ((preferences.getString('hero')) != null) {
+      String? jsonStr;
+      jsonStr = preferences.getString('hero');
+      Map<String, dynamic> json = jsonDecode(jsonStr!);
+      dev.log(json['abilites'].toString());
+
+      abilites = json['abilites'];
+      return true;
     }
+    return false;
   }
 
   HeroData._internal() {
@@ -47,6 +54,12 @@ class HeroData {
     abilites[8][4][0] = -1;
     abilites[9][1][0] = -1;
     abilites[10][0][0] = 1;
+    bool hasPrev = true;
+    Load().then((value) => {hasPrev = value});
+    dev.log(hasPrev.toString());
+    if (hasPrev == true) {
+      return;
+    }
     return;
   }
 
@@ -209,6 +222,15 @@ class HeroData {
     List<int> index = indexParse(_index);
     CheckBounce(index);
     abilites[index[0]][index[1]][index[2]] = _value;
+    Write();
+  }
+
+  Future<void> Write() async {
+    dev.log("запись");
+    String json = jsonEncode(this);
+    SharedPreferences preferences = await _preferences;
+    preferences.setString('hero', json);
+    dev.log(json);
   }
 
   List<int> Roll(int _index, int _mod) {

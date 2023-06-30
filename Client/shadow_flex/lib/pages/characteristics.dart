@@ -18,7 +18,6 @@ class _CharacteristicsPageState extends State<CharacteristicsPage> {
   @override
   void initState() {
     HeroData hero = HeroData();
-    HeroData anotherHero = HeroData();
     log(hero.Roll(530, 0).toString());
     super.initState();
   }
