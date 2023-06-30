@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HeroData {
   List abilites = List.generate(11,
-      ((index) => List.generate(5, (index) => List.generate(7, (index) => 0))));
+      ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
   final Future<SharedPreferences> _preferences =
       SharedPreferences.getInstance();
 
