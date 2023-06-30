@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/adepts")
@@ -27,5 +28,13 @@ public class AdeptsController {
         if(adeptOptional.isEmpty())
             throw new NotFoundException("Adept's power " + id + " not found");
         return dtoConverter.convert(adeptOptional.get(), lang);
+    }
+
+    @GetMapping
+    public Iterable<AdeptDTO> getAll(@RequestParam("lang") String langParam) {
+        Language lang = languageConverter.convert(langParam);
+        return repository.findAll().stream()
+                .map(value -> dtoConverter.convert(value, lang))
+                .collect(Collectors.toList());
     }
 }
