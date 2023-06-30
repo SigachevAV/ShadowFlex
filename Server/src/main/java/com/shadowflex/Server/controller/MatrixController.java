@@ -1,6 +1,7 @@
 package com.shadowflex.Server.controller;
 
 import com.shadowflex.Server.dto.MatrixDTO;
+import com.shadowflex.Server.dto.MatrixSimpleDTO;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Matrix;
 import com.shadowflex.Server.repository.MatrixRepository;
@@ -10,6 +11,8 @@ import com.shadowflex.Server.util.MatrixToDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,10 +34,12 @@ public class MatrixController {
     }
 
     @GetMapping
-    public Iterable<MatrixDTO> getAll(@RequestParam("lang") String langParam) {
+    public Map<Matrix.Type, List<MatrixSimpleDTO>> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
         return repository.findAll().stream()
-                .map(value -> dtoConverter.convert(value, lang))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(
+                        Matrix::getType,
+                        Collectors.mapping(m -> dtoConverter.convertToSimple(m, lang), Collectors.toList())
+                ));
     }
 }
