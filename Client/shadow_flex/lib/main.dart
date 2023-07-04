@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
 import 'package:shadow_flex/pages/characteristics.dart';
+import 'package:shadow_flex/pages/ststus.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/navigation_bar.dart';
@@ -53,7 +55,7 @@ class _MainPagesVievState extends State<MainPagesViev> {
         children: [
           CharacteristicsPage(),
           Center(child: Text("2")),
-          Center(child: Text("3")),
+          StatusPage(),
         ],
       ),
       floatingActionButton: SquareFAB(
@@ -70,7 +72,9 @@ class _MainPagesVievState extends State<MainPagesViev> {
           icon),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SafeArea(
-        child: NavigationBarShadowFlex(),
+        child: NavigationBarShadowFlex(
+          controller: controller,
+        ),
         bottom: false,
       ),
     );

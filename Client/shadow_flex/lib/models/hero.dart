@@ -1,10 +1,15 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:developer' as dev;
+import 'package:flutter/material.dart';
+import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shadow_flex/models/shared_preference_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HeroData {
+  List<int> helth = [8, 0];
+  List<int> stun = [8, 0];
+  Metatype metatype;
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
 
@@ -42,6 +47,7 @@ class HeroData {
     abilites[8][4][0] = -1;
     abilites[9][1][0] = -1;
     abilites[10][0][0] = 1;
+    metatype = Metatype.HUMAN;
     bool hasPrev = true;
     //Load().then((value) => {hasPrev = value});
     if (hasPrev == true) {
@@ -210,7 +216,26 @@ class HeroData {
     List<int> index = indexParse(_index);
     CheckBounce(index);
     abilites[index[0]][index[1]][index[2]] = _value;
+    if (index[0] == 0 || index[0] == 4) {
+      UpdateStatus(index[0]);
+    }
     Write();
+  }
+
+  void UpdateStatus(int _parentIndex) {
+    num temp = 8;
+    temp += (abilites[_parentIndex][0][0] ~/ 2);
+    temp += (abilites[_parentIndex][0][0] % 2);
+    switch (_parentIndex) {
+      case 0:
+        helth[0] = temp.toInt();
+        break;
+      case 4:
+        stun[0] = temp.toInt();
+        break;
+      default:
+        break;
+    }
   }
 
   void Write() {
@@ -258,6 +283,11 @@ class HeroData {
 
   Map<String, dynamic> toJson() => {
         'abilites': abilites,
+        'metatype': metatype,
+        'helth': helth,
+        'stun': stun
       };
-  HeroData.fromJson(Map<String, dynamic> json) : abilites = json['abilites'];
+  HeroData.fromJson(Map<String, dynamic> json)
+      : abilites = json['abilites'],
+        metatype = json['metatype'];
 }

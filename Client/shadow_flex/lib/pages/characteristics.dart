@@ -16,10 +16,18 @@ class CharacteristicsPage extends StatefulWidget {
 class _CharacteristicsPageState extends State<CharacteristicsPage> {
   TextStyle style = MyTextStyle().GetTextDecoration();
 
+  void Refill() async {
+    HeroData hero = HeroData();
+    if (await hero.Load()) {
+      setState(() {
+        log("refill");
+      });
+    }
+  }
+
   @override
   void initState() {
-    HeroData hero = HeroData();
-    hero.Load();
+    Refill();
     super.initState();
   }
 
