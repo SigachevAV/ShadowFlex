@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:developer' as dev;
+import 'package:shadow_flex/models/shared_preference_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HeroData {
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
-  final Future<SharedPreferences> _preferences =
-      SharedPreferences.getInstance();
 
   static final HeroData _instanse = HeroData._internal();
 
@@ -15,19 +14,8 @@ class HeroData {
     return _instanse;
   }
 
-  Future<bool> Load() async {
-    SharedPreferences preferences = await _preferences;
-    dev.log('чтение');
-    if ((preferences.getString('hero')) != null) {
-      String? jsonStr;
-      jsonStr = preferences.getString('hero');
-      Map<String, dynamic> json = jsonDecode(jsonStr!);
-      dev.log(json['abilites'].toString());
-
-      abilites = json['abilites'];
-      return true;
-    }
-    return false;
+  Future<bool> Load() {
+    return SharedPreferenceManager().LoadHero();
   }
 
   HeroData._internal() {
@@ -55,8 +43,7 @@ class HeroData {
     abilites[9][1][0] = -1;
     abilites[10][0][0] = 1;
     bool hasPrev = true;
-    Load().then((value) => {hasPrev = value});
-    dev.log(hasPrev.toString());
+    //Load().then((value) => {hasPrev = value});
     if (hasPrev == true) {
       return;
     }
@@ -74,8 +61,9 @@ class HeroData {
       result.add(i % 10);
       i = i ~/ 10;
     }
+    dev.log(result.toString());
     if (result.length == 4) {
-      result[2] += result.removeAt(3);
+      result = [0, 0, 10];
     }
     result = result.reversed.toList();
     return result;
@@ -225,12 +213,8 @@ class HeroData {
     Write();
   }
 
-  Future<void> Write() async {
-    dev.log("запись");
-    String json = jsonEncode(this);
-    SharedPreferences preferences = await _preferences;
-    preferences.setString('hero', json);
-    dev.log(json);
+  void Write() {
+    SharedPreferenceManager().WriteHero();
   }
 
   List<int> Roll(int _index, int _mod) {
