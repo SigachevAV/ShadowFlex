@@ -1,43 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit adept power</title>
 </head>
 <body>
 
-<!--<form th:method="PATCH" th:action="@{/adepts/{id}(id=${adept.getId()})}" th:object="${adept}">
+<form th:method="POST" th:action="@{/adepts/new}" th:object="${adept}">
     <label for="nameRu">Название (ru): </label>
     <input type="text" th:field="*{nameRu}" id="nameRu">
     <div style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
     <br>
+
     <label for="nameEn">Название (en): </label>
     <input type="text" th:field="*{nameEn}" id="nameEn">
     <div style="color:red" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}">Name error</div>
     <br>
+
     <label for="cost">Цена: </label>
     <input type="text" th:field="*{cost}" id="cost">
     <div style="color:red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">Cost error</div>
     <br>
+
     <label for="activation">Активация: </label>
-    <input type="text" list="activations" id="activation">
-    <datalist id="activations">
-        <option>minor</option>
-        <option>major</option>
-        <option>passive</option>
-    </datalist>
+    <select id="activation" th:field="*{activation}">
+        <option th:value="'MIN'" th:text="minor"></option>
+        <option th:value="'MAJ'" th:text="major"></option>
+        <option th:value="'PAS'" th:text="passive"></option>
+    </select>
     <div style="color:red" th:if="${#fields.hasErrors('activation')}" th:errors="*{activation}">Activation error</div>
     <br>
+
     <label for="descRu">Описание (ru): </label>
     <input type="text" th:field="*{descriptionRu}" id="descRu">
     <div style="color:red" th:if="${#fields.hasErrors('descriptionRu')}" th:errors="*{descriptionRu}">Desc error</div>
     <br>
+
     <label for="descEn">Описание (en): </label>
     <input type="text" th:field="*{descriptionEn}" id="descEn">
     <div style="color:red" th:if="${#fields.hasErrors('descriptionEn')}" th:errors="*{descriptionEn}">Desc error</div>
     <br>
-    <input type="submit" value="Редактировать!">
-</form>-->
+
+    <input type="submit" value="Создать">
+</form>
 
 </body>
 </html>

@@ -32,7 +32,7 @@ class AdeptsControllerTest {
     }
 
     @Test
-    void home() throws Exception {
+    void home_success() throws Exception {
         Mockito.when(repository.findAll()).thenReturn(List.of(adept1, adept2));
 
         mockMvc.perform(get("/adepts")
@@ -44,7 +44,12 @@ class AdeptsControllerTest {
     }
 
     @Test
-    void newAdeptForm() {
+    void newAdeptForm_success() throws Exception {
+        mockMvc.perform(get("/adepts/new")
+                        .contentType(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(view().name("adepts/edit"))
+                .andExpect(content().string(containsString("Создать")));
     }
 
     @Test
