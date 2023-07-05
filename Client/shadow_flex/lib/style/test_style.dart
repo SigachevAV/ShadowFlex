@@ -15,4 +15,12 @@ class MyTextStyle {
         fontWeight: FontWeight.w700,
         color: ColorShemeMine().GetAkcent());
   }
+
+  TextStyle GetTextMiniAkcent() {
+    return TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
+        color: ColorShemeMine().GetAkcent());
+  }
+  
 }
