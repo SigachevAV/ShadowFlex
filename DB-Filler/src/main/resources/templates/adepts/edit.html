@@ -43,5 +43,9 @@
     <input type="submit" value="Изменить"/>
 </form>
 
+<form th:method="DELETE" th:action="@{/adepts/{id}(id=${adept.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+
 </body>
 </html>
