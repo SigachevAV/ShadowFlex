@@ -1,4 +1,4 @@
-enum Races {
+enum Metatype {
   ORC,
   DWARF,
   HUMAN,
