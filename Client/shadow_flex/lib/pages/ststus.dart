@@ -19,7 +19,7 @@ class _StatusPageState extends State<StatusPage> {
     return Column(
       children: [
         Container(
-          height: 21,
+          height: 20,
         ),
         TextLeftMargin(text: "Физический урон"),
         StatusGrid(statuses: HeroData().helth, size: 18),
