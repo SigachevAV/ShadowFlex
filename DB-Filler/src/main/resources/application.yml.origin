@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: error
+    com.shadowflex.DB-Filler: trace
+  file:
+    name: application.log
+
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8081
+
+
