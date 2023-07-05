@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/adepts/new}" th:object="${adept}">
+<form th:method="POST" th:action="@{/adepts}" th:object="${adept}">
     <label for="nameRu">Название (ru): </label>
     <input type="text" th:field="*{nameRu}" id="nameRu">
     <div style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
@@ -41,7 +41,11 @@
     <div style="color:red" th:if="${#fields.hasErrors('descriptionEn')}" th:errors="*{descriptionEn}">Desc error</div>
     <br>
 
-    <input type="submit" value="Создать">
+    <div th:switch="create">
+        <input th:switch="true" type="submit" value="Создать"/>
+        <input th:switch="false" type="submit" value="Изменить"/>
+    </div>
+
 </form>
 
 </body>
