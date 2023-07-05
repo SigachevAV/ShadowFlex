@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Adept powers</title>
 </head>
 <body>
 
-<!--    <div th:each="adept : ${adepts}">-->
-<!--        <a th:href="@{/adepts/{id}/edit(id=${adept.getId()})}"-->
-<!--           th:text="${adept.getId()} + ' - ' + ${adept.getNameRu()} + ' '  + ${adept.getNameEn()}">-->
-<!--            adept power shortly-->
-<!--        </a>-->
-<!--    </div>-->
+    <div th:each="adept : ${adepts}">
+        <a
+                th:href="@{/adepts/{id}/edit(id=${adept.getId()})}"
+                th:text="${adept.getId()} + ' - ' + ${adept.getNameRu()} + ' '  + ${adept.getNameEn()}"
+        >
+            adept power
+        </a>
+    </div>
 
-<!--    <hr>-->
-<!--    <a href="/adepts/new">New adept power</a>-->
+    <hr>
+    <a href="/adepts/new">New adept power</a>
 
 </body>
 </html>
