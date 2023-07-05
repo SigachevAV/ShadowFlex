@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HeroData {
   List<int> helth = [8, 0];
   List<int> stun = [8, 0];
-  Metatype metatype;
+  Metatype metatype = Metatype.HUMAN;
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
 
@@ -47,7 +47,6 @@ class HeroData {
     abilites[8][4][0] = -1;
     abilites[9][1][0] = -1;
     abilites[10][0][0] = 1;
-    metatype = Metatype.HUMAN;
     bool hasPrev = true;
     //Load().then((value) => {hasPrev = value});
     if (hasPrev == true) {
@@ -289,5 +288,7 @@ class HeroData {
       };
   HeroData.fromJson(Map<String, dynamic> json)
       : abilites = json['abilites'],
-        metatype = json['metatype'];
+        metatype = json['metatype'],
+        helth = json['helth'],
+        stun = json['stun'];
 }
