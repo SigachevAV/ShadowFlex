@@ -4,6 +4,7 @@ import com.shadowflex.DBFiller.entity.AdeptsFactory;
 import com.shadowflex.DBFiller.exception.NotFoundException;
 import com.shadowflex.DBFiller.model.Adept;
 import com.shadowflex.DBFiller.repository.AdeptRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AdeptsController.class)
@@ -31,7 +33,8 @@ class AdeptsControllerTest {
     private Adept adept1;
     private Adept adept2;
 
-    {
+    @BeforeEach
+    void setUp() {
         adept1 = AdeptsFactory.getAdept(1L);
         adept2 = AdeptsFactory.getAdept(2L);
     }
@@ -82,7 +85,30 @@ class AdeptsControllerTest {
     }
 
     @Test
-    void saveAdept() {
+    void saveAdept_success() throws Exception {
+        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+
+        mockMvc.perform(post("/adepts")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("nameRu", "Имя 1")
+                        .param("nameEn", "Name 1")
+                        .param("cost", "Стоимость 1")
+                        .param("activation", "MIN"))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void saveAdept_invalidForm() throws Exception {
+        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+
+        mockMvc.perform(post("/adepts")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("nameRu", "")
+                        .param("nameEn", "Name 1")
+                        .param("cost", "Стоимость 1")
+                        .param("activation", "MIN"))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(containsString("Название не должно быть пустым!")));
     }
 
     @Test
