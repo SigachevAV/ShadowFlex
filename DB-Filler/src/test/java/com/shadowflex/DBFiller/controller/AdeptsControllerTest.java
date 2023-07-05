@@ -20,8 +20,7 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AdeptsController.class)
@@ -77,7 +76,7 @@ class AdeptsControllerTest {
 
         mockMvc.perform(get("/adepts/3/edit")
                         .contentType(MediaType.TEXT_HTML))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isNoContent())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(result -> assertEquals(
                         Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power 3 not found"
@@ -112,6 +111,18 @@ class AdeptsControllerTest {
     }
 
     @Test
-    void deleteAdept() {
+    void deleteAdept_success() throws Exception {
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(adept1));
+
+        mockMvc.perform(delete("/adepts/1"))
+                .andExpect(status().isMovedTemporarily());
+    }
+
+    @Test
+    void deleteAdept_invalidId() throws Exception {
+        Mockito.when(repository.findById(3L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(delete("/adepts/3"))
+                .andExpect(status().isNoContent());
     }
 }
