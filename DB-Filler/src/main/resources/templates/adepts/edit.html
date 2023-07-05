@@ -28,7 +28,6 @@
         <option th:value="'MAJ'" th:text="major"></option>
         <option th:value="'PAS'" th:text="passive"></option>
     </select>
-    <div style="color:red" th:if="${#fields.hasErrors('activation')}" th:errors="*{activation}">Activation error</div>
     <br>
 
     <label for="descRu">Описание (ru): </label>

@@ -3,11 +3,15 @@ package com.shadowflex.DBFiller.controller;
 import com.shadowflex.DBFiller.exception.NotFoundException;
 import com.shadowflex.DBFiller.model.Adept;
 import com.shadowflex.DBFiller.repository.AdeptRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -42,8 +46,20 @@ public class AdeptsController {
     }
 
     @PostMapping
-    public String saveAdept() {
-        return "redirect:/adepts";
+    public ModelAndView saveAdept(@ModelAttribute("adept") @Valid Adept adept, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(bindingResult.hasErrors()) {
+            modelAndView.setViewName("adepts/edit");
+            modelAndView.setStatus(HttpStatus.NO_CONTENT);
+        }
+        else {
+            repository.save(adept);
+            modelAndView.setViewName("redirect:/adepts");
+            modelAndView.setStatus(HttpStatus.CREATED);
+        }
+
+        return modelAndView;
     }
 
     @PostMapping("{id}/delete")
