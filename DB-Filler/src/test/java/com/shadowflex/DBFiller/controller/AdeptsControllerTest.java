@@ -45,7 +45,7 @@ class AdeptsControllerTest {
         mockMvc.perform(get("/adepts")
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"))
+                .andExpect(view().name("adepts/index"))
                 .andExpect(content().string(containsString("Name 2"))
                 );
     }
@@ -55,7 +55,7 @@ class AdeptsControllerTest {
         mockMvc.perform(get("/adepts/new")
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("adepts/edit"))
+                .andExpect(view().name("adepts/new"))
                 .andExpect(content().string(containsString("Создать")));
     }
 
@@ -93,7 +93,7 @@ class AdeptsControllerTest {
                         .param("nameEn", "Name 1")
                         .param("cost", "Стоимость 1")
                         .param("activation", "MIN"))
-                .andExpect(status().isCreated());
+                .andExpect(status().isMovedPermanently());
     }
 
     @Test
@@ -101,6 +101,33 @@ class AdeptsControllerTest {
         Mockito.when(repository.save(adept1)).thenReturn(adept1);
 
         mockMvc.perform(post("/adepts")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("nameRu", "")
+                        .param("nameEn", "Name 1")
+                        .param("cost", "Стоимость 1")
+                        .param("activation", "MIN"))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(containsString("Название не должно быть пустым!")));
+    }
+
+    @Test
+    void updateAdept_success() throws Exception {
+        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+
+        mockMvc.perform(put("/adepts/1")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("nameRu", "Имя 1")
+                        .param("nameEn", "Name 1")
+                        .param("cost", "Стоимость 1")
+                        .param("activation", "MIN"))
+                .andExpect(status().isMovedPermanently());
+    }
+
+    @Test
+    void updateAdept_invalidForm() throws Exception {
+        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+
+        mockMvc.perform(put("/adepts/1")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "")
                         .param("nameEn", "Name 1")

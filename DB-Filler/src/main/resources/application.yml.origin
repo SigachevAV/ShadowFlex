@@ -9,7 +9,7 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url:
+    url: # + ?stringtype=unspecified
     username:
     password:
     driver-class-name: org.postgresql.Driver
@@ -17,8 +17,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 
 server:
-  port: 8081
+  port: 80
 
 

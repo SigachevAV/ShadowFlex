@@ -31,8 +31,7 @@ public class AdeptsController {
     @GetMapping("/new")
     public String newAdeptForm(Model model) {
         model.addAttribute("adept", new Adept());
-        model.addAttribute("create", true);
-        return "adepts/edit";
+        return "adepts/new";
     }
 
     @GetMapping("/{id}/edit")
@@ -41,12 +40,33 @@ public class AdeptsController {
         if(adeptOptional.isEmpty())
             throw new NotFoundException("Adept power " + id + " not found");
         model.addAttribute("adept", adeptOptional.get());
-        model.addAttribute("create", false);
         return "adepts/edit";
     }
 
     @PostMapping
-    public ModelAndView saveAdept(@ModelAttribute("adept") @Valid Adept adept, BindingResult bindingResult) {
+    public ModelAndView saveAdept(
+            @ModelAttribute("adept") @Valid Adept adept,
+            BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(bindingResult.hasErrors()) {
+            modelAndView.setViewName("adepts/new");
+            modelAndView.setStatus(HttpStatus.NO_CONTENT);
+        }
+        else {
+            repository.save(adept);
+            modelAndView.setViewName("redirect:/adepts");
+            modelAndView.setStatus(HttpStatus.MOVED_PERMANENTLY);
+        }
+
+        return modelAndView;
+    }
+
+    @PutMapping("/{id}")
+    public ModelAndView updateAdept(
+            @PathVariable Long id,
+            @ModelAttribute("adept") @Valid Adept adept,
+            BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         if(bindingResult.hasErrors()) {
@@ -54,9 +74,10 @@ public class AdeptsController {
             modelAndView.setStatus(HttpStatus.NO_CONTENT);
         }
         else {
+            adept.setId(id);
             repository.save(adept);
             modelAndView.setViewName("redirect:/adepts");
-            modelAndView.setStatus(HttpStatus.CREATED);
+            modelAndView.setStatus(HttpStatus.MOVED_PERMANENTLY);
         }
 
         return modelAndView;
