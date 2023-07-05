@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(AdeptsController.class)
 class AdeptsControllerTest {
+    private final String baseUri = "/adepts";
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -42,7 +43,7 @@ class AdeptsControllerTest {
     void home_success() throws Exception {
         Mockito.when(repository.findAll()).thenReturn(List.of(adept1, adept2));
 
-        mockMvc.perform(get("/adepts")
+        mockMvc.perform(get(baseUri)
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("adepts/index"))
@@ -52,7 +53,7 @@ class AdeptsControllerTest {
 
     @Test
     void newAdeptForm_success() throws Exception {
-        mockMvc.perform(get("/adepts/new")
+        mockMvc.perform(get(baseUri + "/new")
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("adepts/new"))
@@ -61,9 +62,11 @@ class AdeptsControllerTest {
 
     @Test
     void editAdeptForm_success() throws Exception {
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(adept1));
+        final long id = 1L;
 
-        mockMvc.perform(get("/adepts/1/edit")
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(adept1));
+
+        mockMvc.perform(get(baseUri + "/" + id + "/edit")
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("adepts/edit"))
@@ -72,39 +75,41 @@ class AdeptsControllerTest {
 
     @Test
     void editAdeptForm_invalidId() throws Exception {
-        Mockito.when(repository.findById(3L)).thenReturn(Optional.empty());
+        final long id = 3L;
 
-        mockMvc.perform(get("/adepts/3/edit")
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get(baseUri + "/" + id + "/edit")
                         .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(result -> assertEquals(
-                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power 3 not found"
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power " + id + " not found"
                 ));
     }
 
     @Test
     void saveAdept_success() throws Exception {
-        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+        Mockito.when(repository.save(Mockito.any(Adept.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        mockMvc.perform(post("/adepts")
+        mockMvc.perform(post(baseUri)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("nameRu", "Имя 1")
-                        .param("nameEn", "Name 1")
-                        .param("cost", "Стоимость 1")
+                        .param("nameRu", "Имя")
+                        .param("nameEn", "Name")
+                        .param("cost", "Стоимость")
                         .param("activation", "MIN"))
                 .andExpect(status().isMovedTemporarily());
     }
 
     @Test
     void saveAdept_invalidForm() throws Exception {
-        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+        Mockito.when(repository.save(Mockito.any(Adept.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        mockMvc.perform(post("/adepts")
+        mockMvc.perform(post(baseUri)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "")
-                        .param("nameEn", "Name 1")
-                        .param("cost", "Стоимость 1")
+                        .param("nameEn", "Name")
+                        .param("cost", "Стоимость")
                         .param("activation", "MIN"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
@@ -112,27 +117,31 @@ class AdeptsControllerTest {
 
     @Test
     void updateAdept_success() throws Exception {
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(adept1));
-        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+        final long id = 1L;
 
-        mockMvc.perform(put("/adepts/1")
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(adept1));
+        Mockito.when(repository.save(Mockito.any(Adept.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        mockMvc.perform(put(baseUri + "/" + id)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("nameRu", "Имя 1")
-                        .param("nameEn", "Name 1")
-                        .param("cost", "Стоимость 1")
+                        .param("nameRu", "Имя")
+                        .param("nameEn", "Name")
+                        .param("cost", "Стоимость")
                         .param("activation", "MIN"))
                 .andExpect(status().isMovedTemporarily());
     }
 
     @Test
     void updateAdept_invalidForm() throws Exception {
-        Mockito.when(repository.save(adept1)).thenReturn(adept1);
+        final long id = 1L;
 
-        mockMvc.perform(put("/adepts/1")
+        Mockito.when(repository.save(Mockito.any(Adept.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        mockMvc.perform(put(baseUri + "/" + id)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "")
-                        .param("nameEn", "Name 1")
-                        .param("cost", "Стоимость 1")
+                        .param("nameEn", "Name")
+                        .param("cost", "Стоимость")
                         .param("activation", "MIN"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
@@ -140,34 +149,40 @@ class AdeptsControllerTest {
 
     @Test
     void updateAdept_invalidId() throws Exception {
-        Mockito.when(repository.findById(3L)).thenReturn(Optional.empty());
+        final long id = 3L;
 
-        mockMvc.perform(put("/adepts/3")
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+
+        mockMvc.perform(put(baseUri + "/" + id)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("nameRu", "Имя 1")
-                        .param("nameEn", "Name 1")
-                        .param("cost", "Стоимость 1")
+                        .param("nameRu", "Имя")
+                        .param("nameEn", "Name")
+                        .param("cost", "Стоимость")
                         .param("activation", "MIN"))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(result -> assertEquals(
-                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power 3 not found"
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power " + id + " not found"
                 ));
     }
 
     @Test
     void deleteAdept_success() throws Exception {
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(adept1));
+        final long id = 1L;
 
-        mockMvc.perform(delete("/adepts/1"))
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(adept1));
+
+        mockMvc.perform(delete(baseUri + "/" + id))
                 .andExpect(status().isMovedTemporarily());
     }
 
     @Test
     void deleteAdept_invalidId() throws Exception {
-        Mockito.when(repository.findById(3L)).thenReturn(Optional.empty());
+        final long id = 3L;
 
-        mockMvc.perform(delete("/adepts/3"))
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+
+        mockMvc.perform(delete(baseUri + "/" + id))
                 .andExpect(status().isNotFound());
     }
 }

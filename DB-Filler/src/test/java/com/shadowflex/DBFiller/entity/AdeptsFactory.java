@@ -9,7 +9,7 @@ public class AdeptsFactory {
                 .nameRu("Имя " + id)
                 .nameEn("Name " + id)
                 .cost("Стоимость " + id)
-                .activation(Adept.Activation.values()[(int) (id % 3L)])
+                .activation(Adept.Activation.values()[(int) (id % Adept.Activation.values().length)])
                 .descriptionRu("Описание " + id)
                 .descriptionEn("Description " + id)
                 .build();
