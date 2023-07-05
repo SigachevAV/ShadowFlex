@@ -62,8 +62,11 @@ public class AdeptsController {
         return modelAndView;
     }
 
-    @PostMapping("{id}/delete")
-    public String deleteAdept() {
+    @DeleteMapping("{id}")
+    public String deleteAdept(@PathVariable Long id) {
+        Adept adept = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Adept power " + id + " not found"));
+        repository.delete(adept);
         return "redirect:/adepts";
     }
 
