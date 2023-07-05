@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spells</title>
+</head>
+<body>
+
+    <div th:each="spell : ${spells}">
+        <a
+                th:href="@{/spells/{id}/edit(id=${spell.getId()})}"
+                th:text="${spell.getId()} + ' - ' + ${spell.getNameRu()} + ' '  + ${spell.getNameEn()}"
+        >
+            spell
+        </a>
+    </div>
+
+    <hr>
+    <a href="/spells/new">New spell</a>
+
+</body>
+</html>

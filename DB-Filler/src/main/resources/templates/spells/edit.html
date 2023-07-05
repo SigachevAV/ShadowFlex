@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit spell</title>
+</head>
+<body>
+
+<form th:method="PUT" th:action="@{/spells/{id}(id=${spell.getId()})}" th:object="${spell}">
+    <label for="category">Школа: </label>
+    <select id="category" th:field="*{category}">
+        <option th:value="'COM'" th:text="combat"></option>
+        <option th:value="'DET'" th:text="detect"></option>
+        <option th:value="'HEAL'" th:text="heal"></option>
+        <option th:value="'ILL'" th:text="illusion"></option>
+        <option th:value="'MAN'" th:text="manual"></option>
+    </select>
+    <br>
+
+    <label for="nameRu">Название (ru): </label>
+    <input type="text" th:field="*{nameRu}" id="nameRu">
+    <div style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
+    <br>
+
+    <label for="nameEn">Название (en): </label>
+    <input type="text" th:field="*{nameEn}" id="nameEn">
+    <div style="color:red" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}">Name error</div>
+    <br>
+
+    <label for="range">Диапазон: </label>
+    <select id="range" th:field="*{range}">
+        <option th:value="'LOS'" th:text="los"></option>
+        <option th:value="'LOSA'" th:text="'los(A)'"></option>
+        <option th:value="'TOUCH'" th:text="touch"></option>
+        <option th:value="'SPEC'" th:text="'special (in desc.)'"></option>
+    </select>
+    <br>
+
+    <label for="duration">Продолжительность: </label>
+    <select id="duration" th:field="*{duration}">
+        <option th:value="'I'" th:text="I"></option>
+        <option th:value="'S'" th:text="S"></option>
+        <option th:value="'L'" th:text="L"></option>
+        <option th:value="'P'" th:text="P"></option>
+    </select>
+    <br>
+
+    <label for="type">Тип: </label>
+    <select id="type" th:field="*{type}">
+        <option th:value="'P'" th:text="P"></option>
+        <option th:value="'M'" th:text="M"></option>
+    </select>
+    <br>
+
+    <label for="dv">Dv: </label>
+    <input type="number" th:field="*{dv}" id="dv">
+    <div style="color:red" th:if="${#fields.hasErrors('dv')}" th:errors="*{dv}">dv error</div>
+    <br>
+
+    <label for="damage">Урон: </label>
+    <select id="damage" th:field="*{damage}">
+        <option th:value="'P'" th:text="P"></option>
+        <option th:value="'S'" th:text="S"></option>
+        <option th:value="'SPEC'" th:text="'special (in desc.)'"></option>
+    </select>
+    <br>
+
+    <label for="descRu">Описание (ru): </label>
+    <input type="text" th:field="*{descriptionRu}" id="descRu">
+    <div style="color:red" th:if="${#fields.hasErrors('descriptionRu')}" th:errors="*{descriptionRu}">Desc error</div>
+    <br>
+
+    <label for="descEn">Описание (en): </label>
+    <input type="text" th:field="*{descriptionEn}" id="descEn">
+    <div style="color:red" th:if="${#fields.hasErrors('descriptionEn')}" th:errors="*{descriptionEn}">Desc error</div>
+    <br>
+
+    <input type="submit" value="Изменить"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/spells/{id}(id=${spell.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+
+</body>
+</html>
