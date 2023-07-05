@@ -76,7 +76,7 @@ class AdeptsControllerTest {
 
         mockMvc.perform(get("/adepts/3/edit")
                         .contentType(MediaType.TEXT_HTML))
-                .andExpect(status().isNoContent())
+                .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(result -> assertEquals(
                         Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power 3 not found"
@@ -112,6 +112,7 @@ class AdeptsControllerTest {
 
     @Test
     void updateAdept_success() throws Exception {
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(adept1));
         Mockito.when(repository.save(adept1)).thenReturn(adept1);
 
         mockMvc.perform(put("/adepts/1")
@@ -138,6 +139,23 @@ class AdeptsControllerTest {
     }
 
     @Test
+    void updateAdept_invalidId() throws Exception {
+        Mockito.when(repository.findById(3L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(put("/adepts/3")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("nameRu", "Имя 1")
+                        .param("nameEn", "Name 1")
+                        .param("cost", "Стоимость 1")
+                        .param("activation", "MIN"))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept power 3 not found"
+                ));
+    }
+
+    @Test
     void deleteAdept_success() throws Exception {
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(adept1));
 
@@ -150,6 +168,6 @@ class AdeptsControllerTest {
         Mockito.when(repository.findById(3L)).thenReturn(Optional.empty());
 
         mockMvc.perform(delete("/adepts/3"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNotFound());
     }
 }

@@ -58,6 +58,7 @@ public class AdeptsController {
             BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return "adepts/edit";
+        repository.findById(id).orElseThrow(() -> new NotFoundException("Adept power " + id + " not found"));
         adept.setId(id);
         repository.save(adept);
         return "redirect:/adepts";
