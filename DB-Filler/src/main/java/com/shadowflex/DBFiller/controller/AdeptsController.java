@@ -6,12 +6,10 @@ import com.shadowflex.DBFiller.repository.AdeptRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -44,43 +42,25 @@ public class AdeptsController {
     }
 
     @PostMapping
-    public ModelAndView saveAdept(
+    public String saveAdept(
             @ModelAttribute("adept") @Valid Adept adept,
             BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        if(bindingResult.hasErrors()) {
-            modelAndView.setViewName("adepts/new");
-            modelAndView.setStatus(HttpStatus.NO_CONTENT);
-        }
-        else {
-            repository.save(adept);
-            modelAndView.setViewName("redirect:/adepts");
-            modelAndView.setStatus(HttpStatus.MOVED_PERMANENTLY);
-        }
-
-        return modelAndView;
+        if(bindingResult.hasErrors())
+            return "adepts/new";
+        repository.save(adept);
+        return "redirect:/adepts";
     }
 
     @PutMapping("/{id}")
-    public ModelAndView updateAdept(
+    public String updateAdept(
             @PathVariable Long id,
             @ModelAttribute("adept") @Valid Adept adept,
             BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        if(bindingResult.hasErrors()) {
-            modelAndView.setViewName("adepts/edit");
-            modelAndView.setStatus(HttpStatus.NO_CONTENT);
-        }
-        else {
-            adept.setId(id);
-            repository.save(adept);
-            modelAndView.setViewName("redirect:/adepts");
-            modelAndView.setStatus(HttpStatus.MOVED_PERMANENTLY);
-        }
-
-        return modelAndView;
+        if(bindingResult.hasErrors())
+            return "adepts/edit";
+        adept.setId(id);
+        repository.save(adept);
+        return "redirect:/adepts";
     }
 
     @DeleteMapping("{id}")

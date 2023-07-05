@@ -93,7 +93,7 @@ class AdeptsControllerTest {
                         .param("nameEn", "Name 1")
                         .param("cost", "Стоимость 1")
                         .param("activation", "MIN"))
-                .andExpect(status().isMovedPermanently());
+                .andExpect(status().isMovedTemporarily());
     }
 
     @Test
@@ -106,7 +106,7 @@ class AdeptsControllerTest {
                         .param("nameEn", "Name 1")
                         .param("cost", "Стоимость 1")
                         .param("activation", "MIN"))
-                .andExpect(status().isNoContent())
+                .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
     }
 
@@ -120,7 +120,7 @@ class AdeptsControllerTest {
                         .param("nameEn", "Name 1")
                         .param("cost", "Стоимость 1")
                         .param("activation", "MIN"))
-                .andExpect(status().isMovedPermanently());
+                .andExpect(status().isMovedTemporarily());
     }
 
     @Test
@@ -133,7 +133,7 @@ class AdeptsControllerTest {
                         .param("nameEn", "Name 1")
                         .param("cost", "Стоимость 1")
                         .param("activation", "MIN"))
-                .andExpect(status().isNoContent())
+                .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
     }
 
