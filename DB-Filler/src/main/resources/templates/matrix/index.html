@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrix actions</title>
+</head>
+<body>
+
+    <div th:each="mtx : ${matrix}">
+        <a
+                th:href="@{/matrix/{id}/edit(id=${mtx.getId()})}"
+                th:text="${mtx.getId()} + ' - ' + ${mtx.getNameRu()} + ' '  + ${mtx.getNameEn()}"
+        >
+            adept power
+        </a>
+    </div>
+
+    <hr>
+    <a href="/matrix/new">New matrix action</a>
+
+</body>
+</html>

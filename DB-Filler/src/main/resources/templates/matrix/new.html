@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New matrix action</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/matrix}" th:object="${matrix}">
+    <label for="nameRu">Название (ru): </label>
+    <input type="text" th:field="*{nameRu}" id="nameRu">
+    <div style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
+    <br>
+
+    <label for="nameEn">Название (en): </label>
+    <input type="text" th:field="*{nameEn}" id="nameEn">
+    <div style="color:red" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}">Name error</div>
+    <br>
+
+    <label for="legacy">Леагльность: </label>
+    <select id="legacy" th:field="*{isLegal}">
+        <option th:value="true" th:text="legal"></option>
+        <option th:value="false" th:text="illegal"></option>
+    </select>
+    <br>
+
+    <fieldset>
+        <legend>Доступ:</legend>
+        <div>
+            <label for="outsider">outsider</label>
+            <input type="checkbox" th:field="*{access.outsider}" id="outsider">
+        </div>
+        <div>
+            <label for="user">user</label>
+            <input type="checkbox" th:field="*{access.user}" id="user">
+        </div>
+        <div>
+            <label for="admin">admin</label>
+            <input type="checkbox" th:field="*{access.admin}" id="admin">
+        </div>
+    </fieldset>
+    <br>
+
+    <label for="checkRu">Проверка (ru): </label>
+    <input type="text" th:field="*{checkRu}" id="checkRu">
+    <br>
+
+    <label for="checkEn">Проверка (en): </label>
+    <input type="text" th:field="*{checkEn}" id="checkEn">
+    <br>
+
+    <label for="descRu">Описание (ru): </label>
+    <input type="text" th:field="*{descriptionRu}" id="descRu">
+    <br>
+
+    <label for="descEn">Описание (en): </label>
+    <input type="text" th:field="*{descriptionEn}" id="descEn">
+    <br>
+
+    <label for="type">Тип: </label>
+    <select id="type" th:field="*{type}">
+        <option th:value="'MAJOR'" th:text="major"></option>
+        <option th:value="'MINOR'" th:text="minor"></option>
+    </select>
+    <br>
+
+    <input type="submit" value="Создать"/>
+</form>
+
+</body>
+</html>
