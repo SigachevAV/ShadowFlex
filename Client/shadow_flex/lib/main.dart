@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:shadow_flex/functions/add_harm.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
 import 'package:shadow_flex/pages/characteristics.dart';
@@ -59,18 +62,31 @@ class _MainPagesVievState extends State<MainPagesViev> {
           StatusPage(),
         ],
       ),
-      floatingActionButton: SquareFAB(
-          () => {
-                setState(() {
-                  setupVar.ChangeMode();
-                  if (setupVar.rollMode) {
-                    icon = Icons.casino_sharp;
-                  } else {
-                    icon = Icons.create_sharp;
-                  }
-                })
-              },
-          icon),
+      floatingActionButton: Row(
+        children: [
+          SquareFAB(
+              () => {
+                    setState(() {
+                      setupVar.ChangeMode();
+                      if (setupVar.rollMode) {
+                        icon = Icons.casino_sharp;
+                      } else {
+                        icon = Icons.create_sharp;
+                      }
+                    })
+                  },
+              icon),
+          Spacer(
+            flex: 1,
+          ),
+          SquareFAB(() {
+            AddHarmToHero(context);
+            setState(() {
+              log("update");
+            });
+          }, Icons.bolt_sharp)
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SafeArea(
         child: NavigationBarShadowFlex(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 import 'package:shadow_flex/models/hero.dart';
+import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceManager {
@@ -24,6 +25,15 @@ class SharedPreferenceManager {
       jsonStr = preferences.getString('hero');
       Map<String, dynamic> json = jsonDecode(jsonStr!);
       hero.abilites = json['abilites'];
+      if (json['helth'] != null) {
+        hero.helth = json['helth'];
+      }
+      if (json['stun'] != null) {
+        hero.stun = json['stun'];
+      }
+      if (json['metatype'] != null) {
+        hero.metatype = json['metatype'];
+      }
       return true;
     }
     return false;

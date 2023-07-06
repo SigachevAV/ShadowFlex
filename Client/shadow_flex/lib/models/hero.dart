@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
+import 'package:shadow_flex/models/harm.dart';
+import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shadow_flex/models/shared_preference_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HeroData {
   List<int> helth = [8, 0];
   List<int> stun = [8, 0];
+  List<Harm> harms = List.empty(growable: true);
   Metatype metatype = Metatype.HUMAN;
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
@@ -66,7 +69,6 @@ class HeroData {
       result.add(i % 10);
       i = i ~/ 10;
     }
-    dev.log(result.toString());
     if (result.length == 4) {
       result = [0, 0, 10];
     }
@@ -216,12 +218,12 @@ class HeroData {
     CheckBounce(index);
     abilites[index[0]][index[1]][index[2]] = _value;
     if (index[0] == 0 || index[0] == 4) {
-      UpdateStatus(index[0]);
+      UpdateStatusLimit(index[0]);
     }
     Write();
   }
 
-  void UpdateStatus(int _parentIndex) {
+  void UpdateStatusLimit(int _parentIndex) {
     num temp = 8;
     temp += (abilites[_parentIndex][0][0] ~/ 2);
     temp += (abilites[_parentIndex][0][0] % 2);
@@ -249,6 +251,7 @@ class HeroData {
     List<int> index = indexParse(_index);
     CheckBounce(index);
     pool += abilites[index[0]][0][0];
+    pool += CalcStatusMod();
     if (index[1] != 0) {
       pool += abilites[index[0]][index[1]][0];
     }
@@ -278,6 +281,37 @@ class HeroData {
       roll[0] = hits;
     }
     return roll;
+  }
+
+  int CalcStatusMod() {
+    int result = 0;
+    result += (helth[1] ~/ 3);
+    result += (stun[1] ~/ 3);
+    result *= -1;
+    return result;
+  }
+
+  void UpdateStatusValue() {
+    helth[1] = 0;
+    stun[1] = 0;
+
+    harms.removeWhere((element) => (element.value == 0));
+
+    for (var i = 0; i < harms.length; i++) {
+      switch (harms[i].type) {
+        case HarmTypes.HELTH:
+          helth[1] += harms[i].value;
+          break;
+        case HarmTypes.STUN:
+        case HarmTypes.EXOST:
+          stun[1] += harms[i].value;
+        default:
+      }
+    }
+  }
+
+  void AddHarm(HarmTypes _type, int _value) {
+    harms.add(Harm(_type, _value));
   }
 
   Map<String, dynamic> toJson() => {

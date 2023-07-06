@@ -23,7 +23,6 @@ class _StatusGridState extends State<StatusGrid> {
       Color? fillColor;
       int index = i;
       if ((index + 1) % 3 == 0) {
-        log("have text");
         text += (-1 * (index + 1) ~/ 3).toString();
       }
       if (damaged > 0) {
