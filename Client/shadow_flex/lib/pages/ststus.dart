@@ -15,35 +15,42 @@ class StatusPage extends StatefulWidget {
 }
 
 class _StatusPageState extends State<StatusPage> {
-  Widget BuildList(BuildContext context) {
+  Widget BuildList(BuildContext context, StateSetter stateSetter) {
     List<Widget> list = List.empty(growable: true);
     for (var i = 0; i < HeroData().harms.length; i++) {
-      list.add(HarmRow(index: i));
+      log(HeroData().harms[i].value.toString() + " " + i.toString());
+      list.add(HarmRow(
+        harm: HeroData().harms[i],
+        NotifyParent: Refresh,
+      ));
     }
-    return Column(
-      children: list,
-    );
+    return Column(children: list);
+  }
+
+  void Refresh() {
+    HeroData().UpdateStatusValue();
+    HeroData().Write();
+    setState(() {
+      HeroData().UpdateStatusValue();
+      HeroData().harms.length;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => setState(() {}),
-      child: Column(
-        children: [
-          Container(
-            height: 21,
-          ),
-          TextLeftMargin(text: "Физический урон"),
-          StatusGrid(statuses: HeroData().helth, size: 18),
-          TextLeftMargin(text: "Оглушающий урон"),
-          StatusGrid(statuses: HeroData().stun, size: 12),
-          TextLeftMargin(text: "Травмы"),
-          Builder(
-            builder: BuildList,
-          )
-        ],
-      ),
+      child: Column(children: [
+        Container(
+          height: 21,
+        ),
+        TextLeftMargin(text: "Физический урон"),
+        StatusGrid(statuses: HeroData().helth, size: 18),
+        TextLeftMargin(text: "Оглушающий урон"),
+        StatusGrid(statuses: HeroData().stun, size: 12),
+        TextLeftMargin(text: "Травмы"),
+        StatefulBuilder(builder: BuildList)
+      ]),
     );
   }
 }

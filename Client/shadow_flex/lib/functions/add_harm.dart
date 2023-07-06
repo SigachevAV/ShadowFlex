@@ -16,7 +16,7 @@ class HarmModels {
   }
 }
 
-void AddHarmToHero(var context) {
+Future<bool?> AddHarmToHero(var context) async {
   List<HarmModels> models = <HarmModels>[
     HarmModels("Физический", HarmTypes.HELTH),
     HarmModels("Оглушающий", HarmTypes.STUN),
@@ -25,7 +25,7 @@ void AddHarmToHero(var context) {
   HarmTypes type = HarmTypes.HELTH;
   HarmModels selected = models[1];
   int harmValue = 0;
-  showMaterialRadioPicker(
+  await showMaterialRadioPicker(
     context: context,
     items: models,
     selectedItem: selected,
@@ -35,17 +35,17 @@ void AddHarmToHero(var context) {
     onConfirmed: () {
       type = selected.type;
     },
-  ).then((value) {
-    showMaterialNumberPicker(
-        context: context,
-        minNumber: 0,
-        maxNumber: 12,
-        onChanged: (value) {
-          harmValue = value;
-        }).then((value) {
-      HeroData().AddHarm(type, harmValue);
-      HeroData().UpdateStatusValue();
-      (context as Element).reassemble();
-    });
-  });
+  );
+  await showMaterialNumberPicker(
+      context: context,
+      minNumber: 0,
+      maxNumber: 12,
+      onChanged: (value) {
+        harmValue = value;
+      });
+
+  HeroData().AddHarm(type, harmValue);
+  HeroData().UpdateStatusValue();
+  HeroData().Write();
+  return true;
 }

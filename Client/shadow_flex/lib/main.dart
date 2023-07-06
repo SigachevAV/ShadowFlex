@@ -44,6 +44,12 @@ class _MainPagesVievState extends State<MainPagesViev> {
   IconData icon = Icons.casino_sharp;
   SetupVar setupVar = SetupVar();
   @override
+  void initState() {
+    HeroData().Load();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
@@ -80,9 +86,8 @@ class _MainPagesVievState extends State<MainPagesViev> {
             flex: 1,
           ),
           SquareFAB(() {
-            AddHarmToHero(context);
-            setState(() {
-              log("update");
+            AddHarmToHero(context).then((value) {
+              setState(() {});
             });
           }, Icons.bolt_sharp)
         ],

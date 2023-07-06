@@ -314,15 +314,22 @@ class HeroData {
     harms.add(Harm(_type, _value));
   }
 
-  Map<String, dynamic> toJson() => {
-        'abilites': abilites,
-        'metatype': metatype,
-        'helth': helth,
-        'stun': stun
-      };
+  Map<String, dynamic> toJson() {
+    String harmsJson = jsonEncode(harms.map((e) => (e.toJson())).toList());
+
+    return {
+      'abilites': abilites,
+      'metatype': metatype,
+      'helth': helth,
+      'stun': stun,
+      'harms': harmsJson
+    };
+  }
+
   HeroData.fromJson(Map<String, dynamic> json)
       : abilites = json['abilites'],
         metatype = json['metatype'],
         helth = json['helth'],
-        stun = json['stun'];
+        stun = json['stun'],
+        harms = json['harms'];
 }

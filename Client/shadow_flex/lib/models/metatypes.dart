@@ -3,5 +3,8 @@ enum Metatype {
   DWARF,
   HUMAN,
   ELVE,
-  TROLL,
+  TROLL;
+
+  String toJson() => name;
+  static Metatype fromJson(String json) => values.byName(json);
 }

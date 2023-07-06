@@ -4,8 +4,8 @@ class Harm {
   HarmTypes type;
   int value;
   Harm(this.type, this.value);
-  Map<String, dynamic> toJson() => {'type': this.type, 'value': this.value};
+  Map<String, dynamic> toJson() => {'type': type, 'value': value};
   Harm.fromJson(Map<String, dynamic> json)
-      : type = json['type'],
+      : type = HarmTypes.fromJson(json['type']),
         value = json['value'];
 }

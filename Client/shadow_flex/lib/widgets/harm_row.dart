@@ -2,13 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
+import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 
 class HarmRow extends StatefulWidget {
-  final int index;
-  const HarmRow({super.key, required this.index});
+  final Harm harm;
+  final Function() NotifyParent;
+  const HarmRow({super.key, required this.harm, required this.NotifyParent});
 
   @override
   State<HarmRow> createState() => _HarmRowState();
@@ -20,7 +22,12 @@ class _HarmRowState extends State<HarmRow> {
 
   @override
   void initState() {
-    switch (HeroData().harms[widget.index].type) {
+    Update();
+  }
+
+  @override
+  void Update() {
+    switch (widget.harm.type) {
       case HarmTypes.HELTH:
         type = "Физический";
         break;
@@ -33,7 +40,8 @@ class _HarmRowState extends State<HarmRow> {
       default:
         break;
     }
-    val = HeroData().harms[widget.index].value;
+    val = widget.harm.value;
+    log(type + " " + val.toString());
   }
 
   @override
@@ -46,16 +54,19 @@ class _HarmRowState extends State<HarmRow> {
                   context: context,
                   minNumber: 0,
                   maxNumber: 12,
+                  selectedNumber: val,
                   onChanged: (value) {
                     val = value;
                   },
                   onConfirmed: () {})
               .then((value) {
+            widget.harm.value = val;
+            log(HeroData().stun[1].toString());
             setState(() {
-              HeroData().harms[widget.index].value = val;
-              HeroData().UpdateStatusValue();
-              log(HeroData().stun[1].toString());
+              log('message');
             });
+            Update();
+            widget.NotifyParent();
           });
         },
         child: Column(
@@ -70,7 +81,7 @@ class _HarmRowState extends State<HarmRow> {
                   Spacer(
                     flex: 10,
                   ),
-                  Text(val.toString()),
+                  Text(widget.harm.value.toString()),
                   Container(
                     width: 30,
                   )
