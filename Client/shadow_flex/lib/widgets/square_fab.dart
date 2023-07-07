@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:shadow_flex/style/color_sheme.dart';
 
+// ignore: must_be_immutable
 class SquareFAB extends StatelessWidget {
   SquareFAB(Function() _function, IconData _icon) {
     this.onPressHandler = _function;

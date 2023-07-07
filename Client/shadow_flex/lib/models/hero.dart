@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:developer' as dev;
-import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shadow_flex/models/shared_preference_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HeroData {
   List<int> helth = [8, 0];

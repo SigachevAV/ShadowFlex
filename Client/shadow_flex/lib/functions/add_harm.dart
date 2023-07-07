@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/hero.dart';

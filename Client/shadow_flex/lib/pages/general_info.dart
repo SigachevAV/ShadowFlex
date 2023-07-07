@@ -3,8 +3,6 @@ import 'package:shadow_flex/functions/change_gender.dart';
 import 'package:shadow_flex/functions/change_metatype.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/metatypes.dart';
-import 'package:shadow_flex/style/color_sheme.dart';
-import 'package:flutter/services.dart';
 import 'package:shadow_flex/style/input_style.dart';
 
 import 'package:shadow_flex/style/test_style.dart';

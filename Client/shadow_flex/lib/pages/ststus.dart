@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/hero.dart';
-import 'package:shadow_flex/style/color_sheme.dart';
-import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/harm_row.dart';
 import 'package:shadow_flex/widgets/status_grid.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';

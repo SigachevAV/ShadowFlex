@@ -23,6 +23,7 @@ class _HarmRowState extends State<HarmRow> {
   @override
   void initState() {
     Update();
+    super.initState();
   }
 
   void Update() {
