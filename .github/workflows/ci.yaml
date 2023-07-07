@@ -19,6 +19,7 @@
             with:
               java-version: "12.x"
           - run: ls
+          - run: cd Client
           - uses: subosito/flutter-action@v1
             with:
               channal: "stable"
