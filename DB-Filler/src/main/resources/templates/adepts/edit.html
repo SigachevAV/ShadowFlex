@@ -2,50 +2,91 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Edit adept power</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
 </head>
 <body>
 
-<form th:method="PUT" th:action="@{/adepts/{id}(id=${adept.getId()})}" th:object="${adept}">
-    <label for="nameRu">Название (ru): </label>
-    <input type="text" th:field="*{nameRu}" id="nameRu">
-    <div style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
-    <br>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="/adepts">Adepts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/spells">Spells</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/matrix">Matrix</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <label for="nameEn">Название (en): </label>
-    <input type="text" th:field="*{nameEn}" id="nameEn">
-    <div style="color:red" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}">Name error</div>
-    <br>
+<div class="container  mt-3">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <form th:method="PUT" th:action="@{/adepts/{id}(id=${adept.getId()})}" th:object="${adept}">
+                <div class="form-group">
+                    <label for="nameRu">Название (ru): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{nameRu}" placeholder="название"
+                           id="nameRu">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('nameRu')}"
+                         th:errors="*{nameRu}">Name error
+                    </div>
+                </div>
 
-    <label for="cost">Цена: </label>
-    <input type="text" th:field="*{cost}" id="cost">
-    <div style="color:red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">Cost error</div>
-    <br>
+                <div class="form-group">
+                    <label for="nameEn">Название (en): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{nameEn}" placeholder="name"
+                           id="nameEn">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('nameEn')}"
+                         th:errors="*{nameEn}">Name error
+                    </div>
+                </div>
 
-    <label for="activation">Активация: </label>
-    <select id="activation" th:field="*{activation}">
-        <option th:value="'MIN'" th:text="minor"></option>
-        <option th:value="'MAJ'" th:text="major"></option>
-        <option th:value="'PAS'" th:text="passive"></option>
-    </select>
-    <br>
+                <div class="form-group">
+                    <label for="cost">Цена: </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{cost}" placeholder="цена"
+                           id="cost">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">
+                        Cost error
+                    </div>
+                </div>
 
-    <label for="descRu">Описание (ru): </label>
-    <input type="text" th:field="*{descriptionRu}" id="descRu">
-    <div style="color:red" th:if="${#fields.hasErrors('descriptionRu')}" th:errors="*{descriptionRu}">Desc error</div>
-    <br>
+                <div class="form-group">
+                    <label for="activation">Активация: </label>
+                    <select class="form-control form-control-sm" id="activation" th:field="*{activation}">
+                        <option th:value="'MIN'" th:text="minor"></option>
+                        <option th:value="'MAJ'" th:text="major"></option>
+                        <option th:value="'PAS'" th:text="passive"></option>
+                    </select>
+                </div>
 
-    <label for="descEn">Описание (en): </label>
-    <input type="text" th:field="*{descriptionEn}" id="descEn">
-    <div style="color:red" th:if="${#fields.hasErrors('descriptionEn')}" th:errors="*{descriptionEn}">Desc error</div>
-    <br>
+                <div class="form-group">
+                    <label for="descRu">Описание (ru): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{descriptionRu}" id="descRu">
+                </div>
 
-    <input type="submit" value="Изменить"/>
-</form>
+                <div class="form-group">
+                    <label for="descEn">Описание (en): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{descriptionEn}" id="descEn">
+                </div>
 
-<form th:method="DELETE" th:action="@{/adepts/{id}(id=${adept.getId()})}">
-    <input type="submit" value="Удалить">
-</form>
+
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-dark">Изменить</button>
+                    <a class="btn btn-secondary" href="/adepts">Назад</a>
+                </div>
+            </form>
+
+            <form class="mt-2" th:method="DELETE" th:action="@{/adepts/{id}(id=${adept.getId()})}">
+                <button type="submit" class="btn btn-close"></button>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

@@ -2,74 +2,120 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Edit matrix action</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
 </head>
 <body>
 
-<form th:method="PUT" th:action="@{/matrix/{id}(id=${matrix.getId()})}" th:object="${matrix}">
-    <label for="nameRu">Название (ru): </label>
-    <input type="text" th:field="*{nameRu}" id="nameRu">
-    <div style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
-    <br>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/adepts">Adepts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/spells">Spells</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/matrix">Matrix</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <label for="nameEn">Название (en): </label>
-    <input type="text" th:field="*{nameEn}" id="nameEn">
-    <div style="color:red" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}">Name error</div>
-    <br>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <form th:method="PUT" th:action="@{/matrix/{id}(id=${matrix.getId()})}" th:object="${matrix}">
+                <div class="form-group">
+                    <label for="nameRu">Название (ru): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{nameRu}" placeholder="название"
+                           id="nameRu">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('nameRu')}"
+                         th:errors="*{nameRu}">Name error
+                    </div>
+                </div>
 
-    <label for="legacy">Леагльность: </label>
-    <select id="legacy" th:field="*{isLegal}">
-        <option th:value="true" th:text="legal"></option>
-        <option th:value="false" th:text="illegal"></option>
-    </select>
-    <br>
+                <div class="form-group">
+                    <label for="nameEn">Название (en): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{nameEn}" placeholder="name"
+                           id="nameEn">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('nameEn')}"
+                         th:errors="*{nameEn}">Name error
+                    </div>
+                </div>
 
-    <fieldset>
-        <legend>Доступ:</legend>
-        <div>
-            <label for="outsider">outsider</label>
-            <input type="checkbox" th:field="*{access.outsider}" id="outsider">
+                <div class="form-group">
+                    <label for="legacy">Леагльность: </label>
+                    <select class="form-control form-control-sm" id="legacy" th:field="*{isLegal}">
+                        <option th:value="true" th:text="legal"></option>
+                        <option th:value="false" th:text="illegal"></option>
+                    </select>
+                </div>
+
+                <label for="access_form">Доступ: </label>
+                <div class="form-check" id="access_form">
+
+                    <div>
+                        <label class="form-check-label" for="outsider">outsider</label>
+                        <input class="form-check-input" type="checkbox" th:field="*{access.outsider}" id="outsider">
+                    </div>
+                    <div>
+                        <label class="form-check-label" for="user">user</label>
+                        <input class="form-check-input" type="checkbox" th:field="*{access.user}" id="user">
+                    </div>
+                    <div>
+                        <label class="form-check-label" for="admin">admin</label>
+                        <input class="form-check-input" type="checkbox" th:field="*{access.admin}" id="admin">
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="checkRu">Проверка (ru): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{checkRu}" placeholder="проверка"
+                           id="checkRu">
+                </div>
+
+                <div class="form-group">
+                    <label for="checkEn">Проверка (en): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{checkEn}" placeholder="check"
+                           id="checkEn">
+                </div>
+
+                <div class="form-group">
+                    <label for="descRu">Описание (ru): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{descriptionRu}"
+                           placeholder="описание" id="descRu">
+                </div>
+
+                <div class="form-group">
+                    <label for="descEn">Описание (en): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{descriptionEn}"
+                           placeholder="description" id="descEn">
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Тип: </label>
+                    <select class="form-control form-control-sm" id="type" th:field="*{type}">
+                        <option th:value="'MAJOR'" th:text="major"></option>
+                        <option th:value="'MINOR'" th:text="minor"></option>
+                    </select>
+                </div>
+
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-dark">Изменить</button>
+                    <a class="btn btn-secondary" href="/matrix">Назад</a>
+                </div>
+            </form>
+
+            <form class="mt-2" th:method="DELETE" th:action="@{/matrix/{id}(id=${matrix.getId()})}">
+                <button type="submit" class="btn btn-close"></button>
+            </form>
         </div>
-        <div>
-            <label for="user">user</label>
-            <input type="checkbox" th:field="*{access.user}" id="user">
-        </div>
-        <div>
-            <label for="admin">admin</label>
-            <input type="checkbox" th:field="*{access.admin}" id="admin">
-        </div>
-    </fieldset>
-    <br>
-
-    <label for="checkRu">Проверка (ru): </label>
-    <input type="text" th:field="*{checkRu}" id="checkRu">
-    <br>
-
-    <label for="checkEn">Проверка (en): </label>
-    <input type="text" th:field="*{checkEn}" id="checkEn">
-    <br>
-
-    <label for="descRu">Описание (ru): </label>
-    <input type="text" th:field="*{descriptionRu}" id="descRu">
-    <br>
-
-    <label for="descEn">Описание (en): </label>
-    <input type="text" th:field="*{descriptionEn}" id="descEn">
-    <br>
-
-    <label for="type">Тип: </label>
-    <select id="type" th:field="*{type}">
-        <option th:value="'MAJOR'" th:text="major"></option>
-        <option th:value="'MINOR'" th:text="minor"></option>
-    </select>
-    <br>
-
-    <input type="submit" value="Изменить"/>
-</form>
-
-<form th:method="DELETE" th:action="@{/matrix/{id}(id=${matrix.getId()})}">
-    <input type="submit" value="Удалить">
-</form>
+    </div>
+</div>
 
 </body>
 </html>

@@ -2,21 +2,44 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Matrix actions</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
 </head>
 <body>
 
-    <div th:each="mtx : ${matrix}">
-        <a
-                th:href="@{/matrix/{id}/edit(id=${mtx.getId()})}"
-                th:text="${mtx.getId()} + ' - ' + ${mtx.getNameRu()} + ' '  + ${mtx.getNameEn()}"
-        >
-            adept power
-        </a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/adepts">Adepts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/spells">Spells</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/matrix">Matrix</a>
+            </li>
+        </ul>
     </div>
+</nav>
 
-    <hr>
-    <a href="/matrix/new">New matrix action</a>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action"
+                   th:each="matrix : ${matrix}" th:href="@{/matrix/{id}/edit(id=${matrix.getId()})}"
+                   th:text="${matrix.getId()} + '. ' + ${matrix.getNameRu()} + ' '  + ${matrix.getNameEn()}"
+                >
+                    matrix
+                </a>
+            </div>
+            <hr>
+            <a class="btn btn-dark mt-2" href="/matrix/new">Добавить</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
