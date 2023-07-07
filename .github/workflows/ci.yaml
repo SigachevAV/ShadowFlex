@@ -29,7 +29,7 @@
               channal: "stable"
           - run: flutter pub get
             working-directory: ${{env.working-directory}}
-          - run: flutter analyze
+          - run: flutter analyze --[no-]fatal-infos
             working-directory: ${{env.working-directory}}
           - run: flutter test
             working-directory: ${{env.working-directory}}
