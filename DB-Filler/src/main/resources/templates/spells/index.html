@@ -2,21 +2,44 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Spells</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
 </head>
 <body>
 
-    <div th:each="spell : ${spells}">
-        <a
-                th:href="@{/spells/{id}/edit(id=${spell.getId()})}"
-                th:text="${spell.getId()} + ' - ' + ${spell.getNameRu()} + ' '  + ${spell.getNameEn()}"
-        >
-            spell
-        </a>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container-fluid" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/adepts">Adepts</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/spells">Spells</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/matrix">Matrix</a>
+            </li>
+        </ul>
     </div>
+</nav>
 
-    <hr>
-    <a href="/spells/new">New spell</a>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action"
+                   th:each="spell : ${spells}" th:href="@{/spells/{id}/edit(id=${spell.getId()})}"
+                   th:text="${spell.getId()} + '. ' + ${spell.getNameRu()} + ' '  + ${spell.getNameEn()}"
+                >
+                    spell
+                </a>
+            </div>
+            <hr>
+            <a class="btn btn-primary mt-2" href="/spells/new">Добавить</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
