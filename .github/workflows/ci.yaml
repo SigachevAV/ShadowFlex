@@ -18,7 +18,7 @@
           - uses: actions/setup-java@v1
             with:
               java-version: "12.x"
-          - run: cd Client
+          - run: cd ./Client
           - run: ls
           - uses: subosito/flutter-action@v1
             with:
