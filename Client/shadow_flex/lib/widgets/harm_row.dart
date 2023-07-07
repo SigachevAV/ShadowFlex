@@ -25,8 +25,13 @@ class _HarmRowState extends State<HarmRow> {
     Update();
   }
 
-  @override
   void Update() {
+    GetType();
+    val = widget.harm.value;
+    log(type + " " + val.toString());
+  }
+
+  String GetType() {
     switch (widget.harm.type) {
       case HarmTypes.HELTH:
         type = "Физический";
@@ -40,8 +45,7 @@ class _HarmRowState extends State<HarmRow> {
       default:
         break;
     }
-    val = widget.harm.value;
-    log(type + " " + val.toString());
+    return type;
   }
 
   @override
@@ -54,6 +58,11 @@ class _HarmRowState extends State<HarmRow> {
                   context: context,
                   minNumber: 0,
                   maxNumber: 12,
+                  title: "Число урона",
+                  backgroundColor: ColorShemeMine().GetBackgroundDark(),
+                  headerColor: ColorShemeMine().GetUninteractiveDark(),
+                  headerTextColor: ColorShemeMine().GetAkcent(),
+                  buttonTextColor: ColorShemeMine().GetTextDark(),
                   selectedNumber: val,
                   onChanged: (value) {
                     val = value;
@@ -77,7 +86,7 @@ class _HarmRowState extends State<HarmRow> {
                   Container(
                     width: 30,
                   ),
-                  Container(width: 200, child: Text(type)),
+                  Container(width: 200, child: Text(GetType())),
                   Spacer(
                     flex: 10,
                   ),

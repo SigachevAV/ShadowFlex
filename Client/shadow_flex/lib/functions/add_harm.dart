@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/hero.dart';
+import 'package:shadow_flex/style/color_sheme.dart';
 
 class HarmModels {
   HarmTypes type;
@@ -28,6 +29,11 @@ Future<bool?> AddHarmToHero(var context) async {
   await showMaterialRadioPicker(
     context: context,
     items: models,
+    title: "Тип урона",
+    backgroundColor: ColorShemeMine().GetBackgroundDark(),
+    headerColor: ColorShemeMine().GetUninteractiveDark(),
+    headerTextColor: ColorShemeMine().GetAkcent(),
+    buttonTextColor: ColorShemeMine().GetTextDark(),
     selectedItem: selected,
     onChanged: (value) {
       selected = value;
@@ -38,6 +44,11 @@ Future<bool?> AddHarmToHero(var context) async {
   );
   await showMaterialNumberPicker(
       context: context,
+      title: "Число урона",
+      backgroundColor: ColorShemeMine().GetBackgroundDark(),
+      headerColor: ColorShemeMine().GetUninteractiveDark(),
+      headerTextColor: ColorShemeMine().GetAkcent(),
+      buttonTextColor: ColorShemeMine().GetTextDark(),
       minNumber: 0,
       maxNumber: 12,
       onChanged: (value) {

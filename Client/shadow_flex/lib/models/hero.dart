@@ -15,6 +15,7 @@ class HeroData {
   Metatype metatype = Metatype.HUMAN;
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
+  Map<String, dynamic> generalInfo = Map();
 
   static final HeroData _instanse = HeroData._internal();
 
@@ -314,6 +315,25 @@ class HeroData {
     harms.add(Harm(_type, _value));
   }
 
+  void SetGeneralInfo(String _key, String _value) {
+    if (!generalInfo.containsKey(_key)) {
+      generalInfo.addAll({_key: _value});
+      return;
+    }
+    generalInfo[_key] = _value;
+    Write();
+    return;
+  }
+
+  String GetGeneralInfo(String _key) {
+    String result = '';
+    if (!generalInfo.containsKey(_key)) {
+      return result;
+    }
+    result = generalInfo[_key];
+    return result;
+  }
+
   Map<String, dynamic> toJson() {
     String harmsJson = jsonEncode(harms.map((e) => (e.toJson())).toList());
 
@@ -322,7 +342,8 @@ class HeroData {
       'metatype': metatype,
       'helth': helth,
       'stun': stun,
-      'harms': harmsJson
+      'harms': harmsJson,
+      'generalInfo': generalInfo
     };
   }
 

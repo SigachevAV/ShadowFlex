@@ -1,0 +1,28 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "shadow_flex",
+            "cwd": "shadow_flex",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "shadow_flex (profile mode)",
+            "cwd": "shadow_flex",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "shadow_flex (release mode)",
+            "cwd": "shadow_flex",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

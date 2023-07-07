@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ShadowFlex',
       theme: ThemeData(
-          primarySwatch: Colors.pink,
+          primarySwatch: ColorShemeMine().GetAkcentMaterial(),
           colorScheme: ColorScheme.fromSwatch(
               accentColor: ColorShemeMine().GetAkcent(),
               backgroundColor: ColorShemeMine().GetBackgroundDark()),

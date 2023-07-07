@@ -42,6 +42,9 @@ class SharedPreferenceManager {
           hero.harms.add(Harm.fromJson(element));
         }
       }
+      if (json['generalInfo'] != null) {
+        hero.generalInfo = json['generalInfo'];
+      }
       return true;
     }
     return false;
