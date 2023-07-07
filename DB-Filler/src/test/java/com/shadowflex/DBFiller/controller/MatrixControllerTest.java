@@ -96,9 +96,8 @@ class MatrixControllerTest {
         mockMvc.perform(post(baseUri)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "Имя")
-                        .param("nameEn", "Name"))
-//                        .param("cost", "Стоимость")
-//                        .param("activation", "MIN"))
+                        .param("nameEn", "Name")
+                        .param("outsider", "on"))
                 .andExpect(status().isMovedTemporarily());
     }
 
@@ -109,9 +108,8 @@ class MatrixControllerTest {
         mockMvc.perform(post(baseUri)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "")
-                        .param("nameEn", "Name"))
-//                        .param("cost", "Стоимость")
-//                        .param("activation", "MIN"))
+                        .param("nameEn", "Name")
+                        .param("outsider", "on"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
     }
@@ -126,9 +124,8 @@ class MatrixControllerTest {
         mockMvc.perform(put(baseUri + "/" + id)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "Имя")
-                        .param("nameEn", "Name"))
-//                        .param("cost", "Стоимость")
-//                        .param("activation", "MIN"))
+                        .param("nameEn", "Name")
+                        .param("outsider", "on"))
                 .andExpect(status().isMovedTemporarily());
     }
 
@@ -141,9 +138,8 @@ class MatrixControllerTest {
         mockMvc.perform(put(baseUri + "/" + id)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "")
-                        .param("nameEn", "Name"))
-//                        .param("cost", "Стоимость")
-//                        .param("activation", "MIN"))
+                        .param("nameEn", "Name")
+                        .param("outsider", "on"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
     }
@@ -157,9 +153,8 @@ class MatrixControllerTest {
         mockMvc.perform(put(baseUri + "/" + id)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "Имя")
-                        .param("nameEn", "Name"))
-//                        .param("cost", "Стоимость")
-//                        .param("activation", "MIN"))
+                        .param("nameEn", "Name")
+                        .param("outsider", "on"))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(result -> assertEquals(
