@@ -14,7 +14,7 @@
         name: Run flutter tests
         runs-on: ubuntu-latest
         env:
-          working-directory: ./Client
+          working-directory: ./Client/shadow_flex
         steps: 
           - uses: actions/checkout@v2
           - uses: actions/setup-java@v1
@@ -28,3 +28,4 @@
             with:
               channal: "stable"
           - run: flutter pub get
+            working-directory: ${{env.working-directory}}
