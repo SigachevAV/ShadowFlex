@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Not found</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/adepts">Adepts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/spells">Spells</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/matrix">Matrix</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold" th:text="${code}"></h1>
+        <p class="fs-3"> <span class="text-danger">Opps!</span> Something went wrong.</p>
+    </div>
+</div>
+
+</body>
+</html>
