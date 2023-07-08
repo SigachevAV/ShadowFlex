@@ -21,6 +21,9 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  security:
+    user.name:
+    user.password:
 
 server:
   port: 80
