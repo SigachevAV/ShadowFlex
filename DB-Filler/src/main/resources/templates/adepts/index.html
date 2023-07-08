@@ -6,7 +6,7 @@
     <title>Adept powers</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
 </head>
-<body>
+<body class="bg-light">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid" id="navbarSupportedContent">
@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-lg-6 mx-auto">
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action"
+                <a class="list-group-item list-group-item-action bg-light"
                    th:each="adept : ${adepts}" th:href="@{/adepts/{id}/edit(id=${adept.getId()})}"
                    th:text="${adept.getId()} + '. ' + ${adept.getNameRu()} + ' '  + ${adept.getNameEn()}"
                 >
