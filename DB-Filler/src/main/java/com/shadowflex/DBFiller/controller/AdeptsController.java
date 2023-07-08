@@ -6,6 +6,7 @@ import com.shadowflex.DBFiller.repository.AdeptRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,11 +66,12 @@ public class AdeptsController {
     }
 
     @DeleteMapping("{id}")
-    public String deleteAdept(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    // TODO редирект на JS. Верно ли это?
+    public void deleteAdept(@PathVariable Long id) {
         Adept adept = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Adept power " + id + " not found"));
         repository.delete(adept);
-        return "redirect:/adepts";
     }
 
 }

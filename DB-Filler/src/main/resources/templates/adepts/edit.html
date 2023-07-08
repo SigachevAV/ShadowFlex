@@ -78,15 +78,23 @@
                 <div class="mt-2">
                     <button type="submit" class="btn btn-dark">Изменить</button>
                     <a class="btn btn-secondary" href="/adepts">Назад</a>
+                    <button type="button" th:onclick="'deleteAdept(' + ${adept.getId()} + ')'" class="btn btn-close"></button>
                 </div>
-            </form>
-
-            <form class="mt-2" th:method="DELETE" th:action="@{/adepts/{id}(id=${adept.getId()})}">
-                <button type="submit" class="btn btn-close"></button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    function deleteAdept(id) {
+        if (confirm('Вы уверены, что хотите удалить силу адепта?')) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('DELETE', '/adepts/' + id, false);
+            xhr.send();
+            window.location.href = '/adepts';
+        }
+    }
+</script>
 
 </body>
 </html>

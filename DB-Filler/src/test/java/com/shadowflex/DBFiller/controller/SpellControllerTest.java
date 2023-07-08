@@ -173,7 +173,7 @@ class SpellControllerTest {
         Mockito.when(repository.findById(id)).thenReturn(Optional.of(spell1));
 
         mockMvc.perform(delete(baseUri + "/" + id))
-                .andExpect(status().isMovedTemporarily());
+                .andExpect(status().isOk());
     }
 
     @Test

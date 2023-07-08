@@ -173,7 +173,7 @@ class AdeptsControllerTest {
         Mockito.when(repository.findById(id)).thenReturn(Optional.of(adept1));
 
         mockMvc.perform(delete(baseUri + "/" + id))
-                .andExpect(status().isMovedTemporarily());
+                .andExpect(status().isOk());
     }
 
     @Test

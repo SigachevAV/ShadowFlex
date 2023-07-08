@@ -6,6 +6,7 @@ import com.shadowflex.DBFiller.repository.MatrixRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,11 +66,11 @@ public class MatrixController {
     }
 
     @DeleteMapping("{id}")
-    public String deleteMatrix(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteMatrix(@PathVariable Long id) {
         Matrix matrix = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Matrix action " + id + " not found"));
         repository.delete(matrix);
-        return "redirect:/matrix";
     }
 
 }

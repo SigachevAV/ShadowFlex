@@ -109,15 +109,24 @@
                 <div class="mt-2">
                     <button type="submit" class="btn btn-dark">Изменить</button>
                     <a class="btn btn-secondary" href="/spells">Назад</a>
+                    <button type="button" th:onclick="'deleteSpell(' + ${spell.getId()} + ')'" class="btn btn-close"></button>
                 </div>
             </form>
 
-            <form class="mt-2" th:method="DELETE" th:action="@{/spells/{id}(id=${spell.getId()})}">
-                <button type="submit" class="btn btn-close"></button>
-            </form>
         </div>
     </div>
 </div>
+
+<script>
+    function deleteSpell(id) {
+        if (confirm('Вы уверены, что хотите удалить это заклинание?')) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('DELETE', '/spells/' + id, false);
+            xhr.send();
+            window.location.href = '/spells';
+        }
+    }
+</script>
 
 </body>
 </html>

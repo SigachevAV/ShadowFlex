@@ -92,7 +92,6 @@ class MatrixControllerTest {
     void saveMatrix_success() throws Exception {
         Mockito.when(repository.save(Mockito.any(Matrix.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        // TODO
         mockMvc.perform(post(baseUri)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("nameRu", "Имя")
@@ -169,7 +168,7 @@ class MatrixControllerTest {
         Mockito.when(repository.findById(id)).thenReturn(Optional.of(matrix1));
 
         mockMvc.perform(delete(baseUri + "/" + id))
-                .andExpect(status().isMovedTemporarily());
+                .andExpect(status().isOk());
     }
 
     @Test

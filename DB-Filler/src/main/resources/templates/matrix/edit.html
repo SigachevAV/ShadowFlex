@@ -107,15 +107,23 @@
                 <div class="mt-2">
                     <button type="submit" class="btn btn-dark">Изменить</button>
                     <a class="btn btn-secondary" href="/matrix">Назад</a>
+                    <button type="button" th:onclick="'deleteMatrix(' + ${matrix.getId()} + ')'" class="btn btn-close"></button>
                 </div>
-            </form>
-
-            <form class="mt-2" th:method="DELETE" th:action="@{/matrix/{id}(id=${matrix.getId()})}">
-                <button type="submit" class="btn btn-close"></button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    function deleteMatrix(id) {
+        if (confirm('Вы уверены, что хотите удалить действие матрицы?')) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('DELETE', '/matrix/' + id, false);
+            xhr.send();
+            window.location.href = '/matrix';
+        }
+    }
+</script>
 
 </body>
 </html>

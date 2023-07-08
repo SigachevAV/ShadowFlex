@@ -6,6 +6,7 @@ import com.shadowflex.DBFiller.repository.SpellRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,10 +66,10 @@ public class SpellController {
     }
 
     @DeleteMapping("{id}")
-    public String deleteSpell(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteSpell(@PathVariable Long id) {
         Spell spell = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Spell " + id + " not found"));
         repository.delete(spell);
-        return "redirect:/spells";
     }
 }
