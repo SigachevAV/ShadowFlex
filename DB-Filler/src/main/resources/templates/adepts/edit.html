@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Edit adept power</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body class="bg-light">
 
@@ -88,8 +90,11 @@
 <script>
     function deleteAdept(id) {
         if (confirm('Вы уверены, что хотите удалить силу адепта?')) {
+            const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+            const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
             const xhr = new XMLHttpRequest();
             xhr.open('DELETE', '/adepts/' + id, false);
+            xhr.setRequestHeader(header, token);
             xhr.send();
             window.location.href = '/adepts';
         }
