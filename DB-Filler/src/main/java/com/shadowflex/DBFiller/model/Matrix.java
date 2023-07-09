@@ -1,6 +1,8 @@
-package com.shadowflex.Server.model;
+package com.shadowflex.DBFiller.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,15 +27,6 @@ public class Matrix implements Serializable {
         private boolean outsider;
         private boolean user;
         private boolean admin;
-
-        @Override
-        public String toString() {
-            StringBuilder result = new StringBuilder();
-            if(outsider) result.append("outsider");
-            if(user) result.append(", user");
-            if(admin) result.append(", admin");
-            return result.toString();
-        }
     }
 
     public enum Type {MAJOR, MINOR}
@@ -41,7 +34,11 @@ public class Matrix implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Название не должно быть пустым!")
+    @Size(max=256, message = "Слишком длинное название!")
     private String nameRu;
+    @NotBlank(message = "Название не должно быть пустым!")
+    @Size(max=256, message = "Слишком длинное название!")
     private String nameEn;
     private Boolean isLegal;
     @Embedded

@@ -1,14 +1,14 @@
-package com.shadowflex.Server;
+package com.shadowflex.DBFiller;
 
-import com.shadowflex.Server.repository.AdeptRepository;
-import com.shadowflex.Server.repository.MatrixRepository;
-import com.shadowflex.Server.repository.SpellRepository;
+import com.shadowflex.DBFiller.repository.AdeptRepository;
+import com.shadowflex.DBFiller.repository.MatrixRepository;
+import com.shadowflex.DBFiller.repository.SpellRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 @SpringBootTest
-class ServerApplicationTests {
+class DbFillerApplicationTests {
 	@MockBean
 	private AdeptRepository adeptRepository;
 	@MockBean
