@@ -53,7 +53,7 @@
     java_build_filler:
       runs-on: ubuntu-latest
       env:
-        working-directory: ./Server
+        working-directory: ./DB-Filler
       steps:
         - uses: actions/checkout@v3
         - name: Set up JDK 17
