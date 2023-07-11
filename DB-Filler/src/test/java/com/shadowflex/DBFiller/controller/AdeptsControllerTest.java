@@ -20,6 +20,7 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -67,7 +68,8 @@ class AdeptsControllerTest {
         Mockito.when(repository.findById(id)).thenReturn(Optional.of(adept1));
 
         mockMvc.perform(get(baseUri + "/" + id + "/edit")
-                        .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML)
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("adepts/edit"))
                 .andExpect(content().string(containsString("Изменить")));
@@ -142,7 +144,8 @@ class AdeptsControllerTest {
                         .param("nameRu", "")
                         .param("nameEn", "Name")
                         .param("cost", "Стоимость")
-                        .param("activation", "MIN"))
+                        .param("activation", "MIN")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Название не должно быть пустым!")));
     }
