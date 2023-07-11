@@ -40,7 +40,7 @@ class _StatusPageState extends State<StatusPage> {
       onTap: () => setState(() {}),
       child: Column(children: [
         Container(
-          height: 21,
+          height: 20,
         ),
         TextLeftMargin(text: "Физический урон"),
         StatusGrid(statuses: HeroData().helth, size: 18),

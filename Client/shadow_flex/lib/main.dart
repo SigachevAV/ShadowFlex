@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shadow_flex/functions/add_harm.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
+import 'package:shadow_flex/pages/QualitiesAndConnections.dart';
 import 'package:shadow_flex/pages/characteristics.dart';
 import 'package:shadow_flex/pages/general_info.dart';
 import 'package:shadow_flex/pages/ststus.dart';
@@ -66,6 +67,7 @@ class _MainPagesVievState extends State<MainPagesViev> {
           CharacteristicsPage(),
           GeneralInfoPage(),
           StatusPage(),
+          QualitiesAndConnectionsPage(),
         ],
       ),
       floatingActionButton: Row(
