@@ -33,7 +33,7 @@
             working-directory: ${{env.working-directory}}
           - run: flutter test
             working-directory: ${{env.working-directory}}
-    java_build:
+    java_build_server:
       runs-on: ubuntu-latest
       env:
         working-directory: ./Server
@@ -50,4 +50,22 @@
           working-directory: ${{env.working-directory}}
               # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 
+    java_build_filler:
+      runs-on: ubuntu-latest
+      env:
+        working-directory: ./Server
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+        - name: Build with Maven
+          run: mvn -B package --file pom.xml
+          working-directory: ${{env.working-directory}}
+          # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+          
+                    
           
