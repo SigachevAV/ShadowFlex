@@ -36,6 +36,20 @@ services:
     restart: always
     profiles: 
       - fill
+      
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@shadowflex.com
+      PGADMIN_DEFAULT_PASSWORD: hAEm0LZ5
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
+    profiles: 
+      - fill
 
   db:
     image: 'postgres:latest'
@@ -53,4 +67,5 @@ services:
       
 volumes:
   pgdata:
+  pgadmindata:
     
