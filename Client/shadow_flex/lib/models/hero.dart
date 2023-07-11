@@ -4,8 +4,10 @@ import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shadow_flex/models/shared_preference_manager.dart';
+import 'package:shadow_flex/models/trait.dart';
 
 class HeroData {
+  List<Trait> traits = List.empty(growable: true);
   List<int> helth = [8, 0];
   List<int> stun = [8, 0];
   List<Harm> harms = List.empty(growable: true);
@@ -329,6 +331,18 @@ class HeroData {
     }
     result = generalInfo[_key];
     return result;
+  }
+
+  void AddTrait(Trait _trait) {
+    traits.add(_trait);
+  }
+
+  List<Trait> GetTraits() {
+    return this.traits;
+  }
+
+  void RemoveTrait(Trait _trait) {
+    traits.remove(_trait);
   }
 
   Map<String, dynamic> toJson() {
