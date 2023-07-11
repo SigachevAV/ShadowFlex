@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/functions/add_harm.dart';
 import 'package:shadow_flex/models/hero.dart';
