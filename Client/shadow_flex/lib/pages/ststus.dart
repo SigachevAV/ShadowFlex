@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/widgets/harm_row.dart';
+import 'package:shadow_flex/widgets/hex_row.dart';
 import 'package:shadow_flex/widgets/status_grid.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';
 
@@ -42,6 +43,8 @@ class _StatusPageState extends State<StatusPage> {
         Container(
           height: 20,
         ),
+        TextLeftMargin(text: "Эдж"),
+        HexRow(lenght: HeroData().GetAbility(1100)),
         TextLeftMargin(text: "Физический урон"),
         StatusGrid(statuses: HeroData().helth, size: 18),
         TextLeftMargin(text: "Оглушающий урон"),

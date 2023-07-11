@@ -10,12 +10,14 @@ class GeneralInf extends StatefulWidget {
   final String fill;
   final bool isNumerical;
   final String mapKey;
+  final int? maxLines;
   const GeneralInf(
       {Key? key,
       required this.title,
       required this.fill,
       required this.mapKey,
-      this.isNumerical = false})
+      this.isNumerical = false,
+      this.maxLines = 1})
       : super(key: key);
 
   @override
@@ -38,32 +40,36 @@ class _GeneralInfState extends State<GeneralInf> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Spacer(
-          flex: 1,
-        ),
-        Flexible(
-          flex: 10,
-          child: TextFormField(
-            style: style,
-            controller: controller,
-            keyboardType: (widget.isNumerical) ? TextInputType.number : null,
-            inputFormatters: (widget.isNumerical)
-                ? [FilteringTextInputFormatter.digitsOnly]
-                : [],
-            onChanged: (value) {
-              textValue = value;
-              data.SetGeneralInfo(widget.mapKey, textValue);
-            },
-            cursorColor: ColorShemeMine().GetAkcent(),
-            decoration: InputStyle().GetDecoratorWithLabel(widget.title),
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Row(
+        children: [
+          Spacer(
+            flex: 1,
           ),
-        ),
-        Spacer(
-          flex: 1,
-        )
-      ],
+          Flexible(
+            flex: 10,
+            child: TextFormField(
+              style: style,
+              maxLines: widget.maxLines,
+              controller: controller,
+              keyboardType: (widget.isNumerical) ? TextInputType.number : null,
+              inputFormatters: (widget.isNumerical)
+                  ? [FilteringTextInputFormatter.digitsOnly]
+                  : [],
+              onChanged: (value) {
+                textValue = value;
+                data.SetGeneralInfo(widget.mapKey, textValue);
+              },
+              cursorColor: ColorShemeMine().GetAkcent(),
+              decoration: InputStyle().GetDecoratorWithLabel(widget.title),
+            ),
+          ),
+          Spacer(
+            flex: 1,
+          )
+        ],
+      ),
     );
   }
 }
