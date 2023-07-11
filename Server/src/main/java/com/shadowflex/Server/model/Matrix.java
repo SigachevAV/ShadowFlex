@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 public class Matrix implements Serializable {
     @Embeddable
-    @Struct(name = "matrix_action_access")
+    @Struct(name = "matrix_action_access", attributes = {"outsider", "user", "admin"})
     @Data
     @AllArgsConstructor
     @NoArgsConstructor

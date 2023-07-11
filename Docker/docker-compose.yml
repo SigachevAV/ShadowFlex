@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  api:
+    image: 'api:latest'
+    build:
+      context: ./api
+    container_name: api
+    depends_on: 
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ShadowFlexDB?stringtype=unspecified
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=y6hRkhWo
+    ports: 
+      - 8080:8080
+    restart: always
+    profiles: 
+      - prod
+      
+  filler:
+    image: 'filler:latest'
+    build:
+      context: ./filler
+    container_name: filler
+    depends_on: 
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ShadowFlexDB?stringtype=unspecified
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=y6hRkhWo
+      - SPRING_SECURITY_USER_NAME=admin
+      - SPRING_SECURITY_USER_PASSWORD=W74dXbFh
+    ports: 
+      - 80:80
+    restart: always
+    profiles: 
+      - fill
+
+  db:
+    image: 'postgres:latest'
+    build:
+      context: ./db
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=y6hRkhWo
+      - POSTGRES_DB=ShadowFlexDB
+    restart: always
+    volumes:
+      - ./schema:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+      
+volumes:
+  pgdata:
+    

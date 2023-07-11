@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>New spell</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"/>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/adepts">Adepts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/spells">Spells</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/matrix">Matrix</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <form th:method="POST" th:action="@{/spells}" th:object="${spell}">
+                <div class="form-group">
+                    <label for="category">Школа: </label>
+                    <select class="form-control form-control-sm" id="category" th:field="*{category}">
+                        <option th:value="'COM'" th:text="combat"></option>
+                        <option th:value="'DET'" th:text="detect"></option>
+                        <option th:value="'HEAL'" th:text="heal"></option>
+                        <option th:value="'ILL'" th:text="illusion"></option>
+                        <option th:value="'MAN'" th:text="manual"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nameRu">Название (ru): </label>
+                    <input type="text" class="form-control form-control-sm" th:field="*{nameRu}" placeholder="название" id="nameRu">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('nameRu')}" th:errors="*{nameRu}">Name error</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="nameEn">Название (en): </label>
+                    <input type="text" class="form-control form-control-sm" th:field="*{nameEn}" placeholder="name" id="nameEn">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('nameEn')}" th:errors="*{nameEn}">Name error</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="range">Диапазон: </label>
+                    <select class="form-control form-control-sm" id="range" th:field="*{range}">
+                        <option th:value="'LOS'" th:text="los"></option>
+                        <option th:value="'LOSA'" th:text="'los(A)'"></option>
+                        <option th:value="'TOUCH'" th:text="touch"></option>
+                        <option th:value="'SPEC'" th:text="'special (in desc.)'"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Продолжительность: </label>
+                    <select class="form-control form-control-sm" id="duration" th:field="*{duration}">
+                        <option th:value="'I'" th:text="I"></option>
+                        <option th:value="'S'" th:text="S"></option>
+                        <option th:value="'L'" th:text="L"></option>
+                        <option th:value="'P'" th:text="P"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Тип: </label>
+                    <select class="form-control form-control-sm" id="type" th:field="*{type}">
+                        <option th:value="'P'" th:text="P"></option>
+                        <option th:value="'M'" th:text="M"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dv">Dv: </label>
+                    <input class="form-control form-control-sm" type="number" th:field="*{dv}" placeholder="1" id="dv">
+                    <div class="fw-light" style="color:red" th:if="${#fields.hasErrors('dv')}" th:errors="*{dv}">dv error</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="damage">Урон: </label>
+                    <select class="form-control form-control-sm" id="damage" th:field="*{damage}">
+                        <option th:value="'P'" th:text="P"></option>
+                        <option th:value="'S'" th:text="S"></option>
+                        <option th:value="'SPEC'" th:text="'special (in desc.)'"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descRu">Описание (ru): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{descriptionRu}" placeholder="описание" id="descRu">
+                    <div style="color:red" th:if="${#fields.hasErrors('descriptionRu')}" th:errors="*{descriptionRu}">Desc error</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descEn">Описание (en): </label>
+                    <input class="form-control form-control-sm" type="text" th:field="*{descriptionEn}" placeholder="description" id="descEn">
+                    <div style="color:red" th:if="${#fields.hasErrors('descriptionEn')}" th:errors="*{descriptionEn}">Desc error</div>
+                </div>
+
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-dark">Создать</button>
+                    <a class="btn btn-secondary" href="/spells">Назад</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
