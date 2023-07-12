@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/metatypes.dart';
@@ -15,6 +16,7 @@ class HeroData {
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
   Map<String, dynamic> generalInfo = Map();
+  List<Connection> connections = List<Connection>.empty(growable: true);
 
   static final HeroData _instanse = HeroData._internal();
 
@@ -335,6 +337,7 @@ class HeroData {
 
   void AddTrait(Trait _trait) {
     traits.add(_trait);
+    Write();
   }
 
   List<Trait> GetTraits() {
@@ -343,10 +346,28 @@ class HeroData {
 
   void RemoveTrait(Trait _trait) {
     traits.remove(_trait);
+    Write();
+  }
+
+  void AddConnection(Connection _connection) {
+    connections.add(_connection);
+    Write();
+  }
+
+  List<Connection> GetConnections() {
+    return connections;
+  }
+
+  void RemoveConnection(Connection _connection) {
+    connections.remove(_connection);
+    Write();
   }
 
   Map<String, dynamic> toJson() {
     String harmsJson = jsonEncode(harms.map((e) => (e.toJson())).toList());
+    String traitJson = jsonEncode(traits.map((e) => (e.toJson())).toList());
+    String connectionsJson =
+        jsonEncode(connections.map((e) => (e.toJson())).toList());
 
     return {
       'abilites': abilites,
@@ -354,7 +375,9 @@ class HeroData {
       'helth': helth,
       'stun': stun,
       'harms': harmsJson,
-      'generalInfo': generalInfo
+      'generalInfo': generalInfo,
+      'traits': traitJson,
+      'connections': connectionsJson
     };
   }
 
@@ -363,5 +386,7 @@ class HeroData {
         metatype = json['metatype'],
         helth = json['helth'],
         stun = json['stun'],
-        harms = json['harms'];
+        harms = json['harms'],
+        traits = json['traits'],
+        connections = json['connections'];
 }

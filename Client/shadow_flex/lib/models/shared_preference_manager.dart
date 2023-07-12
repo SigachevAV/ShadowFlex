@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
+import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/metatypes.dart';
+import 'package:shadow_flex/models/trait.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceManager {
@@ -44,6 +46,21 @@ class SharedPreferenceManager {
       }
       if (json['generalInfo'] != null) {
         hero.generalInfo = json['generalInfo'];
+      }
+      if (json['traits'] != null) {
+        var temp = List<Map<String, dynamic>>.from(jsonDecode(json['traits']));
+        hero.traits = List<Trait>.empty(growable: true);
+        for (var element in temp) {
+          hero.traits.add(Trait.fromJson(element));
+        }
+      }
+      if (json['connections'] != null) {
+        var temp =
+            List<Map<String, dynamic>>.from(jsonDecode(json['connections']));
+        hero.connections = List<Connection>.empty(growable: true);
+        for (var element in temp) {
+          hero.connections.add(Connection.fromJson(element));
+        }
       }
       return true;
     }
