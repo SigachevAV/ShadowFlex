@@ -167,10 +167,9 @@ class SpellsControllerTest {
                         .param("lang", "ru")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].id", is(2)))
-                .andExpect(jsonPath("$.[1].name", is("Имя 2")))
-                .andExpect(jsonPath("$.[1].category", is("HEALTH")));
+                .andExpect(jsonPath("$.HEAL", hasSize(1)))
+                .andExpect(jsonPath("$.DET", hasSize(1)))
+                .andExpect(jsonPath("$.DET.[0].name", is("Имя 1")));
     }
 
     @Test
@@ -182,10 +181,9 @@ class SpellsControllerTest {
                         .param("lang", "en")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].id", is(2)))
-                .andExpect(jsonPath("$.[1].name", is("Name 2")))
-                .andExpect(jsonPath("$.[1].category", is("HEALTH")));
+                .andExpect(jsonPath("$.DET", hasSize(1)))
+                .andExpect(jsonPath("$.HEAL", hasSize(1)))
+                .andExpect(jsonPath("$.HEAL.[0].name", is("Name 2")));
     }
 
     @Test

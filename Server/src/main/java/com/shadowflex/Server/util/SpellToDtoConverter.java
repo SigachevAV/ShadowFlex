@@ -24,7 +24,6 @@ public class SpellToDtoConverter {
         return SpellSimpleDTO.builder()
                 .id(spell.getId())
                 .name(lang == Language.ru ? spell.getNameRu() : spell.getNameEn())
-                .category(formatCategory(spell.getCategory()))
                 .build();
     }
 
