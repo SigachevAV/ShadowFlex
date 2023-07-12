@@ -33,6 +33,18 @@ public class MatrixController {
         return dtoConverter.convert(spellOptional.get(), lang);
     }
 
+    @GetMapping("/search")
+    public MatrixDTO getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
+        Language lang = languageConverter.convert(langParam);
+        Optional<Matrix> matrixOptional = switch(lang) {
+            case ru -> repository.findByNameRu(name);
+            case en -> repository.findByNameEn(name);
+        };
+        if(matrixOptional.isEmpty())
+            throw new NotFoundException("Matrix action " + name + " not found");
+        return dtoConverter.convert(matrixOptional.get(), lang);
+    }
+
     @GetMapping
     public Map<Matrix.Type, List<MatrixSimpleDTO>> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);

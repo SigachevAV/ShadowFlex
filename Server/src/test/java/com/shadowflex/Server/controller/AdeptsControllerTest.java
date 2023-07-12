@@ -140,4 +140,64 @@ class AdeptsControllerTest {
                         Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
                 ));
     }
+
+    @Test
+    void getByName_ru_success() throws Exception {
+        Mockito.when(adeptRepository.findByNameRu("Имя 1")).thenReturn(Optional.of(adept1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "Имя 1")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is("Имя 1")));
+    }
+
+    @Test
+    void getByName_en_success() throws Exception {
+        Mockito.when(adeptRepository.findByNameEn("Name 1")).thenReturn(Optional.of(adept1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "Name 1")
+                        .param("lang", "en")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is("Name 1")));
+    }
+
+    @Test
+    void getByName_ru_invalidName() throws Exception {
+        Mockito.when(adeptRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "ошибка")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Adept's power ошибка not found"
+                ));
+    }
+
+    @Test
+    void getByName_ru_invalidLang() throws Exception {
+        Mockito.when(adeptRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "ошибка")
+                        .param("lang", "br")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidLanguageException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
+                ));
+    }
 }

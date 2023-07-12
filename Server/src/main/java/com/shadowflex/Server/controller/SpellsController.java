@@ -31,6 +31,18 @@ public class SpellsController {
         return dtoConverter.convert(spellOptional.get(), lang);
     }
 
+    @GetMapping("/search")
+    public SpellDTO getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
+        Language lang = languageConverter.convert(langParam);
+        Optional<Spell> spellOptional = switch(lang) {
+            case ru -> repository.findByNameRu(name);
+            case en -> repository.findByNameEn(name);
+        };
+        if(spellOptional.isEmpty())
+            throw new NotFoundException("Spell " + name + " not found");
+        return dtoConverter.convert(spellOptional.get(), lang);
+    }
+
     @GetMapping
     public Iterable<SpellSimpleDTO> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
