@@ -1,6 +1,6 @@
-package com.shadowflex.DBFiller.entity;
+package com.shadowflex.Server.entity;
 
-import com.shadowflex.DBFiller.model.Adept;
+import com.shadowflex.Server.model.Adept;
 
 public class AdeptsFactory {
     public static Adept getAdept(Long id) {

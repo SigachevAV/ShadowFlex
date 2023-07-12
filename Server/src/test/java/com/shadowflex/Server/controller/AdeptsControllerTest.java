@@ -1,5 +1,6 @@
 package com.shadowflex.Server.controller;
 
+import com.shadowflex.Server.entity.AdeptsFactory;
 import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Adept;
@@ -37,25 +38,8 @@ class AdeptsControllerTest {
     private final Adept adept2;
 
     {
-        adept1 = Adept.builder()
-                .id(1L)
-                .nameRu("Имя")
-                .nameEn("Name")
-                .cost("Cost")
-                .activation(Adept.Activation.MAJ)
-                .descriptionEn("Text")
-                .descriptionRu("Текст")
-                .build();
-
-        adept2 = Adept.builder()
-                .id(2L)
-                .nameRu("Имя (2)")
-                .nameEn("Name (2)")
-                .cost("Cost (2)")
-                .activation(Adept.Activation.MAJ)
-                .descriptionEn("Text (2)")
-                .descriptionRu("Текст (2)")
-                .build();
+        adept1 = AdeptsFactory.getAdept(1L);
+        adept2 = AdeptsFactory.getAdept(2L);
     }
 
     @Test
@@ -68,7 +52,7 @@ class AdeptsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Имя")));
+                .andExpect(jsonPath("$.name", is("Имя 1")));
     }
 
     @Test
@@ -81,7 +65,7 @@ class AdeptsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Name")));
+                .andExpect(jsonPath("$.name", is("Name 1")));
     }
 
     @Test
@@ -125,7 +109,7 @@ class AdeptsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[1].id", is(2)))
-                .andExpect(jsonPath("$.[1].name", is("Имя (2)")));
+                .andExpect(jsonPath("$.[1].name", is("Имя 2")));
     }
 
     @Test
@@ -139,7 +123,7 @@ class AdeptsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[1].id", is(2)))
-                .andExpect(jsonPath("$.[1].name", is("Name (2)")));
+                .andExpect(jsonPath("$.[1].name", is("Name 2")));
     }
 
     @Test

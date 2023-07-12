@@ -1,6 +1,6 @@
-package com.shadowflex.DBFiller.entity;
+package com.shadowflex.Server.entity;
 
-import com.shadowflex.DBFiller.model.Matrix;
+import com.shadowflex.Server.model.Matrix;
 
 public class MatrixFactory {
     public static Matrix getMatrix(Long id) {
@@ -9,7 +9,7 @@ public class MatrixFactory {
                 .nameRu("Имя " + id)
                 .nameEn("Name " + id)
                 .isLegal(true)
-                .access(new Matrix.Access(false, false, true))
+                .access(new Matrix.Access(true, false, true))
                 .checkEn("Check " + id)
                 .checkRu("Проверка " + id)
                 .descriptionRu("Описание " + id)
