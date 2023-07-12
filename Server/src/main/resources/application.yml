@@ -2,21 +2,23 @@ logging:
   level:
     root: error
     com.shadowflex.Server: trace
-  file:
-    name: application.log
 
 spring:
   main:
     banner-mode: off
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    baselineOnMigrate: true
+    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
 
 server:
   port: 8080
-
 
