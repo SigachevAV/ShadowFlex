@@ -31,6 +31,18 @@ public class AdeptsController {
         return dtoConverter.convert(adeptOptional.get(), lang);
     }
 
+    @GetMapping("/search")
+    public AdeptDTO getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
+        Language lang = languageConverter.convert(langParam);
+        Optional<Adept> adeptOptional = switch(lang) {
+            case ru -> repository.findByNameRu(name);
+            case en -> repository.findByNameEn(name);
+        };
+        if(adeptOptional.isEmpty())
+            throw new NotFoundException("Adept's power " + name + " not found");
+        return dtoConverter.convert(adeptOptional.get(), lang);
+    }
+
     @GetMapping
     public Iterable<AdeptSimpleDTO> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);

@@ -1,5 +1,6 @@
 package com.shadowflex.Server.controller;
 
+import com.shadowflex.Server.entity.SpellsFactory;
 import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Spell;
@@ -37,33 +38,8 @@ class SpellsControllerTest {
     private final Spell spell2;
 
     {
-        spell1 = Spell.builder()
-                .id(1L)
-                .nameRu("Заклинание")
-                .nameEn("Spell")
-                .duration(Spell.SpellDuration.S)
-                .damage(Spell.SpellDamage.P)
-                .type(Spell.SpellType.P)
-                .category(Spell.SpellCategory.COM)
-                .dv(1)
-                .range(Spell.SpellRange.LOS)
-                .descriptionEn("Some text")
-                .descriptionRu("Некоторый текст")
-                .build();
-
-        spell2 = Spell.builder()
-                .id(2L)
-                .nameRu("Заклинание (2)")
-                .nameEn("Spell (2)")
-                .duration(Spell.SpellDuration.S)
-                .damage(Spell.SpellDamage.P)
-                .type(Spell.SpellType.P)
-                .category(Spell.SpellCategory.COM)
-                .dv(1)
-                .range(Spell.SpellRange.LOS)
-                .descriptionEn("Some text (2)")
-                .descriptionRu("Некоторый текст (2)")
-                .build();
+        spell1 = SpellsFactory.getSpell(1L);
+        spell2 = SpellsFactory.getSpell(2L);
     }
 
     @Test
@@ -76,7 +52,7 @@ class SpellsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Заклинание")));
+                .andExpect(jsonPath("$.name", is("Имя 1")));
     }
 
     @Test
@@ -89,7 +65,67 @@ class SpellsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Spell")));
+                .andExpect(jsonPath("$.name", is("Name 1")));
+    }
+
+    @Test
+    void getByName_ru_success() throws Exception {
+        Mockito.when(spellRepository.findByNameRu("Имя 1")).thenReturn(Optional.of(spell1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "Имя 1")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is("Имя 1")));
+    }
+
+    @Test
+    void getByName_en_success() throws Exception {
+        Mockito.when(spellRepository.findByNameEn("Name 1")).thenReturn(Optional.of(spell1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "Name 1")
+                        .param("lang", "en")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is("Name 1")));
+    }
+
+    @Test
+    void getByName_ru_invalidName() throws Exception {
+        Mockito.when(spellRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "ошибка")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Spell ошибка not found"
+                ));
+    }
+
+    @Test
+    void getByName_ru_invalidLang() throws Exception {
+        Mockito.when(spellRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "ошибка")
+                        .param("lang", "br")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidLanguageException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
+                ));
     }
 
     @Test
@@ -131,10 +167,9 @@ class SpellsControllerTest {
                         .param("lang", "ru")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].id", is(2)))
-                .andExpect(jsonPath("$.[1].name", is("Заклинание (2)")))
-                .andExpect(jsonPath("$.[1].category", is("COMBAT")));
+                .andExpect(jsonPath("$.HEAL", hasSize(1)))
+                .andExpect(jsonPath("$.DET", hasSize(1)))
+                .andExpect(jsonPath("$.DET.[0].name", is("Имя 1")));
     }
 
     @Test
@@ -146,10 +181,9 @@ class SpellsControllerTest {
                         .param("lang", "en")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$.[1].id", is(2)))
-                .andExpect(jsonPath("$.[1].name", is("Spell (2)")))
-                .andExpect(jsonPath("$.[1].category", is("COMBAT")));
+                .andExpect(jsonPath("$.DET", hasSize(1)))
+                .andExpect(jsonPath("$.HEAL", hasSize(1)))
+                .andExpect(jsonPath("$.HEAL.[0].name", is("Name 2")));
     }
 
     @Test

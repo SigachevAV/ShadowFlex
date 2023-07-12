@@ -1,6 +1,6 @@
-package com.shadowflex.DBFiller.entity;
+package com.shadowflex.Server.entity;
 
-import com.shadowflex.DBFiller.model.Matrix;
+import com.shadowflex.Server.model.Matrix;
 
 public class MatrixFactory {
     public static Matrix getMatrix(Long id) {

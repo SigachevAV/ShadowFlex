@@ -11,6 +11,8 @@ import com.shadowflex.Server.util.SpellToDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,11 +33,25 @@ public class SpellsController {
         return dtoConverter.convert(spellOptional.get(), lang);
     }
 
+    @GetMapping("/search")
+    public SpellDTO getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
+        Language lang = languageConverter.convert(langParam);
+        Optional<Spell> spellOptional = switch(lang) {
+            case ru -> repository.findByNameRu(name);
+            case en -> repository.findByNameEn(name);
+        };
+        if(spellOptional.isEmpty())
+            throw new NotFoundException("Spell " + name + " not found");
+        return dtoConverter.convert(spellOptional.get(), lang);
+    }
+
     @GetMapping
-    public Iterable<SpellSimpleDTO> getAll(@RequestParam("lang") String langParam) {
+    public Map<Spell.SpellCategory, List<SpellSimpleDTO>> getAll(@RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
         return repository.findAll().stream()
-                .map(value -> dtoConverter.convertToSimple(value, lang))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(
+                        Spell::getCategory,
+                        Collectors.mapping(m -> dtoConverter.convertToSimple(m, lang), Collectors.toList())
+                ));
     }
 }

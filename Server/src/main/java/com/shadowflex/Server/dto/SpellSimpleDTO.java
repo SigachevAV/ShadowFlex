@@ -14,5 +14,4 @@ import java.io.Serializable;
 public class SpellSimpleDTO implements Serializable {
     private Long id;
     private String name;
-    private String category;
 }

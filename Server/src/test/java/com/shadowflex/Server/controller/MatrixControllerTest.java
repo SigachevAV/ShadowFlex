@@ -1,5 +1,6 @@
 package com.shadowflex.Server.controller;
 
+import com.shadowflex.Server.entity.MatrixFactory;
 import com.shadowflex.Server.exception.InvalidLanguageException;
 import com.shadowflex.Server.exception.NotFoundException;
 import com.shadowflex.Server.model.Matrix;
@@ -38,44 +39,9 @@ class MatrixControllerTest {
     private final Matrix matrix3;
 
     {
-        matrix1 = Matrix.builder()
-                .id(1L)
-                .nameEn("Name")
-                .nameRu("Имя")
-                .isLegal(Boolean.TRUE)
-                .access(new Matrix.Access(true, false, true))
-                .checkEn("Check")
-                .checkRu("Проверка")
-                .descriptionRu("Описание")
-                .descriptionEn("Description")
-                .type(Matrix.Type.MAJOR)
-                .build();
-
-        matrix2 = Matrix.builder()
-                .id(2L)
-                .nameEn("Name (2)")
-                .nameRu("Имя (2)")
-                .isLegal(Boolean.TRUE)
-                .access(new Matrix.Access(true, false, true))
-                .checkEn("Check (2)")
-                .checkRu("Проверка (2)")
-                .descriptionRu("Описание (2)")
-                .descriptionEn("Description (2)")
-                .type(Matrix.Type.MINOR)
-                .build();
-
-        matrix3 = Matrix.builder()
-                .id(3L)
-                .nameEn("Name (3)")
-                .nameRu("Имя (3)")
-                .isLegal(Boolean.TRUE)
-                .access(new Matrix.Access(true, false, true))
-                .checkEn("Check (3)")
-                .checkRu("Проверка (3)")
-                .descriptionRu("Описание (3)")
-                .descriptionEn("Description (3)")
-                .type(Matrix.Type.MINOR)
-                .build();
+        matrix1 = MatrixFactory.getMatrix(1L);
+        matrix2 = MatrixFactory.getMatrix(2L);
+        matrix3 = MatrixFactory.getMatrix(3L);
     }
 
     @Test
@@ -88,7 +54,7 @@ class MatrixControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Имя")))
+                .andExpect(jsonPath("$.name", is("Имя 1")))
                 .andExpect(jsonPath("$.legal", is("LEGAL")))
                 .andExpect(jsonPath("$.access", is("outsider, admin")));
     }
@@ -103,7 +69,7 @@ class MatrixControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Name")));
+                .andExpect(jsonPath("$.name", is("Name 1")));
     }
 
     @Test
@@ -147,7 +113,7 @@ class MatrixControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.MAJOR", hasSize(1)))
                 .andExpect(jsonPath("$.MINOR", hasSize(2)))
-                .andExpect(jsonPath("$.MINOR.[0].name", is("Имя (2)")));
+                .andExpect(jsonPath("$.MINOR.[0].name", is("Имя 1")));
     }
 
     @Test
@@ -161,7 +127,7 @@ class MatrixControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.MAJOR", hasSize(1)))
                 .andExpect(jsonPath("$.MINOR", hasSize(2)))
-                .andExpect(jsonPath("$.MINOR.[0].name", is("Name (2)")));
+                .andExpect(jsonPath("$.MINOR.[0].name", is("Name 1")));
     }
 
     @Test
@@ -170,6 +136,66 @@ class MatrixControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath)
+                        .param("lang", "br")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidLanguageException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Invalid language br"
+                ));
+    }
+
+    @Test
+    void getByName_ru_success() throws Exception {
+        Mockito.when(matrixRepository.findByNameRu("Имя 1")).thenReturn(Optional.of(matrix1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "Имя 1")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is("Имя 1")));
+    }
+
+    @Test
+    void getByName_en_success() throws Exception {
+        Mockito.when(matrixRepository.findByNameEn("Name 1")).thenReturn(Optional.of(matrix1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "Name 1")
+                        .param("lang", "en")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is("Name 1")));
+    }
+
+    @Test
+    void getByName_ru_invalidName() throws Exception {
+        Mockito.when(matrixRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "ошибка")
+                        .param("lang", "ru")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals(
+                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Matrix action ошибка not found"
+                ));
+    }
+
+    @Test
+    void getByName_ru_invalidLang() throws Exception {
+        Mockito.when(matrixRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(basePath + "/search")
+                        .param("name", "ошибка")
                         .param("lang", "br")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
