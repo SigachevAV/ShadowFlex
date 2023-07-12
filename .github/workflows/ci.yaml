@@ -48,6 +48,9 @@
         - name: Build with Maven
           run: mvn -B package --file pom.xml
           working-directory: ${{env.working-directory}}
+        - name: Move package
+          run: cp ./target/*.jar ../Docker/api/
+          working-directory: ${{env.working-directory}}
               # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 
     java_build_filler:
@@ -64,6 +67,9 @@
             cache: maven
         - name: Build with Maven
           run: mvn -B package --file pom.xml
+          working-directory: ${{env.working-directory}}
+        - name: Move package
+          run: cp ./target/*.jar ../Docker/filler/
           working-directory: ${{env.working-directory}}
           # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
           
