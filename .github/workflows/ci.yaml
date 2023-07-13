@@ -54,8 +54,9 @@
         - name: Commit and push build
           uses: devops-infra/action-commit-push@v0.9.2
           with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            commit_prefix: "[AUTO-COMMIT] server jar moved to Docker"
+            github_token: ${{ secrets.GIT_TOKEN }}
+            commit_prefix: "[AUTO-COMMIT]"
+            commit_message: "server jar moved to Docker"
           # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 
     java_build_filler:
@@ -79,8 +80,9 @@
         - name: Commit and push build
           uses: devops-infra/action-commit-push@v0.9.2
           with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            commit_prefix: "[AUTO-COMMIT] filler jar moved to Docker"
+            github_token: ${{ secrets.GIT_TOKEN }}
+            commit_prefix: "[AUTO-COMMIT]"
+            commit_message: "filler jar moved to Docker"
           # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
           
                     
