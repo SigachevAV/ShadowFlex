@@ -9,9 +9,10 @@ services:
     depends_on: 
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ShadowFlexDB?stringtype=unspecified
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=y6hRkhWo
+      - DB_HOST=db
+      - DB_NAME=ShadowFlexDB
+      - DB_USER=postgres
+      - DB_PASSWORD=y6hRkhWo
     ports: 
       - 8080:8080
     restart: always
@@ -26,13 +27,14 @@ services:
     depends_on: 
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ShadowFlexDB?stringtype=unspecified
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=y6hRkhWo
-      - SPRING_SECURITY_USER_NAME=admin
-      - SPRING_SECURITY_USER_PASSWORD=W74dXbFh
+      - DB_HOST=db
+      - DB_NAME=ShadowFlexDB
+      - DB_USER=postgres
+      - DB_PASSWORD=y6hRkhWo
+      - SECURITY_USER=admin
+      - SECURITY_PASSWORD=W74dXbFh
     ports: 
-      - 80:80
+      - 80:8080
     restart: always
     profiles: 
       - fill
@@ -42,7 +44,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8081:80"
+      - 8081:80
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@shadowflex.com
       PGADMIN_DEFAULT_PASSWORD: hAEm0LZ5
@@ -62,8 +64,8 @@ services:
       - POSTGRES_DB=ShadowFlexDB
     restart: always
     volumes:
-      - ./schema:/docker-entrypoint-initdb.d
       - pgdata:/var/lib/postgresql/data
+#     - ./schema:/docker-entrypoint-initdb.d      
       
 volumes:
   pgdata:
