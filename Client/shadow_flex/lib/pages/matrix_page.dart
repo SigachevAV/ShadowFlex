@@ -3,6 +3,7 @@ import 'package:shadow_flex/functions/change_matrix.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/data_card.dart';
 import 'package:shadow_flex/widgets/general_information.dart';
 import 'package:shadow_flex/widgets/hex_row.dart';
 import 'package:shadow_flex/widgets/matrix_data_row.dart';

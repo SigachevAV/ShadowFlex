@@ -218,16 +218,19 @@ class _QualitiesAndConnectionsPage extends State<QualitiesAndConnectionsPage> {
         children: <Widget>[
           Container(
             height: 27,
+            color: ColorShemeMine().GetCardColor(),
             alignment: Alignment.center,
             child: const Text("Имя"),
           ),
           Container(
             height: 27,
+            color: ColorShemeMine().GetCardColor(),
             alignment: Alignment.center,
             child: const Text("Лояльность"),
           ),
           Container(
             height: 27,
+            color: ColorShemeMine().GetCardColor(),
             alignment: Alignment.center,
             child: const Text("Связь"),
           ),
@@ -276,11 +279,13 @@ class _QualitiesAndConnectionsPage extends State<QualitiesAndConnectionsPage> {
         children: <Widget>[
           Container(
             height: 27,
+            color: ColorShemeMine().GetCardColor(),
             alignment: Alignment.center,
             child: const Text("Название"),
           ),
           Container(
             height: 27,
+            color: ColorShemeMine().GetCardColor(),
             alignment: Alignment.center,
             child: const Text("Карма"),
           )

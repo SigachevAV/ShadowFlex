@@ -21,6 +21,10 @@ class ColorShemeMine {
     return Color.fromARGB(255, 160, 69, 143);
   }
 
+  Color GetCardColor() {
+    return Color(0xff453c3c);
+  }
+
   MaterialColor GetAkcentMaterial() {
     return GetMaterialColor(GetAkcent());
   }

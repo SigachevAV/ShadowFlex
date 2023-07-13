@@ -11,9 +11,25 @@ class MyTextStyle {
 
   TextStyle GetTextAkcentDecoration() {
     return TextStyle(
-        fontSize: 20,
+        fontSize: 23,
         fontWeight: FontWeight.w700,
         color: ColorShemeMine().GetAkcent());
+  }
+
+  TextStyle GetTextHeder() {
+    return TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: ColorShemeMine().GetTextDark(),
+    );
+  }
+
+  TextStyle GetTextAkcentBold() {
+    return TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w700,
+      color: ColorShemeMine().GetAkcent(),
+    );
   }
 
   TextStyle GetTextMiniAkcent() {
@@ -22,5 +38,4 @@ class MyTextStyle {
         fontWeight: FontWeight.w500,
         color: ColorShemeMine().GetAkcent());
   }
-  
 }
