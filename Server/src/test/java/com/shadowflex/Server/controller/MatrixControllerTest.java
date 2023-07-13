@@ -55,7 +55,7 @@ class MatrixControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.name", is("Имя 1")))
-                .andExpect(jsonPath("$.legal", is("legal")))
+                .andExpect(jsonPath("$.legal", is("Legal")))
                 .andExpect(jsonPath("$.access", is("outsider, admin")));
     }
 
