@@ -29,9 +29,10 @@ public class Matrix implements Serializable {
         @Override
         public String toString() {
             StringBuilder result = new StringBuilder();
-            if(outsider) result.append("outsider");
-            if(user) result.append(", user");
-            if(admin) result.append(", admin");
+            if(outsider) result.append("outsider, ");
+            if(user) result.append("user, ");
+            if(admin) result.append("admin, ");
+            result.setLength(result.length() - 2);
             return result.toString();
         }
     }

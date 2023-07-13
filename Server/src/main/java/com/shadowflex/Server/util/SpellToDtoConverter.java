@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpellToDtoConverter {
     public SpellDTO convert(Spell spell, Language lang) {
-        // TODO: nullpointer exceptions??
         return SpellDTO.builder()
                 .duration(spell.getDuration().name())
                 .type(spell.getType().name())
@@ -17,6 +16,7 @@ public class SpellToDtoConverter {
                 .range(formatRange(spell.getRange()))
                 .name(lang == Language.ru ? spell.getNameRu() : spell.getNameEn())
                 .description(lang == Language.ru ? spell.getDescriptionRu() : spell.getDescriptionEn())
+                .category(formatCategory(spell.getCategory()))
                 .build();
     }
 
@@ -29,11 +29,11 @@ public class SpellToDtoConverter {
 
     private String formatCategory(Spell.SpellCategory category) {
         return switch (category) {
-            case COM -> "COMBAT";
-            case DET -> "DETECTION";
-            case ILL -> "ILLUSION";
-            case MAN -> "MANIPULATION";
-            case HEAL -> "HEALTH";
+            case COM -> "Combat";
+            case DET -> "Detection";
+            case ILL -> "Illusion";
+            case MAN -> "Manipulation";
+            case HEAL -> "Health";
         };
     }
 

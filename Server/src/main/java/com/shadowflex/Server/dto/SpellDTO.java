@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Builder
 public class SpellDTO implements Serializable {
     private String name;
+    private String category;
     private String range;
     private String duration;
     private String type;

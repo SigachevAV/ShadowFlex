@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdeptToDtoConverter {
     public AdeptDTO convert(Adept adept, Language lang) {
-        // TODO: nullpointer exceptions??
         return AdeptDTO.builder()
                 .name(lang == Language.ru ? adept.getNameRu() : adept.getNameEn())
                 .description(lang == Language.ru ? adept.getDescriptionRu() : adept.getDescriptionEn())
@@ -26,8 +25,8 @@ public class AdeptToDtoConverter {
 
     private static String formatActivation(Adept adept) {
         return switch (adept.getActivation()) {
-            case MAJ -> "Major action";
-            case MIN -> "Minor action";
+            case MAJ -> "Major";
+            case MIN -> "Minor";
             case PAS -> "Passive";
         };
     }
