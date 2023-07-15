@@ -62,6 +62,10 @@ class SharedPreferenceManager {
           hero.connections.add(Connection.fromJson(element));
         }
       }
+      if (json['programs'] != null) {
+        var temp = jsonDecode(json['programs']);
+        hero.programs = List<String>.from(temp);
+      }
       return true;
     }
     return false;

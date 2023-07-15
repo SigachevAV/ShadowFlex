@@ -17,7 +17,7 @@ class _MatrixDataRowState extends State<MatrixDataRow> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        ChangeMatrix(widget.mapKey, context).then((value) {
+        ChangeMatrix(widget.mapKey, widget.name, context).then((value) {
           setState(() {});
         });
       },

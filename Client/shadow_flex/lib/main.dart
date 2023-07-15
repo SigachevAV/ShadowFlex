@@ -11,6 +11,7 @@ import 'package:shadow_flex/pages/qualitiesAndConnections.dart';
 import 'package:shadow_flex/pages/ststus.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/header_row.dart';
 import 'package:shadow_flex/widgets/navigation_bar.dart';
 import 'package:shadow_flex/widgets/square_fab.dart';
 
@@ -57,19 +58,19 @@ class _MainPagesVievState extends State<MainPagesViev> {
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
-        title: Text(
-          "ShadowFlex",
-          style: MyTextStyle().GetTextAkcentDecoration(),
-        ),
+        title: HeaderRow(controller: controller),
       ),
       body: PageView(
         controller: controller,
         children: [
-          CharacteristicsPage(),
           GeneralInfoPage(),
-          StatusPage(),
           QualitiesAndConnectionsPage(),
-          MatrixPage()
+          CharacteristicsPage(),
+          StatusPage(),
+          Text("Броня"),
+          Text("Оружие"),
+          MatrixPage(),
+          Text("Заклинания")
         ],
       ),
       floatingActionButton: Row(

@@ -14,8 +14,9 @@ class NavigationBarShadowFlex extends StatefulWidget {
 
 class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
   bool isVisible = false;
+  double iconSize = 20;
 
-  double appBarHeight = 0.1;
+  double appBarHeight = 50;
 
   @override
   void initState() {
@@ -23,6 +24,48 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
       setState(() {});
     });
     super.initState();
+  }
+
+  void OnFourPress() {
+    setState(() {
+      widget.controller.jumpToPage(3);
+    });
+  }
+
+  void OnFivePress() {
+    setState(() {
+      widget.controller.jumpToPage(4);
+    });
+  }
+
+  void OnSixPress() {
+    setState(() {
+      widget.controller.jumpToPage(5);
+    });
+  }
+
+  void OnSevenPress() {
+    setState(() {
+      widget.controller.jumpToPage(6);
+    });
+  }
+
+  void OnEithPress() {
+    setState(() {
+      widget.controller.jumpToPage(7);
+    });
+  }
+
+  void OnThreePress() {
+    setState(() {
+      widget.controller.jumpToPage(2);
+    });
+  }
+
+  void OnTwoPress() {
+    setState(() {
+      widget.controller.jumpToPage(1);
+    });
   }
 
   void OnOnePress() {
@@ -34,7 +77,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
   void OnArrowUpPress() {
     setState(() {
       isVisible = true;
-      appBarHeight = 0.1;
+      appBarHeight = 100;
       return;
     });
   }
@@ -42,7 +85,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
   void OnArrowDownPress() {
     setState(() {
       isVisible = false;
-      appBarHeight = 0.05;
+      appBarHeight = 50;
       return;
     });
   }
@@ -58,41 +101,105 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
         }
       },
       child: BottomAppBar(
-        child: FractionallySizedBox(
-          heightFactor: appBarHeight,
+        child: Container(
+          height: appBarHeight,
           child: Container(
             color: ColorShemeMine().GetUninteractiveDark(),
-            child: Row(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Visibility(
-                  visible: !isVisible,
-                  child: MaterialButton(
-                    onPressed: OnArrowUpPress,
-                    child: Icon(Icons.arrow_drop_up_sharp,
-                        color: ColorShemeMine().GetAkcent(), size: 40),
-                  ),
-                ),
-                Visibility(
-                  visible: isVisible,
-                  child: MaterialButton(
-                    onPressed: OnArrowDownPress,
-                    child: Icon(
-                      Icons.arrow_drop_down_sharp,
-                      color: ColorShemeMine().GetAkcent(),
-                      size: 40,
+                Row(
+                  children: [
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        iconSize: iconSize,
+                        onPressed: OnOnePress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 0)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
                     ),
-                  ),
-                ),
-                Visibility(
-                  visible: isVisible,
-                  child: MaterialButton(
-                    onPressed: OnOnePress,
-                    child: Icon(Icons.star,
-                        color: (widget.controller.page == 0)
-                            ? ColorShemeMine().GetUnderlineDark()
-                            : ColorShemeMine().GetAkcent(),
-                        size: 40),
-                  ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnTwoPress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 1)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnThreePress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 2)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnFourPress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 3)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnFivePress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 4)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnSixPress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 5)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnSevenPress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 6)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isVisible,
+                      child: IconButton(
+                        onPressed: OnEithPress,
+                        icon: Icon(Icons.star,
+                            color: (widget.controller.page == 7)
+                                ? ColorShemeMine().GetUnderlineDark()
+                                : ColorShemeMine().GetAkcent(),
+                            size: iconSize),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:developer' as dev;
 import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
@@ -8,6 +9,7 @@ import 'package:shadow_flex/models/shared_preference_manager.dart';
 import 'package:shadow_flex/models/trait.dart';
 
 class HeroData {
+  List<String> programs = List.empty(growable: true);
   List<Trait> traits = List.empty(growable: true);
   List<int> helth = [8, 0];
   List<int> stun = [8, 0];
@@ -363,11 +365,26 @@ class HeroData {
     Write();
   }
 
+  void AddProgram(String _program) {
+    programs.add(_program);
+    Write();
+  }
+
+  void RemoveProgram(String _program) {
+    programs.remove(_program);
+    Write();
+  }
+
+  List<String> GetPrograms() {
+    return programs;
+  }
+
   Map<String, dynamic> toJson() {
     String harmsJson = jsonEncode(harms.map((e) => (e.toJson())).toList());
     String traitJson = jsonEncode(traits.map((e) => (e.toJson())).toList());
     String connectionsJson =
         jsonEncode(connections.map((e) => (e.toJson())).toList());
+    String programsJson = jsonEncode(programs);
 
     return {
       'abilites': abilites,
@@ -377,7 +394,8 @@ class HeroData {
       'harms': harmsJson,
       'generalInfo': generalInfo,
       'traits': traitJson,
-      'connections': connectionsJson
+      'connections': connectionsJson,
+      'programs': programsJson
     };
   }
 
@@ -388,5 +406,6 @@ class HeroData {
         stun = json['stun'],
         harms = json['harms'],
         traits = json['traits'],
-        connections = json['connections'];
+        connections = json['connections'],
+        programs = json['programs'];
 }
