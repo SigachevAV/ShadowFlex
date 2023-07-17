@@ -4,10 +4,10 @@ import 'package:shadow_flex/widgets/data_card.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';
 import 'package:shadow_flex/models/spell.dart';
 
-import '../models/hero.dart';
-import '../style/color_sheme.dart';
-import '../style/test_style.dart';
-import '../widgets/text_input_decorator.dart';
+import 'package:shadow_flex/models/hero.dart';
+import 'package:shadow_flex/style/color_sheme.dart';
+import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/text_input_decorator.dart';
 
 class SpellsPage extends StatefulWidget {
   const SpellsPage({super.key});
