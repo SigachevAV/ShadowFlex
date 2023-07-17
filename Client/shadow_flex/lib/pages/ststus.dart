@@ -50,7 +50,10 @@ class _StatusPageState extends State<StatusPage> {
         TextLeftMargin(text: "Оглушающий урон"),
         StatusGrid(statuses: HeroData().stun, size: 12),
         TextLeftMargin(text: "Травмы"),
-        StatefulBuilder(builder: BuildList)
+        StatefulBuilder(builder: BuildList),
+        Container(
+          height: 30,
+        )
       ]),
     );
   }
