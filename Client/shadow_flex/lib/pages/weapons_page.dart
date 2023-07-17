@@ -5,6 +5,7 @@ import 'package:shadow_flex/models/weapon.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/data_card.dart';
+import 'package:shadow_flex/widgets/matrix_data_row.dart';
 import 'package:shadow_flex/widgets/text_input_decorator.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';
 
@@ -66,7 +67,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Закрыть'),
+                    child: Text(
+                      'Закрыть',
+                      style: MyTextStyle().GetTextMiniAkcent(),
+                    ),
                   ),
                   TextButton(
                     onPressed: () {
@@ -79,7 +83,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
                       setState(() {});
                       Navigator.pop(context);
                     },
-                    child: const Text('Добавить'),
+                    child: Text(
+                      'Добавить',
+                      style: MyTextStyle().GetTextMiniAkcent(),
+                    ),
                   ),
                 ],
               ),
@@ -127,7 +134,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Закрыть'),
+                    child: Text(
+                      'Закрыть',
+                      style: MyTextStyle().GetTextMiniAkcent(),
+                    ),
                   ),
                   TextButton(
                     onPressed: () {
@@ -140,7 +150,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
                       setState(() {});
                       Navigator.pop(context);
                     },
-                    child: const Text('Добавить'),
+                    child: Text(
+                      'Добавить',
+                      style: MyTextStyle().GetTextMiniAkcent(),
+                    ),
                   ),
                 ],
               ),
@@ -158,6 +171,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
         Container(
           height: 20,
         ),
+        Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            child:
+                MatrixDataRow(mapKey: 'battleInit', name: 'Инициатива в бою')),
         TextLeftMargin(text: "Огнестрельное оружие"),
         Builder(builder: fireBuilder),
         Container(

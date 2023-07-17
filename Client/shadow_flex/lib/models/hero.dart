@@ -387,7 +387,6 @@ class HeroData {
     return programs;
   }
 
-
   void AddSpell(Spell _spell) {
     spells.add(_spell);
     Write();
@@ -413,8 +412,9 @@ class HeroData {
 
   void RemoveAdept(Adept _adept) {
     adepts.remove(_adept);
+    Write();
   }
-  
+
   List<MeleeWeapon> GetMeelyWeapons() {
     return meleeWeapons;
   }

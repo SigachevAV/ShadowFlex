@@ -75,7 +75,10 @@ class _QualitiesAndConnectionsPage extends State<QualitiesAndConnectionsPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text('Закрыть'),
+                                child: Text(
+                                  'Закрыть',
+                                  style: MyTextStyle().GetTextMiniAkcent(),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -87,7 +90,10 @@ class _QualitiesAndConnectionsPage extends State<QualitiesAndConnectionsPage> {
                                   Navigator.pop(context);
                                   setState(() {});
                                 },
-                                child: const Text('Добавить'),
+                                child: Text(
+                                  'Добавить',
+                                  style: MyTextStyle().GetTextMiniAkcent(),
+                                ),
                               ),
                             ],
                           ),
@@ -160,7 +166,10 @@ class _QualitiesAndConnectionsPage extends State<QualitiesAndConnectionsPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text('Закрыть'),
+                                child: Text(
+                                  'Закрыть',
+                                  style: MyTextStyle().GetTextMiniAkcent(),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -178,7 +187,10 @@ class _QualitiesAndConnectionsPage extends State<QualitiesAndConnectionsPage> {
                                   setState(() {});
                                   Navigator.pop(context);
                                 },
-                                child: const Text('Добавить'),
+                                child: Text(
+                                  'Добавить',
+                                  style: MyTextStyle().GetTextMiniAkcent(),
+                                ),
                               ),
                             ],
                           ),

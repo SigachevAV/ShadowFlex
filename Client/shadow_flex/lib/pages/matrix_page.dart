@@ -78,7 +78,10 @@ class _MatrixPageState extends State<MatrixPage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text('Закрыть'),
+                              child: Text(
+                                'Закрыть',
+                                style: MyTextStyle().GetTextMiniAkcent(),
+                              ),
                             ),
                             TextButton(
                               onPressed: () {
@@ -91,7 +94,10 @@ class _MatrixPageState extends State<MatrixPage> {
                                 setState(() {});
                                 Navigator.pop(context);
                               },
-                              child: const Text('Добавить'),
+                              child: Text(
+                                'Добавить',
+                                style: MyTextStyle().GetTextMiniAkcent(),
+                              ),
                             ),
                           ],
                         ),
