@@ -3,8 +3,10 @@ import 'dart:developer' as dev;
 import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/hero.dart';
+import 'package:shadow_flex/models/melee_weapon.dart';
 import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shadow_flex/models/trait.dart';
+import 'package:shadow_flex/models/weapon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceManager {
@@ -65,6 +67,21 @@ class SharedPreferenceManager {
       if (json['programs'] != null) {
         var temp = jsonDecode(json['programs']);
         hero.programs = List<String>.from(temp);
+      }
+      if (json['meleeWeapons'] != null) {
+        var temp =
+            List<Map<String, dynamic>>.from(jsonDecode(json['meleeWeapons']));
+        hero.meleeWeapons = List<MeleeWeapon>.empty(growable: true);
+        for (var element in temp) {
+          hero.meleeWeapons.add(MeleeWeapon.fromJson(element));
+        }
+      }
+      if (json['weapons'] != null) {
+        var temp = List<Map<String, dynamic>>.from(jsonDecode(json['weapons']));
+        hero.weapons = List<Weapon>.empty(growable: true);
+        for (var element in temp) {
+          hero.weapons.add(Weapon.fromJson(element));
+        }
       }
       return true;
     }

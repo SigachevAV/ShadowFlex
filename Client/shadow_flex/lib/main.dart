@@ -9,6 +9,7 @@ import 'package:shadow_flex/pages/general_info.dart';
 import 'package:shadow_flex/pages/matrix_page.dart';
 import 'package:shadow_flex/pages/qualitiesAndConnections.dart';
 import 'package:shadow_flex/pages/ststus.dart';
+import 'package:shadow_flex/pages/weapons_page.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/header_row.dart';
@@ -68,7 +69,7 @@ class _MainPagesVievState extends State<MainPagesViev> {
           CharacteristicsPage(),
           StatusPage(),
           Text("Броня"),
-          Text("Оружие"),
+          WeaponsPage(),
           MatrixPage(),
           Text("Заклинания")
         ],
