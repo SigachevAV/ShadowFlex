@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
+import 'package:shadow_flex/models/adept.dart';
 import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/metatypes.dart';
+import 'package:shadow_flex/models/spell.dart';
 import 'package:shadow_flex/models/trait.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,6 +62,22 @@ class SharedPreferenceManager {
         hero.connections = List<Connection>.empty(growable: true);
         for (var element in temp) {
           hero.connections.add(Connection.fromJson(element));
+        }
+      }
+      if (json['spells'] != null) {
+        var temp =
+            List<Map<String, dynamic>>.from(jsonDecode(json['spells']));
+        hero.spells = List<Spell>.empty(growable: true);
+        for (var element in temp) {
+          hero.spells.add(Spell.fromJson(element));
+        }
+      }
+      if (json['adepts'] != null) {
+        var temp =
+            List<Map<String, dynamic>>.from(jsonDecode(json['adepts']));
+        hero.adepts = List<Adept>.empty(growable: true);
+        for (var element in temp) {
+          hero.adepts.add(Adept.fromJson(element));
         }
       }
       if (json['programs'] != null) {
