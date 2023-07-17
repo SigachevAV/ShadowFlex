@@ -393,7 +393,7 @@ class HeroData {
   }
 
   void RemoveSpell(Spell _spell) {
-    traits.remove(_spell);
+    spells.remove(_spell);
     Write();
   }
 

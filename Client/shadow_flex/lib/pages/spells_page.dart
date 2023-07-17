@@ -190,52 +190,67 @@ class _SpellsPageState extends State<SpellsPage> {
       ],)   
     );
   }
-}
 
-Widget spellsBuilder(BuildContext context) {
-  List<DataCardWidget> result = List.empty(growable: true);
-  List<Spell> spells = HeroData().GetSpells();
-
-  for (var i = 0; i < spells.length; i++) {
-    result.add(
-      DataCardWidget(
-        heder: spells[i].name,
-        bigData: [
-          'Тип/Цель',
-          spells[i].type,
-          'Дистанция',
-          spells[i].distance,
-          'Длительность',
-          spells[i].duration,
-          'Истощение',
-          spells[i].exhaust
-        ])
-    );
+  void RemoveSpell(Spell _spell) {
+    HeroData().RemoveSpell(_spell);
+    setState(() {});
   }
 
-  return Column(children: result);
-}
+  Widget spellsBuilder(BuildContext context) {
+    List<GestureDetector> result = List.empty(growable: true);
+    List<Spell> spells = HeroData().GetSpells();
 
-Widget adeptsBuilder(BuildContext context) {
-  List<DataCardWidget> result = List.empty(growable: true);
-  List<Adept> adepts = HeroData().GetAdepts();
+    for (var i = 0; i < spells.length; i++) {
+      result.add(
+        GestureDetector(
+          onTap: () => RemoveSpell(spells[i]),
+          child: DataCardWidget(
+            heder: spells[i].name,
+            bigData: [
+              'Тип/Цель',
+              spells[i].type,
+              'Дистанция',
+              spells[i].distance,
+              'Длительность',
+              spells[i].duration,
+              'Истощение',
+              spells[i].exhaust
+          ])
+        )
+      );
+    }
 
-  for (var i = 0; i < adepts.length; i++) {
-    result.add(
-      DataCardWidget(
-        heder: adepts[i].name,
-        bigData: [
-          'Уровень',
-          adepts[i].level
-        ],
-        smolData: [
-          'Заметки',
-          adepts[i].note,
-        ],
-      )
-    );
+    return Column(children: result);
   }
 
-  return Column(children: result);
-}
+  void RemoveAdept(Adept _adept) {
+    HeroData().RemoveAdept(_adept);
+    setState(() {});
+  }
 
+  Widget adeptsBuilder(BuildContext context) {
+    List<GestureDetector> result = List.empty(growable: true);
+    List<Adept> adepts = HeroData().GetAdepts();
+
+    for (var i = 0; i < adepts.length; i++) {
+      result.add(
+        GestureDetector(
+          onTap: () => RemoveAdept(adepts[i]),
+          child:  DataCardWidget(
+            heder: adepts[i].name,
+            bigData: [
+              'Уровень',
+              adepts[i].level
+            ],
+            smolData: [
+              'Заметки',
+              adepts[i].note,
+            ],
+          ),
+        )
+      );
+    }
+
+    return Column(children: result);
+  }
+}
