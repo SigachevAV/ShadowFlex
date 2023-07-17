@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:developer' as dev;
+import 'package:shadow_flex/models/adept.dart';
 import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
 import 'package:shadow_flex/models/melee_weapon.dart';
 import 'package:shadow_flex/models/metatypes.dart';
 import 'package:shadow_flex/models/shared_preference_manager.dart';
+import 'package:shadow_flex/models/spell.dart';
 import 'package:shadow_flex/models/trait.dart';
 import 'package:shadow_flex/models/weapon.dart';
 
@@ -16,6 +18,8 @@ class HeroData {
   List<int> helth = [8, 0];
   List<int> stun = [8, 0];
   List<Harm> harms = List.empty(growable: true);
+  List<Spell> spells = List.empty(growable: true);
+  List<Adept> adepts = List.empty(growable: true);
   Metatype metatype = Metatype.HUMAN;
   List abilites = List.generate(11,
       ((index) => List.generate(6, (index) => List.generate(7, (index) => 0))));
@@ -383,6 +387,34 @@ class HeroData {
     return programs;
   }
 
+
+  void AddSpell(Spell _spell) {
+    spells.add(_spell);
+    Write();
+  }
+
+  List<Spell> GetSpells() {
+    return this.spells;
+  }
+
+  void RemoveSpell(Spell _spell) {
+    spells.remove(_spell);
+    Write();
+  }
+
+  void AddAdept(Adept _adept) {
+    adepts.add(_adept);
+    Write();
+  }
+
+  List<Adept> GetAdepts() {
+    return this.adepts;
+  }
+
+  void RemoveAdept(Adept _adept) {
+    adepts.remove(_adept);
+  }
+  
   List<MeleeWeapon> GetMeelyWeapons() {
     return meleeWeapons;
   }
@@ -416,6 +448,8 @@ class HeroData {
     String traitJson = jsonEncode(traits.map((e) => (e.toJson())).toList());
     String connectionsJson =
         jsonEncode(connections.map((e) => (e.toJson())).toList());
+    String spellsJson = jsonEncode(spells.map((e) => (e.toJson())).toList());
+    String adeptsJson = jsonEncode(adepts.map((e) => (e.toJson())).toList());
     String programsJson = jsonEncode(programs);
     String meleeWeaponsJson =
         jsonEncode(meleeWeapons.map((e) => (e.toJson())).toList());
@@ -429,6 +463,8 @@ class HeroData {
       'generalInfo': generalInfo,
       'traits': traitJson,
       'connections': connectionsJson,
+      'spells': spellsJson,
+      'adepts': adeptsJson,
       'programs': programsJson,
       'meleeWeapons': meleeWeaponsJson,
       'weapons': weaponsJson
@@ -443,6 +479,8 @@ class HeroData {
         harms = json['harms'],
         traits = json['traits'],
         connections = json['connections'],
+        spells = json['spells'],
+        adepts = json['adepts'],
         programs = json['programs'],
         meleeWeapons = json['meleeWeapons'],
         weapons = json['weapons'];
