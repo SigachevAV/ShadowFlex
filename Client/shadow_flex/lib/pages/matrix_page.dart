@@ -59,7 +59,7 @@ class _MatrixPageState extends State<MatrixPage> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  String tempName = 'name';
+                  String tempName = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
                     child: Column(
@@ -83,8 +83,7 @@ class _MatrixPageState extends State<MatrixPage> {
                             TextButton(
                               onPressed: () {
                                 try {
-                                  HeroData().AddProgram(
-                                      (tempName == '') ? 'name' : tempName);
+                                  HeroData().AddProgram(tempName);
                                 } on Exception catch (e) {
                                   Navigator.pop(context);
                                 }

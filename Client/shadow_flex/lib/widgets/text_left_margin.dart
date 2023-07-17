@@ -12,7 +12,7 @@ class TextLeftMargin extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: MyTextStyle().GetTextHeder(),
+        style: MyTextStyle().GetTextDecoration(),
       ),
     );
   }

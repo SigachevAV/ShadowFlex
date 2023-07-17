@@ -50,49 +50,45 @@ class _DataCardWidgetState extends State<DataCardWidget> {
       )));
     }
 
-    return Container(
-      margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-      child: Row(
-        children: [
-          Spacer(flex: 1),
-          Flexible(
-            flex: 10,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: ColorShemeMine().GetUninteractiveDark(),
-                  border: Border(
-                      bottom: BorderSide(
-                          width: 3, color: ColorShemeMine().GetUnderlineDark()),
-                      right: BorderSide(
-                          width: 3,
-                          color: ColorShemeMine().GetUnderlineDark()))),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          child: Text(
-                            widget.heder,
-                            style: MyTextStyle().GetTextHeder(),
-                          ),
+    return Row(
+      children: [
+        Spacer(flex: 1),
+        Flexible(
+          flex: 10,
+          child: Container(
+            decoration: BoxDecoration(
+                color: ColorShemeMine().GetUninteractiveDark(),
+                border: Border(
+                    bottom: BorderSide(
+                        width: 3, color: ColorShemeMine().GetUnderlineDark()),
+                    right: BorderSide(
+                        width: 3, color: ColorShemeMine().GetUnderlineDark()))),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text(
+                          widget.heder,
+                          style: MyTextStyle().GetTextHeder(),
                         ),
-                      ] +
-                      bigRes +
-                      <Widget>[
-                        Container(
-                          color: ColorShemeMine().GetCardColor(),
-                          child: Row(
-                            children: smolRes,
-                          ),
-                        )
-                      ]),
-            ),
+                      ),
+                    ] +
+                    bigRes +
+                    <Widget>[
+                      Container(
+                        color: ColorShemeMine().GetCardColor(),
+                        child: Row(
+                          children: smolRes,
+                        ),
+                      )
+                    ]),
           ),
-          Spacer(
-            flex: 1,
-          )
-        ],
-      ),
+        ),
+        Spacer(
+          flex: 1,
+        )
+      ],
     );
   }
 

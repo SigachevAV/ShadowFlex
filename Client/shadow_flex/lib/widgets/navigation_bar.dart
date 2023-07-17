@@ -109,7 +109,6 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Visibility(
                       visible: isVisible,
