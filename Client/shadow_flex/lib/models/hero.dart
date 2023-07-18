@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:developer' as dev;
 import 'package:shadow_flex/models/adept.dart';
+import 'package:shadow_flex/models/augmentation.dart';
 import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/harm_types.dart';
@@ -11,6 +12,8 @@ import 'package:shadow_flex/models/shared_preference_manager.dart';
 import 'package:shadow_flex/models/spell.dart';
 import 'package:shadow_flex/models/trait.dart';
 import 'package:shadow_flex/models/weapon.dart';
+import 'package:shadow_flex/models/armor.dart';
+
 
 class HeroData {
   List<String> programs = List.empty(growable: true);
@@ -27,6 +30,8 @@ class HeroData {
   List<Connection> connections = List<Connection>.empty(growable: true);
   List<MeleeWeapon> meleeWeapons = List<MeleeWeapon>.empty(growable: true);
   List<Weapon> weapons = List<Weapon>.empty(growable: true);
+  List<Augmentation> augmentations = List<Augmentation>.empty(growable: true);
+  List<Armor> armors = List<Armor>.empty(growable: true);
 
   static final HeroData _instanse = HeroData._internal();
 
@@ -443,6 +448,34 @@ class HeroData {
     Write();
   }
 
+  void AddArmor(Armor _armor) {
+    armors.add(_armor);
+    Write();
+  }
+
+  List<Armor> GetArmors() {
+    return this.armors;
+  }
+
+  void RemoveArmor(Armor _armor) {
+    armors.remove(_armor);
+    Write();
+  }
+
+  void AddAugmentation(Augmentation _augmentation) {
+    augmentations.add(_augmentation);
+    Write();
+  }
+
+  List<Augmentation> GetAugmentations() {
+    return this.augmentations;
+  }
+
+  void RemoveAugmentation(Augmentation _augmentation) {
+    augmentations.remove(_augmentation);
+    Write();
+  }
+
   Map<String, dynamic> toJson() {
     String harmsJson = jsonEncode(harms.map((e) => (e.toJson())).toList());
     String traitJson = jsonEncode(traits.map((e) => (e.toJson())).toList());
@@ -454,6 +487,9 @@ class HeroData {
     String meleeWeaponsJson =
         jsonEncode(meleeWeapons.map((e) => (e.toJson())).toList());
     String weaponsJson = jsonEncode(weapons.map((e) => (e.toJson())).toList());
+    String augmentationsJson = jsonEncode(augmentations.map((e) => (e.toJson())).toList());
+    String armorsJson = jsonEncode(armors.map((e) => (e.toJson())).toList());
+
     return {
       'abilites': abilites,
       'metatype': metatype,
@@ -467,7 +503,9 @@ class HeroData {
       'adepts': adeptsJson,
       'programs': programsJson,
       'meleeWeapons': meleeWeaponsJson,
-      'weapons': weaponsJson
+      'weapons': weaponsJson,
+      'augmentations': augmentationsJson,
+      'armors': armorsJson
     };
   }
 
@@ -483,5 +521,7 @@ class HeroData {
         adepts = json['adepts'],
         programs = json['programs'],
         meleeWeapons = json['meleeWeapons'],
-        weapons = json['weapons'];
+        weapons = json['weapons'],
+        augmentations = json['augmentations'],
+        armors = json['armors'];
 }

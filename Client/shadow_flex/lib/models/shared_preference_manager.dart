@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 import 'package:shadow_flex/models/adept.dart';
+import 'package:shadow_flex/models/armor.dart';
+import 'package:shadow_flex/models/augmentation.dart';
 import 'package:shadow_flex/models/connections.dart';
 import 'package:shadow_flex/models/harm.dart';
 import 'package:shadow_flex/models/hero.dart';
@@ -80,6 +82,22 @@ class SharedPreferenceManager {
         hero.adepts = List<Adept>.empty(growable: true);
         for (var element in temp) {
           hero.adepts.add(Adept.fromJson(element));
+        }
+      }
+      if (json['armors'] != null) {
+        var temp =
+            List<Map<String, dynamic>>.from(jsonDecode(json['armors']));
+        hero.armors = List<Armor>.empty(growable: true);
+        for (var element in temp) {
+          hero.armors.add(Armor.fromJson(element));
+        }
+      }
+      if (json['augmentations'] != null) {
+        var temp =
+            List<Map<String, dynamic>>.from(jsonDecode(json['augmentations']));
+        hero.augmentations = List<Augmentation>.empty(growable: true);
+        for (var element in temp) {
+          hero.augmentations.add(Augmentation.fromJson(element));
         }
       }
       if (json['programs'] != null) {

@@ -1,23 +1,23 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shadow_flex/models/adept.dart';
-import 'package:shadow_flex/widgets/data_card.dart';
-import 'package:shadow_flex/widgets/matrix_data_row.dart';
-import 'package:shadow_flex/widgets/text_left_margin.dart';
-import 'package:shadow_flex/models/spell.dart';
-
+import 'package:shadow_flex/models/armor.dart';
+import 'package:shadow_flex/models/augmentation.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/data_card.dart';
 import 'package:shadow_flex/widgets/text_input_decorator.dart';
+import 'package:shadow_flex/widgets/text_left_margin.dart';
 
-class SpellsPage extends StatefulWidget {
-  const SpellsPage({super.key});
+class ArmorsPage extends StatefulWidget {
+  const ArmorsPage({super.key});
 
   @override
-  State<SpellsPage> createState() => _SpellsPageState();
+  State<ArmorsPage> createState() => _ArmorsPageState();
 }
 
-class _SpellsPageState extends State<SpellsPage> {
+class _ArmorsPageState extends State<ArmorsPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -26,10 +26,10 @@ class _SpellsPageState extends State<SpellsPage> {
         Container(
           height: 20,
         ),
-        const TextLeftMargin(text: 'Заклинания / Заготовки / Ритуалы / Сложные формы'),
+        const TextLeftMargin(text: 'Броня'),
         Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: Builder(builder: spellsBuilder),
+          child: Builder(builder: armorsBuilder),
         ),
         Container(
           height: 35,
@@ -47,10 +47,8 @@ class _SpellsPageState extends State<SpellsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   String tempName = '';
-                  String tempType = '';
-                  String tempDistance = '';
-                  String tempDuration = '';
-                  String tempExhaust = '';
+                  String tempRating = '';
+                  String tempEffect = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
                     child: Column(
@@ -64,26 +62,16 @@ class _SpellsPageState extends State<SpellsPage> {
                             }),
                             title: "Название"),
                         InputTextFF(
-                            onChange: ((value) {
-                              tempType = value;
-                            }),
-                            title: "Тип"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempDistance = value;
-                            }),
-                            title: "Дистанция"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempDuration = value;
-                            }),
-                            title: "Длительность"),
-                        InputTextFF(
                             isNumerical: true,
                             onChange: ((value) {
-                              tempExhaust = value;
+                              tempRating = value;
                             }),
-                            title: "Истощение"),
+                            title: "Рейтинг"),
+                        InputTextFF(
+                            onChange: ((value) {
+                              tempEffect = value;
+                            }),
+                            title: "Эффект"),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -91,18 +79,15 @@ class _SpellsPageState extends State<SpellsPage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text('Закрыть',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
+                              child: Text('Закрыть', style: MyTextStyle().GetTextMiniAkcent()),
                             ),
                             TextButton(
                               onPressed: () {
-                                HeroData().AddSpell(Spell(tempName, tempType,
-                                    tempDistance, tempDuration, tempExhaust));
+                                HeroData().AddArmor(Armor(tempName, tempRating, tempEffect));
                                 Navigator.pop(context);
                                 setState(() {});
                               },
-                              child: Text('Добавить',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
+                              child: Text('Добавить', style: MyTextStyle().GetTextMiniAkcent()),
                             ),
                           ],
                         ),
@@ -115,10 +100,10 @@ class _SpellsPageState extends State<SpellsPage> {
             child: const Text("Добавить"),
           ),
         ),
-        const TextLeftMargin(text: 'Силы адепта или прочие способности'),
+        const TextLeftMargin(text: 'Аугментация'),
         Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: Builder(builder: adeptsBuilder),
+          child: Builder(builder: augmentationsBuilder),
         ),
         Container(
           height: 35,
@@ -136,7 +121,8 @@ class _SpellsPageState extends State<SpellsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   String tempName = '';
-                  String tempLevel = '';
+                  String tempRating = '';
+                  String tempEntity = '';
                   String tempNote = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
@@ -153,9 +139,15 @@ class _SpellsPageState extends State<SpellsPage> {
                         InputTextFF(
                             isNumerical: true,
                             onChange: ((value) {
-                              tempLevel = value;
+                              tempRating = value;
                             }),
-                            title: "Уровень"),
+                            title: "Рейтинг"),
+                        InputTextFF(
+                            isNumerical: true,
+                            onChange: ((value) {
+                              tempEntity = value;
+                            }),
+                            title: "Эффект"),
                         InputTextFF(
                             onChange: ((value) {
                               tempNote = value;
@@ -173,8 +165,9 @@ class _SpellsPageState extends State<SpellsPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                HeroData().AddAdept(
-                                    Adept(tempName, tempLevel, tempNote));
+                                HeroData().AddAugmentation(
+                                  Augmentation(tempName, tempRating, tempEntity, tempNote)
+                                );
                                 Navigator.pop(context);
                                 setState(() {});
                               },
@@ -199,51 +192,50 @@ class _SpellsPageState extends State<SpellsPage> {
     ));
   }
 
-  void RemoveSpell(Spell _spell) {
-    HeroData().RemoveSpell(_spell);
+  void RemoveArmor(Armor _armor) {
+    HeroData().RemoveArmor(_armor);
     setState(() {});
   }
 
-  Widget spellsBuilder(BuildContext context) {
+  Widget armorsBuilder(BuildContext context) {
     List<GestureDetector> result = List.empty(growable: true);
-    List<Spell> spells = HeroData().GetSpells();
+    List<Armor> armors= HeroData().GetArmors();
 
-    for (var i = 0; i < spells.length; i++) {
+    for (var i = 0; i < armors.length; i++) {
       result.add(GestureDetector(
-          onTap: () => RemoveSpell(spells[i]),
-          child: DataCardWidget(heder: spells[i].name, bigData: [
-            'Тип/Цель',
-            spells[i].type,
-            'Дистанция',
-            spells[i].distance,
-            'Длительность',
-            spells[i].duration,
-            'Истощение',
-            spells[i].exhaust
+          onTap: () => RemoveArmor(armors[i]),
+          child: DataCardWidget(heder: armors[i].name, bigData: [
+            'Рейтинг',
+            armors[i].rating,
+            'Эффект',
+            armors[i].effect,
           ])));
     }
 
     return Column(children: result);
   }
 
-  void RemoveAdept(Adept _adept) {
-    HeroData().RemoveAdept(_adept);
+  void RemoveAugmentation(Augmentation _augmentation) {
+    HeroData().RemoveAugmentation(_augmentation);
     setState(() {});
   }
 
-  Widget adeptsBuilder(BuildContext context) {
+  Widget augmentationsBuilder(BuildContext context) {
     List<GestureDetector> result = List.empty(growable: true);
-    List<Adept> adepts = HeroData().GetAdepts();
+    List<Augmentation> augmentations = HeroData().GetAugmentations();
 
-    for (var i = 0; i < adepts.length; i++) {
+    for (var i = 0; i < augmentations.length; i++) {
       result.add(GestureDetector(
-        onTap: () => RemoveAdept(adepts[i]),
+        onTap: () => RemoveAugmentation(augmentations[i]),
         child: DataCardWidget(
-          heder: adepts[i].name,
-          bigData: ['Уровень', adepts[i].level],
+          heder: augmentations[i].name,
+          bigData: [
+            'Рейтинг', augmentations[i].rating,
+            'Сущность', augmentations[i].entity
+          ],
           smolData: [
             'Заметки',
-            adepts[i].note,
+            augmentations[i].note,
           ],
         ),
       ));

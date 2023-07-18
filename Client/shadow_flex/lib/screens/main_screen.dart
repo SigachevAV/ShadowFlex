@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shadow_flex/functions/add_harm.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
+import 'package:shadow_flex/pages/armors_page.dart';
 import 'package:shadow_flex/pages/characteristics.dart';
 import 'package:shadow_flex/pages/general_info.dart';
 import 'package:shadow_flex/pages/matrix_page.dart';
@@ -47,7 +48,7 @@ class _MainPagesVievState extends State<MainPagesViev> {
           QualitiesAndConnectionsPage(),
           CharacteristicsPage(),
           StatusPage(),
-          Text("Броня"),
+          ArmorsPage(),
           WeaponsPage(),
           MatrixPage(),
           SpellsPage(),
