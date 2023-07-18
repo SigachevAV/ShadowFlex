@@ -1,8 +1,12 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:shadow_flex/screens/info_screen.dart';
+import 'package:shadow_flex/screens/main_screen.dart';
+import 'package:shadow_flex/screens/setings_screen.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/drawer_button.dart';
 
 class DrawerSF extends StatefulWidget {
   const DrawerSF({super.key});
@@ -33,6 +37,33 @@ class _DrawerSFState extends State<DrawerSF> {
                 ),
               ),
             ),
+            DrawerButtonSF(
+                icon: Icons.auto_stories_sharp,
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => MainPagesViev()),
+                      (Route<dynamic> route) => false);
+                },
+                title: "Персонаж"),
+            DrawerButtonSF(
+                icon: Icons.search_sharp,
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => InfoScreen()),
+                      (Route<dynamic> route) => false);
+                },
+                title: "Справка"),
+            DrawerButtonSF(
+                icon: Icons.settings,
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => SettingsScreen()),
+                      (Route<dynamic> route) => false);
+                },
+                title: "Настройки"),
           ],
         ),
       ),
