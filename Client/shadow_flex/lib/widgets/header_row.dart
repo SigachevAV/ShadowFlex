@@ -22,10 +22,6 @@ class _HeaderRowState extends State<HeaderRow> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          "ShadowFlex ",
-          style: MyTextStyle().GetTextAkcentDecoration(),
-        ),
         Visibility(
           visible: (widget.controller.page == 0),
           child: Text(
