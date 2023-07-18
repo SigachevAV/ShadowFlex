@@ -34,15 +34,15 @@ public class MatrixController {
     }
 
     @GetMapping("/search")
-    public MatrixDTO getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
+    public Iterable<MatrixSimpleDTO> getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
-        Optional<Matrix> matrixOptional = switch(lang) {
-            case ru -> repository.findByNameRu(name);
-            case en -> repository.findByNameEn(name);
+        List<Matrix> matrices = switch(lang) {
+            case ru -> repository.findByNameRuContainingIgnoreCase(name);
+            case en -> repository.findByNameEnContainingIgnoreCase(name);
         };
-        if(matrixOptional.isEmpty())
+        if(matrices.isEmpty())
             throw new NotFoundException("Matrix action " + name + " not found");
-        return dtoConverter.convert(matrixOptional.get(), lang);
+        return matrices.stream().map(v -> dtoConverter.convertToSimple(v, lang)).toList();
     }
 
     @GetMapping

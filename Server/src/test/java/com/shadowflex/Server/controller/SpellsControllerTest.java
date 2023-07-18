@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -70,7 +71,7 @@ class SpellsControllerTest {
 
     @Test
     void getByName_ru_success() throws Exception {
-        Mockito.when(spellRepository.findByNameRu("Имя 1")).thenReturn(Optional.of(spell1));
+        Mockito.when(spellRepository.findByNameRuContainingIgnoreCase("Имя 1")).thenReturn(List.of(spell1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
@@ -78,13 +79,13 @@ class SpellsControllerTest {
                         .param("lang", "ru")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Имя 1")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].id", is(1)));
     }
 
     @Test
     void getByName_en_success() throws Exception {
-        Mockito.when(spellRepository.findByNameEn("Name 1")).thenReturn(Optional.of(spell1));
+        Mockito.when(spellRepository.findByNameEnContainingIgnoreCase("Name 1")).thenReturn(List.of(spell1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
@@ -92,13 +93,13 @@ class SpellsControllerTest {
                         .param("lang", "en")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Name 1")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].id", is(1)));
     }
 
     @Test
     void getByName_ru_invalidName() throws Exception {
-        Mockito.when(spellRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+        Mockito.when(spellRepository.findByNameRuContainingIgnoreCase("ошибка")).thenReturn(Collections.emptyList());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
@@ -114,7 +115,7 @@ class SpellsControllerTest {
 
     @Test
     void getByName_ru_invalidLang() throws Exception {
-        Mockito.when(spellRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+        Mockito.when(spellRepository.findByNameRuContainingIgnoreCase("ошибка")).thenReturn(Collections.emptyList());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")

@@ -11,6 +11,7 @@ import com.shadowflex.Server.util.LanguageConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,15 +33,15 @@ public class AdeptsController {
     }
 
     @GetMapping("/search")
-    public AdeptDTO getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
+    public List<AdeptSimpleDTO> getByName(@RequestParam("name") String name, @RequestParam("lang") String langParam) {
         Language lang = languageConverter.convert(langParam);
-        Optional<Adept> adeptOptional = switch(lang) {
-            case ru -> repository.findByNameRu(name);
-            case en -> repository.findByNameEn(name);
+        List<Adept> adepts = switch(lang) {
+            case ru -> repository.findByNameRuContainingIgnoreCase(name);
+            case en -> repository.findByNameEnContainingIgnoreCase(name);
         };
-        if(adeptOptional.isEmpty())
+        if(adepts.isEmpty())
             throw new NotFoundException("Adept's power " + name + " not found");
-        return dtoConverter.convert(adeptOptional.get(), lang);
+        return adepts.stream().map(v -> dtoConverter.convertToSimple(v, lang)).toList();
     }
 
     @GetMapping

@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -143,7 +144,7 @@ class AdeptsControllerTest {
 
     @Test
     void getByName_ru_success() throws Exception {
-        Mockito.when(adeptRepository.findByNameRu("Имя 1")).thenReturn(Optional.of(adept1));
+        Mockito.when(adeptRepository.findByNameRuContainingIgnoreCase("Имя 1")).thenReturn(List.of(adept1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
@@ -151,13 +152,13 @@ class AdeptsControllerTest {
                         .param("lang", "ru")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Имя 1")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].id", is(1)));
     }
 
     @Test
     void getByName_en_success() throws Exception {
-        Mockito.when(adeptRepository.findByNameEn("Name 1")).thenReturn(Optional.of(adept1));
+        Mockito.when(adeptRepository.findByNameEnContainingIgnoreCase("Name 1")).thenReturn(List.of(adept1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
@@ -165,13 +166,13 @@ class AdeptsControllerTest {
                         .param("lang", "en")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.name", is("Name 1")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].id", is(1)));
     }
 
     @Test
     void getByName_ru_invalidName() throws Exception {
-        Mockito.when(adeptRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+        Mockito.when(adeptRepository.findByNameRuContainingIgnoreCase("ошибка")).thenReturn(Collections.emptyList());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
@@ -187,7 +188,7 @@ class AdeptsControllerTest {
 
     @Test
     void getByName_ru_invalidLang() throws Exception {
-        Mockito.when(adeptRepository.findByNameRu("ошибка")).thenReturn(Optional.empty());
+        Mockito.when(adeptRepository.findByNameRuContainingIgnoreCase("ошибка")).thenReturn(Collections.emptyList());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(basePath + "/search")
