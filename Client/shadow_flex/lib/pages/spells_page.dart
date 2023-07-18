@@ -241,10 +241,11 @@ class _SpellsPageState extends State<SpellsPage> {
         child: DataCardWidget(
           heder: adepts[i].name,
           bigData: ['Уровень', adepts[i].level],
-          smolData: [
+          smolData: (adepts[i].note != '') ?
+          [
             'Заметки',
-            adepts[i].note,
-          ],
+            adepts[i].note
+          ] : const []
         ),
       ));
     }

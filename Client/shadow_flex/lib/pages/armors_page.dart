@@ -147,7 +147,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                             onChange: ((value) {
                               tempEntity = value;
                             }),
-                            title: "Эффект"),
+                            title: "Сущность"),
                         InputTextFF(
                             onChange: ((value) {
                               tempNote = value;
@@ -233,10 +233,11 @@ class _ArmorsPageState extends State<ArmorsPage> {
             'Рейтинг', augmentations[i].rating,
             'Сущность', augmentations[i].entity
           ],
-          smolData: [
+          smolData: (augmentations[i].note != '') ?
+          [
             'Заметки',
             augmentations[i].note,
-          ],
+          ] : const []
         ),
       ));
     }
