@@ -19,6 +19,7 @@ class SquareFAB extends StatelessWidget {
     return Transform.rotate(
       angle: -math.pi / 4 * -1,
       child: FloatingActionButton(
+        heroTag: null,
         onPressed: onPressHandler,
         shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
         backgroundColor: ColorShemeMine().GetAkcent(),

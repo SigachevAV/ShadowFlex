@@ -14,7 +14,6 @@ import 'package:shadow_flex/models/trait.dart';
 import 'package:shadow_flex/models/weapon.dart';
 import 'package:shadow_flex/models/armor.dart';
 
-
 class HeroData {
   List<String> programs = List.empty(growable: true);
   List<Trait> traits = List.empty(growable: true);
@@ -44,6 +43,33 @@ class HeroData {
   }
 
   HeroData._internal() {
+    InitEmpty();
+  }
+
+  void Trash() {
+    InitEmpty();
+    Write();
+  }
+
+  void InitEmpty() {
+    programs = List.empty(growable: true);
+    traits = List.empty(growable: true);
+    helth = [8, 0];
+    stun = [8, 0];
+    harms = List.empty(growable: true);
+    spells = List.empty(growable: true);
+    adepts = List.empty(growable: true);
+    metatype = Metatype.HUMAN;
+    abilites = List.generate(
+        11,
+        ((index) =>
+            List.generate(6, (index) => List.generate(7, (index) => 0))));
+    generalInfo = Map();
+    connections = List<Connection>.empty(growable: true);
+    meleeWeapons = List<MeleeWeapon>.empty(growable: true);
+    weapons = List<Weapon>.empty(growable: true);
+    augmentations = List<Augmentation>.empty(growable: true);
+    armors = List<Armor>.empty(growable: true);
     abilites[0][0][0] = 1;
     abilites[1][0][0] = 1;
     abilites[1][1][0] = 0;
@@ -67,12 +93,6 @@ class HeroData {
     abilites[8][4][0] = -1;
     abilites[9][1][0] = -1;
     abilites[10][0][0] = 1;
-    bool hasPrev = true;
-    //Load().then((value) => {hasPrev = value});
-    if (hasPrev == true) {
-      return;
-    }
-    return;
   }
 
   List<int> indexParse(int _index) {
@@ -487,7 +507,8 @@ class HeroData {
     String meleeWeaponsJson =
         jsonEncode(meleeWeapons.map((e) => (e.toJson())).toList());
     String weaponsJson = jsonEncode(weapons.map((e) => (e.toJson())).toList());
-    String augmentationsJson = jsonEncode(augmentations.map((e) => (e.toJson())).toList());
+    String augmentationsJson =
+        jsonEncode(augmentations.map((e) => (e.toJson())).toList());
     String armorsJson = jsonEncode(armors.map((e) => (e.toJson())).toList());
 
     return {

@@ -36,6 +36,48 @@ class _HeaderRowState extends State<HeaderRow> {
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
+        Visibility(
+          visible: (widget.controller.page == 2),
+          child: Text(
+            "Навыки и способности",
+            style: MyTextStyle().GetTextAkcentDecoration(),
+          ),
+        ),
+        Visibility(
+          visible: (widget.controller.page == 3),
+          child: Text(
+            "Урон и травмы",
+            style: MyTextStyle().GetTextAkcentDecoration(),
+          ),
+        ),
+        Visibility(
+          visible: (widget.controller.page == 4),
+          child: Text(
+            "Броня",
+            style: MyTextStyle().GetTextAkcentDecoration(),
+          ),
+        ),
+        Visibility(
+          visible: (widget.controller.page == 5),
+          child: Text(
+            "Оружие",
+            style: MyTextStyle().GetTextAkcentDecoration(),
+          ),
+        ),
+        Visibility(
+          visible: (widget.controller.page == 6),
+          child: Text(
+            "Матрица",
+            style: MyTextStyle().GetTextAkcentDecoration(),
+          ),
+        ),
+        Visibility(
+          visible: (widget.controller.page == 7),
+          child: Text(
+            "Заклинания и прочее",
+            style: MyTextStyle().GetTextAkcentDecoration(),
+          ),
+        ), 
       ],
     );
   }

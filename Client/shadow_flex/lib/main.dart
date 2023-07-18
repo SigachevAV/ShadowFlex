@@ -25,8 +25,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    HeroData hero = HeroData();
+    hero.Load();
     return MaterialApp(
       title: 'ShadowFlex',
       theme: ThemeData(
