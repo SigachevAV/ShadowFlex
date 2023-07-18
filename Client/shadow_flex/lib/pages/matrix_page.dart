@@ -29,11 +29,13 @@ class _MatrixPageState extends State<MatrixPage> {
           height: 20,
         ),
         TextLeftMargin(text: "Характеристики деки"),
+        Container(height: 10,),
         MatrixDataRow(mapKey: "matrixInit", name: "Инициатива в матрице"),
         MatrixDataRow(mapKey: "matrixPen", name: "Проникновение"),
         MatrixDataRow(mapKey: "matrixDodge", name: "Ускользание"),
         MatrixDataRow(mapKey: "matrixPower", name: "Вычислительная мощность"),
         MatrixDataRow(mapKey: "matrixSheld", name: "Сетевой экран"),
+        Container(height: 10,),
         GeneralInf(
           title: "Устройства/Рейтинг",
           fill: "",
@@ -45,7 +47,7 @@ class _MatrixPageState extends State<MatrixPage> {
           child: Builder(builder: builder),
         ),
         Container(
-          height: 35,
+          height: 30,
           margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             border: Border.all(color: ColorShemeMine().GetAkcent()),
@@ -107,9 +109,10 @@ class _MatrixPageState extends State<MatrixPage> {
                 },
               );
             },
-            child: const Text("Добавить програму"),
+            child: const Text("Добавить программу"),
           ),
         ),
+        Container(height: 20,),
         TextLeftMargin(text: "Счётчик состояний матрицы"),
         HexRow(lenght: 12),
         Container(
@@ -134,7 +137,7 @@ class _MatrixPageState extends State<MatrixPage> {
             height: 27,
             color: ColorShemeMine().GetCardColor(),
             alignment: Alignment.center,
-            child: const Text("Програмы"),
+            child: const Text("Программы"),
           ),
         ],
       ),
