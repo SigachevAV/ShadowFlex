@@ -12,6 +12,7 @@ import 'package:shadow_flex/pages/spells_page.dart';
 import 'package:shadow_flex/pages/ststus.dart';
 import 'package:shadow_flex/pages/weapons_page.dart';
 import 'package:shadow_flex/screens/main_screen.dart';
+import 'package:shadow_flex/services/adepts_service.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     HeroData hero = HeroData();
     hero.Load();
+    AdeptsService adeptsService = AdeptsService();
+    adeptsService.getById(2);
     return MaterialApp(
       title: 'ShadowFlex',
       theme: ThemeData(
