@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
+import 'package:shadow_flex/widgets/text_left_margin.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -23,7 +24,16 @@ class _InfoScreenState extends State<InfoScreen> {
           style: MyTextStyle().GetTextAkcentDecoration(),
         ),
       ),
-      body: Column(children: []),
+      body: Column(children: [
+        Container(
+          height: 20,
+        ),
+        GestureDetector(
+            onTap: () {}, child: TextLeftMargin(text: "Способности адепта")),
+        Container(
+          height: 30,
+        ),
+      ]),
     );
   }
 }
