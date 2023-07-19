@@ -3,6 +3,7 @@ import 'package:shadow_flex/models/info_models/adept.dart';
 import 'package:shadow_flex/services/adepts_service.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/arrow_back.dart';
 import 'package:shadow_flex/widgets/data_card.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';
@@ -26,9 +27,10 @@ class _AdeptusInfoScreenState extends State<AdeptusInfoScreen> {
       drawer: DrawerSF(),
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
-          "Справка",
+          "Силы адепта",
           style: MyTextStyle().GetTextAkcentDecoration(),
         ),
       ),
@@ -38,17 +40,7 @@ class _AdeptusInfoScreenState extends State<AdeptusInfoScreen> {
             Container(
               height: 20,
             ),
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(
-                  Icons.arrow_back_ios_sharp,
-                  color: ColorShemeMine().GetAkcent(),
-                ),
-              ),
-            ),
+            ArrowBack(),
             FutureBuilder(future: GetData(), builder: futureBuilder),
             Container(
               height: 30,

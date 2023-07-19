@@ -19,6 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
+        iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         title: Text(
           "Настройки",
           style: MyTextStyle().GetTextAkcentDecoration(),

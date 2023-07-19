@@ -39,6 +39,7 @@ class _MainPagesVievState extends State<MainPagesViev> {
       drawer: DrawerSF(),
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: HeaderRow(controller: controller),
       ),

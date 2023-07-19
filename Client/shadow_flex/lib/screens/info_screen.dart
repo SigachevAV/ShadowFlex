@@ -19,6 +19,7 @@ class _InfoScreenState extends State<InfoScreen> {
       drawer: DrawerSF(),
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
           "Справка",
