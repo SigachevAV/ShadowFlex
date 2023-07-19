@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shadow_flex/my_flutter_app_icons.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 
 class NavigationBarShadowFlex extends StatefulWidget {
@@ -14,7 +15,7 @@ class NavigationBarShadowFlex extends StatefulWidget {
 
 class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
   bool isVisible = false;
-  double iconSize = 20;
+  double iconSize = 30;
 
   double appBarHeight = 50;
 
@@ -116,7 +117,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       child: IconButton(
                         iconSize: iconSize,
                         onPressed: OnOnePress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.private,
                             color: (widget.controller.page == 0)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -127,7 +128,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnTwoPress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.contact,
                             color: (widget.controller.page == 1)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -138,7 +139,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnThreePress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.skills,
                             color: (widget.controller.page == 2)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -149,7 +150,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnFourPress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.damage,
                             color: (widget.controller.page == 3)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -160,7 +161,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnFivePress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.armor,
                             color: (widget.controller.page == 4)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -171,7 +172,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnSixPress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.weapon,
                             color: (widget.controller.page == 5)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -182,7 +183,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnSevenPress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.matrica,
                             color: (widget.controller.page == 6)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
@@ -193,7 +194,7 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                       visible: isVisible,
                       child: IconButton(
                         onPressed: OnEithPress,
-                        icon: Icon(Icons.star,
+                        icon: Icon(MyFlutterApp.magic,
                             color: (widget.controller.page == 7)
                                 ? ColorShemeMine().GetUnderlineDark()
                                 : ColorShemeMine().GetAkcent(),
