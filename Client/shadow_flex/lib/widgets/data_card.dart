@@ -25,8 +25,8 @@ class _DataCardWidgetState extends State<DataCardWidget> {
         if (i * 4 + j >= widget.bigData.length) {
           break;
         }
-        temp.add(Expanded(
-          child: Container(
+        temp.add(
+          Container(
               margin: EdgeInsets.fromLTRB(((j % 2 == 0) ? 10 : 5), 0, 0, 5),
               child: Text(
                 widget.bigData[i * 4 + j],
@@ -34,7 +34,7 @@ class _DataCardWidgetState extends State<DataCardWidget> {
                     ? MyTextStyle().GetTextDecoration()
                     : MyTextStyle().GetTextAkcentBold(),
               )),
-        ));
+        );
       }
       bigRes.add(Row(
         children: temp,

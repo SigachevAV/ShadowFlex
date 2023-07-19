@@ -11,6 +11,7 @@ import 'package:shadow_flex/pages/spells_page.dart';
 import 'package:shadow_flex/pages/ststus.dart';
 import 'package:shadow_flex/pages/weapons_page.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
+import 'package:shadow_flex/widgets/context_fab.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
 import 'package:shadow_flex/widgets/header_row.dart';
 import 'package:shadow_flex/widgets/navigation_bar.dart';
@@ -23,7 +24,7 @@ class MainPagesViev extends StatefulWidget {
 }
 
 class _MainPagesVievState extends State<MainPagesViev> {
-  final PageController controller = PageController();
+  final PageController controller = PageController(initialPage: 2);
   IconData icon = Icons.casino_sharp;
   SetupVar setupVar = SetupVar();
   @override
@@ -54,29 +55,8 @@ class _MainPagesVievState extends State<MainPagesViev> {
           SpellsPage(),
         ],
       ),
-      floatingActionButton: Row(
-        children: [
-          SquareFAB(
-              () => {
-                    setState(() {
-                      setupVar.ChangeMode();
-                      if (setupVar.rollMode) {
-                        icon = Icons.casino_sharp;
-                      } else {
-                        icon = Icons.create_sharp;
-                      }
-                    })
-                  },
-              icon),
-          Spacer(
-            flex: 1,
-          ),
-          SquareFAB(() {
-            AddHarmToHero(context).then((value) {
-              setState(() {});
-            });
-          }, Icons.bolt_sharp)
-        ],
+      floatingActionButton: ContextFAB(
+        controller: controller,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SafeArea(
