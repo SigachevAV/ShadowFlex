@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/info_models/adept.dart';
-import 'package:shadow_flex/screens/info/adeptus_info.dart';
 import 'package:shadow_flex/services/adepts_service.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
+import 'package:shadow_flex/widgets/data_card.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';
 
-class AdeptusInfoAllScreen extends StatefulWidget {
-  const AdeptusInfoAllScreen({super.key});
+class AdeptusInfoScreen extends StatefulWidget {
+  final int adeptusId;
+  const AdeptusInfoScreen({super.key, required this.adeptusId});
 
   @override
-  State<AdeptusInfoAllScreen> createState() => _AdeptusInfoAllScreenState();
+  State<AdeptusInfoScreen> createState() => _AdeptusInfoScreenState();
 }
 
-class _AdeptusInfoAllScreenState extends State<AdeptusInfoAllScreen> {
-  Future<List<AdeptInfo>?> GetData() {
-    return AdeptsService().getAll();
+class _AdeptusInfoScreenState extends State<AdeptusInfoScreen> {
+  Future<AdeptInfo?> GetData() {
+    return AdeptsService().getById(widget.adeptusId);
   }
 
   @override
@@ -58,28 +59,29 @@ class _AdeptusInfoAllScreenState extends State<AdeptusInfoAllScreen> {
     );
   }
 
-  Widget futureBuilder(BuildContext context, AsyncSnapshot snapshot) {
+  Widget futureBuilder(
+      BuildContext context, AsyncSnapshot<AdeptInfo?> snapshot) {
     if (!snapshot.hasData) {
       return TextLeftMargin(text: "Загрузка");
     }
-    final data = snapshot.data as List<AdeptInfo>?;
+    final data = snapshot.data as AdeptInfo?;
     if (data == null) {
       return TextLeftMargin(text: "Поросята остались без дома");
     }
     List<Widget> result = List<Widget>.empty(growable: true);
-    for (var i = 0; i < data.length; i++) {
-      result.add(GestureDetector(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => AdeptusInfoScreen(
-                      adeptusId: data[i].id,
-                    ))),
-        child: Container(
-            margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: TextLeftMargin(text: data[i].name)),
-      ));
-    }
+    result.add(
+      DataCardWidget(
+        heder: data.name,
+        bigData: ['Цена', data.cost, '', '', 'Активация', data.activation],
+      ),
+    );
+    result.add(Container(
+        margin: EdgeInsets.fromLTRB(30, 20, 30, 0),
+        child: Text(
+          data.description,
+          textAlign: TextAlign.justify,
+          style: MyTextStyle().GetTextDecoration(),
+        )));
     return Column(
       children: result,
     );
