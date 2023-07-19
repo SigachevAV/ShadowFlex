@@ -40,8 +40,6 @@ public class SpellsController {
             case ru -> repository.findByNameRuContainingIgnoreCase(name);
             case en -> repository.findByNameEnContainingIgnoreCase(name);
         };
-        if(spells.isEmpty())
-            throw new NotFoundException("Spell " + name + " not found");
         return spells.stream().map(v -> dtoConverter.convertToSimple(v, lang)).toList();
     }
 

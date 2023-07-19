@@ -40,8 +40,6 @@ public class MatrixController {
             case ru -> repository.findByNameRuContainingIgnoreCase(name);
             case en -> repository.findByNameEnContainingIgnoreCase(name);
         };
-        if(matrices.isEmpty())
-            throw new NotFoundException("Matrix action " + name + " not found");
         return matrices.stream().map(v -> dtoConverter.convertToSimple(v, lang)).toList();
     }
 
