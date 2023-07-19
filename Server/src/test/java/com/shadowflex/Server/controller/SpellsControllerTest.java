@@ -98,22 +98,6 @@ class SpellsControllerTest {
     }
 
     @Test
-    void getByName_ru_invalidName() throws Exception {
-        Mockito.when(spellRepository.findByNameRuContainingIgnoreCase("ошибка")).thenReturn(Collections.emptyList());
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get(basePath + "/search")
-                        .param("name", "ошибка")
-                        .param("lang", "ru")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals(
-                        Objects.requireNonNull(result.getResolvedException()).getMessage(), "Spell ошибка not found"
-                ));
-    }
-
-    @Test
     void getByName_ru_invalidLang() throws Exception {
         Mockito.when(spellRepository.findByNameRuContainingIgnoreCase("ошибка")).thenReturn(Collections.emptyList());
 

@@ -39,8 +39,6 @@ public class AdeptsController {
             case ru -> repository.findByNameRuContainingIgnoreCase(name);
             case en -> repository.findByNameEnContainingIgnoreCase(name);
         };
-        if(adepts.isEmpty())
-            throw new NotFoundException("Adept's power " + name + " not found");
         return adepts.stream().map(v -> dtoConverter.convertToSimple(v, lang)).toList();
     }
 
