@@ -13,7 +13,7 @@ class AdeptsService {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        List<AdeptInfo> _model = adeptFromJson(response.body);
+        List<AdeptInfo> _model = adeptFromJson(utf8.decode(response.bodyBytes));
         return _model;
       }
     } catch (e) {
