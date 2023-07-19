@@ -39,4 +39,23 @@ class AdeptsService {
     }
     return null;
   }
+
+  Future<List<AdeptInfo>?> getByName(String name) async {
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.adeptsEndPoint + ApiConstants.searchRoute)
+        .replace(
+            queryParameters: {
+              ApiConstants.langParam: ApiConstants.language,
+              ApiConstants.nameParam: name
+            });
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<AdeptInfo> _model = adeptFromJson(utf8.decode(response.bodyBytes));
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 }
