@@ -1,5 +1,5 @@
 class ApiConstants {
-  static String baseUrl = 'https://kotdepress.tplinkdns.com';
+  static String baseUrl = 'http://kotdepress.tplinkdns.com:25565';
   static String adeptsEndPoint = '/adepts';
   static String matrixEndPoint = '/matrix';
   static String spellsEndPoint = '/spells';

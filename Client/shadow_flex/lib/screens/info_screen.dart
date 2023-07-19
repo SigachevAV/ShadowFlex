@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shadow_flex/screens/info/adeptus_all_info.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
@@ -29,7 +30,14 @@ class _InfoScreenState extends State<InfoScreen> {
           height: 20,
         ),
         GestureDetector(
-            onTap: () {}, child: TextLeftMargin(text: "Способности адепта")),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          AdeptusInfoAllScreen()));
+            },
+            child: TextLeftMargin(text: "Способности адепта")),
         Container(
           height: 30,
         ),
