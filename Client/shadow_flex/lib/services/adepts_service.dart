@@ -31,7 +31,7 @@ class AdeptsService {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        AdeptInfo _model = AdeptInfo.fromJson(jsonDecode(response.body));
+        AdeptInfo _model = AdeptInfo.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         return _model;
       }
     } catch (e) {

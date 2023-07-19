@@ -14,8 +14,8 @@ class AdeptusInfoAllScreen extends StatefulWidget {
 }
 
 class _AdeptusInfoAllScreenState extends State<AdeptusInfoAllScreen> {
-  Future<List<AdeptInfo>?> GetData() {
-    return AdeptsService().getAll();
+  Future<AdeptInfo?> GetData() {
+    return AdeptsService().getById(2);
   }
 
   @override

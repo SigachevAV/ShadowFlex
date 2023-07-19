@@ -22,7 +22,7 @@ class AdeptInfo {
   });
 
   factory AdeptInfo.fromJson(Map<String, dynamic> json) => AdeptInfo(
-        id: json['id'] ?? '',
+        id: json['id'] ?? -1,
         name: json["name"],
         cost: json["cost"] ?? '',
         activation: json["activation"] ?? '',
