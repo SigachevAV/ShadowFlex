@@ -1,9 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:shadow_flex/functions/change_matrix.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
-import 'package:shadow_flex/widgets/data_card.dart';
 import 'package:shadow_flex/widgets/general_information.dart';
 import 'package:shadow_flex/widgets/hex_row.dart';
 import 'package:shadow_flex/widgets/matrix_data_row.dart';
@@ -29,13 +29,17 @@ class _MatrixPageState extends State<MatrixPage> {
           height: 20,
         ),
         TextLeftMargin(text: "Характеристики деки"),
-        Container(height: 10,),
+        Container(
+          height: 10,
+        ),
         MatrixDataRow(mapKey: "matrixInit", name: "Инициатива в матрице"),
         MatrixDataRow(mapKey: "matrixPen", name: "Проникновение"),
         MatrixDataRow(mapKey: "matrixDodge", name: "Ускользание"),
         MatrixDataRow(mapKey: "matrixPower", name: "Вычислительная мощность"),
         MatrixDataRow(mapKey: "matrixSheld", name: "Сетевой экран"),
-        Container(height: 10,),
+        Container(
+          height: 10,
+        ),
         GeneralInf(
           title: "Устройства/Рейтинг",
           fill: "",
@@ -91,6 +95,7 @@ class _MatrixPageState extends State<MatrixPage> {
                                   HeroData().AddProgram(
                                       (tempName == '') ? 'name' : tempName);
                                 } on Exception catch (e) {
+                                  log(e.toString());
                                   Navigator.pop(context);
                                 }
                                 setState(() {});
@@ -112,7 +117,9 @@ class _MatrixPageState extends State<MatrixPage> {
             child: const Text("Добавить программу"),
           ),
         ),
-        Container(height: 20,),
+        Container(
+          height: 20,
+        ),
         TextLeftMargin(text: "Счётчик состояний матрицы"),
         HexRow(lenght: 12),
         Container(

@@ -37,8 +37,7 @@ class _StatusPageState extends State<StatusPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => setState(() {}),
+    return SingleChildScrollView(
       child: Column(children: [
         Container(
           height: 20,

@@ -114,91 +114,107 @@ class _NavigationBarShadowFlexState extends State<NavigationBarShadowFlex> {
                   children: [
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        iconSize: iconSize,
-                        onPressed: OnOnePress,
-                        icon: Icon(MyFlutterApp.private,
-                            color: (widget.controller.page == 0)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          iconSize: iconSize,
+                          onPressed: OnOnePress,
+                          icon: Icon(MyFlutterApp.private,
+                              color: (widget.controller.page == 0)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnTwoPress,
-                        icon: Icon(MyFlutterApp.contact,
-                            color: (widget.controller.page == 1)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnTwoPress,
+                          icon: Icon(MyFlutterApp.contact,
+                              color: (widget.controller.page == 1)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnThreePress,
-                        icon: Icon(MyFlutterApp.skills,
-                            color: (widget.controller.page == 2)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnThreePress,
+                          icon: Icon(MyFlutterApp.skills,
+                              color: (widget.controller.page == 2)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnFourPress,
-                        icon: Icon(MyFlutterApp.damage,
-                            color: (widget.controller.page == 3)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnFourPress,
+                          icon: Icon(MyFlutterApp.damage,
+                              color: (widget.controller.page == 3)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnFivePress,
-                        icon: Icon(MyFlutterApp.armor,
-                            color: (widget.controller.page == 4)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnFivePress,
+                          icon: Icon(MyFlutterApp.armor,
+                              color: (widget.controller.page == 4)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnSixPress,
-                        icon: Icon(MyFlutterApp.weapon,
-                            color: (widget.controller.page == 5)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnSixPress,
+                          icon: Icon(MyFlutterApp.weapon,
+                              color: (widget.controller.page == 5)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnSevenPress,
-                        icon: Icon(MyFlutterApp.matrica,
-                            color: (widget.controller.page == 6)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnSevenPress,
+                          icon: Icon(MyFlutterApp.matrica,
+                              color: (widget.controller.page == 6)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: isVisible,
-                      child: IconButton(
-                        onPressed: OnEithPress,
-                        icon: Icon(MyFlutterApp.magic,
-                            color: (widget.controller.page == 7)
-                                ? ColorShemeMine().GetUnderlineDark()
-                                : ColorShemeMine().GetAkcent(),
-                            size: iconSize),
+                      child: Flexible(
+                        child: IconButton(
+                          onPressed: OnEithPress,
+                          icon: Icon(MyFlutterApp.magic,
+                              color: (widget.controller.page == 7)
+                                  ? ColorShemeMine().GetUnderlineDark()
+                                  : ColorShemeMine().GetAkcent(),
+                              size: iconSize),
+                        ),
                       ),
                     ),
                   ],

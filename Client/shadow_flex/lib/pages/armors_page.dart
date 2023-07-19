@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/armor.dart';
 import 'package:shadow_flex/models/augmentation.dart';
@@ -79,15 +78,18 @@ class _ArmorsPageState extends State<ArmorsPage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text('Закрыть', style: MyTextStyle().GetTextMiniAkcent()),
+                              child: Text('Закрыть',
+                                  style: MyTextStyle().GetTextMiniAkcent()),
                             ),
                             TextButton(
                               onPressed: () {
-                                HeroData().AddArmor(Armor(tempName, tempRating, tempEffect));
+                                HeroData().AddArmor(
+                                    Armor(tempName, tempRating, tempEffect));
                                 Navigator.pop(context);
                                 setState(() {});
                               },
-                              child: Text('Добавить', style: MyTextStyle().GetTextMiniAkcent()),
+                              child: Text('Добавить',
+                                  style: MyTextStyle().GetTextMiniAkcent()),
                             ),
                           ],
                         ),
@@ -165,9 +167,11 @@ class _ArmorsPageState extends State<ArmorsPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                HeroData().AddAugmentation(
-                                  Augmentation(tempName, tempRating, tempEntity, tempNote)
-                                );
+                                HeroData().AddAugmentation(Augmentation(
+                                    tempName,
+                                    tempRating,
+                                    tempEntity,
+                                    tempNote));
                                 Navigator.pop(context);
                                 setState(() {});
                               },
@@ -199,7 +203,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
 
   Widget armorsBuilder(BuildContext context) {
     List<GestureDetector> result = List.empty(growable: true);
-    List<Armor> armors= HeroData().GetArmors();
+    List<Armor> armors = HeroData().GetArmors();
 
     for (var i = 0; i < armors.length; i++) {
       result.add(GestureDetector(
@@ -228,17 +232,19 @@ class _ArmorsPageState extends State<ArmorsPage> {
       result.add(GestureDetector(
         onTap: () => RemoveAugmentation(augmentations[i]),
         child: DataCardWidget(
-          heder: augmentations[i].name,
-          bigData: [
-            'Рейтинг', augmentations[i].rating,
-            'Сущность', augmentations[i].entity
-          ],
-          smolData: (augmentations[i].note != '') ?
-          [
-            'Заметки',
-            augmentations[i].note,
-          ] : const []
-        ),
+            heder: augmentations[i].name,
+            bigData: [
+              'Рейтинг',
+              augmentations[i].rating,
+              'Сущность',
+              augmentations[i].entity
+            ],
+            smolData: (augmentations[i].note != '')
+                ? [
+                    'Заметки',
+                    augmentations[i].note,
+                  ]
+                : const []),
       ));
     }
 

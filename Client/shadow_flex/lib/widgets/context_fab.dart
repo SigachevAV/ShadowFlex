@@ -14,10 +14,14 @@ class ContextFAB extends StatefulWidget {
 class _ContextFABState extends State<ContextFAB> {
   SetupVar setupVar = SetupVar();
   IconData icon = Icons.casino_sharp;
+  int page = 0;
   @override
   void initState() {
+    page = widget.controller.initialPage;
     widget.controller.addListener(() {
-      setState(() {});
+      setState(() {
+        page = widget.controller.page!.toInt();
+      });
     });
     super.initState();
   }
@@ -28,7 +32,7 @@ class _ContextFABState extends State<ContextFAB> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Visibility(
-          visible: (widget.controller.page == 2),
+          visible: (page == 2),
           child: SquareFAB(
               () => {
                     setState(() {
@@ -43,7 +47,7 @@ class _ContextFABState extends State<ContextFAB> {
               icon),
         ),
         Visibility(
-          visible: (widget.controller.page == 3),
+          visible: (page == 3),
           child: SquareFAB(() {
             AddHarmToHero(context).then((value) {
               setState(() {});

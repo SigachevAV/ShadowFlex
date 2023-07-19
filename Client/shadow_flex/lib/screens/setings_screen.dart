@@ -3,6 +3,7 @@ import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -31,6 +32,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               height: 20,
             ),
+            Container(
+                height: 35,
+                margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: ColorShemeMine().GetAkcent()),
+                ),
+                child: MaterialButton(
+                  onPressed: () {
+                    try {
+                      launchUrl(Uri.parse(
+                          "https://github.com/SigachevAV/ShadowFlex/discussions/categories/вug-reports"));
+                    } catch (e) {}
+                  },
+                  child: Row(children: [
+                    Icon(
+                      Icons.bug_report_sharp,
+                      color: ColorShemeMine().GetAkcent(),
+                    ),
+                    Container(
+                      width: 10,
+                    ),
+                    Text(
+                      "Сообщить об ошибке",
+                      style: TextStyle(
+                          fontSize: 17, color: ColorShemeMine().GetAkcent()),
+                    )
+                  ]),
+                )),
+            Divider(),
             Container(
               height: 35,
               margin: EdgeInsets.fromLTRB(30, 10, 30, 10),

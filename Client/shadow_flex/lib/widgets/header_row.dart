@@ -10,10 +10,15 @@ class HeaderRow extends StatefulWidget {
 }
 
 class _HeaderRowState extends State<HeaderRow> {
+  int page = 0;
+
   @override
   void initState() {
+    page = widget.controller.initialPage;
     widget.controller.addListener(() {
-      setState(() {});
+      setState(() {
+        page = widget.controller.page!.toInt();
+      });
     });
     super.initState();
   }
@@ -23,61 +28,61 @@ class _HeaderRowState extends State<HeaderRow> {
     return Row(
       children: [
         Visibility(
-          visible: (widget.controller.page == 0),
+          visible: (page == 0),
           child: Text(
             "Общая информация",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 1),
+          visible: (page == 1),
           child: Text(
             "Качества и связи",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 2),
+          visible: (page == 2),
           child: Text(
             "Навыки и способности",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 3),
+          visible: (page == 3),
           child: Text(
             "Урон и травмы",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 4),
+          visible: (page == 4),
           child: Text(
             "Броня",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 5),
+          visible: (page == 5),
           child: Text(
             "Оружие",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 6),
+          visible: (page == 6),
           child: Text(
             "Матрица",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
         ),
         Visibility(
-          visible: (widget.controller.page == 7),
+          visible: (page == 7),
           child: Text(
             "Заклинания и прочее",
             style: MyTextStyle().GetTextAkcentDecoration(),
           ),
-        ), 
+        ),
       ],
     );
   }
