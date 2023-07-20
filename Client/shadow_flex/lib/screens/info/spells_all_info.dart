@@ -72,7 +72,7 @@ class _SpellsAllInfoScreenState extends State<SpellsAllInfoScreen> {
             ),
           ),
           child: Text(
-            key.toString(),
+            convertSpellCategory(key.toString()),
             style: MyTextStyle().GetTextAkcentBold(),
           ),
         ),
