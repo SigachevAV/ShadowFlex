@@ -7,9 +7,7 @@ Map<String, List<SpellInfo>> spellInfoMapFromJson(String str) {
 	for(var key in decoded.keys) {
     temp = List.empty(growable: true);
 		for (var element in decoded[key]) {
-      SpellInfo info = SpellInfo.fromJson(element);
-      info.category = convertSpellCategory(info.category);
-			temp.add(info);
+			temp.add(SpellInfo.fromJson(element));
 		}
 		result[key] = temp;
 	}
