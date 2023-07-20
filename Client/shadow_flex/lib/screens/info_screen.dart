@@ -21,7 +21,6 @@ class _InfoScreenState extends State<InfoScreen> {
       drawer: DrawerSF(),
       backgroundColor: ColorShemeMine().GetBackgroundDark(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
           "Справка",
@@ -41,6 +40,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           AdeptusInfoAllScreen()));
             },
             child: TextLeftMargin(text: "Способности адепта")),
+        Container(height: 10,),
         GestureDetector(
             onTap: () {
               Navigator.push(
@@ -50,6 +50,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           MatrixAllInfoScreen()));
             },
             child: TextLeftMargin(text: "Матричные действия")),
+        Container(height: 10,),
         GestureDetector(
             onTap: () {
               Navigator.push(

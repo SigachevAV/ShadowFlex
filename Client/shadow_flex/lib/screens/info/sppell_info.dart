@@ -30,7 +30,7 @@ class _SpellInfoScreenState extends State<SpellInfoScreen> {
         iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
-          "Силы адепта",
+          "Заклинания",
           style: MyTextStyle().GetTextAkcentDecoration(),
         ),
       ),
