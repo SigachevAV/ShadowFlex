@@ -30,7 +30,7 @@ class _MatrixAllInfoScreenState extends State<MatrixAllInfoScreen> {
         iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
-          "Силы адепта",
+          "Матричные действия",
           style: MyTextStyle().GetTextAkcentDecoration(),
         ),
       ),

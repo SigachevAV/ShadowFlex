@@ -30,7 +30,7 @@ class _AdeptusInfoScreenState extends State<AdeptusInfoScreen> {
         iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
-          "Силы адепта",
+          "Способности адепта",
           style: MyTextStyle().GetTextAkcentDecoration(),
         ),
       ),

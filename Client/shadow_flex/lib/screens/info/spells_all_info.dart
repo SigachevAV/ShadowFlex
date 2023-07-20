@@ -29,7 +29,7 @@ class _SpellsAllInfoScreenState extends State<SpellsAllInfoScreen> {
         iconTheme: IconThemeData(color: ColorShemeMine().GetAkcent()),
         backgroundColor: ColorShemeMine().GetUninteractiveDark(),
         title: Text(
-          "Силы адепта",
+          "Заклинания",
           style: MyTextStyle().GetTextAkcentDecoration(),
         ),
       ),
