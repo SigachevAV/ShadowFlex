@@ -1,18 +1,19 @@
 import 'dart:collection';
 import 'dart:convert';
 
-List<MatrixInfo> _matrixInfoListFromJson(String str) =>
-    List<MatrixInfo>.from(json.decode(str).map((x) => MatrixInfo.fromJson(x)));
+import 'package:flutter/widgets.dart';
 
-Map<String, List<MatrixInfo>> func(String str) {
-  var decoded = jsonDecode(str) as Map;
-  Map<String, List<MatrixInfo>> result = Map();
-  List<MatrixInfo> temp = List.empty(growable: true);
-  for (var element in decoded["MAJOR"]) {
-    temp.add(MatrixInfo.fromJson(element));
-  }
-  result["MAJOR"] = temp;
-  return result;
+Map<String, List<MatrixInfo>> matrixInfoMapFromJson(String str) {
+	var decoded = jsonDecode(str) as Map;
+	Map<String, List<MatrixInfo>> result = Map();
+	List<MatrixInfo> temp = List.empty(growable: true);
+	for(var key in decoded.keys) {
+		for (var element in decoded[key]) {
+			temp.add(MatrixInfo.fromJson(element));
+		}
+		result[key] = temp;
+	}
+	return result;
 }
 
 class MatrixInfo {
@@ -45,6 +46,7 @@ class MatrixInfo {
     );
 
     Map<String, dynamic> toJson() => {
+		"id": id,
         "name": name,
         "access": access,
         "legal": legal,
