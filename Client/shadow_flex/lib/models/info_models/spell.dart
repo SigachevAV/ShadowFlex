@@ -7,11 +7,38 @@ Map<String, List<SpellInfo>> spellInfoMapFromJson(String str) {
 	for(var key in decoded.keys) {
     temp = List.empty(growable: true);
 		for (var element in decoded[key]) {
-			temp.add(SpellInfo.fromJson(element));
+      SpellInfo info = SpellInfo.fromJson(element);
+      info.category = convertSpellCategory(info.category);
+			temp.add(info);
 		}
 		result[key] = temp;
 	}
 	return result;
+}
+
+String convertSpellCategory(String short) {
+  String longCat;
+  switch(short) {
+    case "COM":
+      longCat = "COMBAT";
+      break;
+    case "DET":
+      longCat = "DETECTION";
+      break;
+    case "HEAL":
+      longCat = "HEALTH";
+      break;
+    case "ILL":
+      longCat = "ILLUSION";
+      break;
+    case "MAN": 
+      longCat = "MANIPULTAION";
+      break;
+    default:
+      longCat = "";
+      break;
+  }
+  return longCat;
 }
 
 class SpellInfo {
