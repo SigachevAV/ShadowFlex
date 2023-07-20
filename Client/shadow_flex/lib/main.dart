@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/screens/main_screen.dart';
 import 'package:shadow_flex/services/adepts_service.dart';
@@ -6,6 +7,12 @@ import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  HeroData data = HeroData();
+  data.Load().then(
+    (value) => FlutterNativeSplash.remove(),
+  );
   runApp(const MyApp());
 }
 
@@ -14,8 +21,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HeroData hero = HeroData();
-    hero.Load();
     AdeptsService adeptsService = AdeptsService();
     adeptsService.getById(2);
     return MaterialApp(

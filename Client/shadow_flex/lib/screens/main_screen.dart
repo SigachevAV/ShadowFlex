@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:http/http.dart';
 import 'package:shadow_flex/functions/add_harm.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
@@ -27,10 +29,24 @@ class _MainPagesVievState extends State<MainPagesViev> {
   final PageController controller = PageController(initialPage: 2);
   IconData icon = Icons.casino_sharp;
   SetupVar setupVar = SetupVar();
+  int page = 2;
+  HeroData date = HeroData();
   @override
   void initState() {
-    HeroData().Load();
+    page = controller.initialPage;
+    controller.addListener(() {
+      setState(() {
+        page = controller.page!.toInt();
+      });
+    });
     super.initState();
+    //upDate();
+  }
+
+  void upDate() {
+    setState(() {
+      date.Load().then((value) => FlutterNativeSplash.remove());
+    });
   }
 
   @override
@@ -56,8 +72,33 @@ class _MainPagesVievState extends State<MainPagesViev> {
           SpellsPage(),
         ],
       ),
-      floatingActionButton: ContextFAB(
-        controller: controller,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: (page == 2),
+            child: SquareFAB(
+                () => {
+                      setState(() {
+                        setupVar.ChangeMode();
+                        if (setupVar.rollMode) {
+                          icon = Icons.casino_sharp;
+                        } else {
+                          icon = Icons.create_sharp;
+                        }
+                      })
+                    },
+                icon),
+          ),
+          Visibility(
+            visible: (page == 3),
+            child: SquareFAB(() {
+              AddHarmToHero(context).then((value) {
+                setState(() {});
+              });
+            }, Icons.bolt_sharp),
+          )
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SafeArea(

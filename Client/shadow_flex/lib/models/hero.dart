@@ -38,7 +38,7 @@ class HeroData {
     return _instanse;
   }
 
-  Future<bool> Load() {
+  Future<bool> Load() async {
     return SharedPreferenceManager().LoadHero();
   }
 
