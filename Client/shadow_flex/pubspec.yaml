@@ -39,6 +39,8 @@ dependencies:
   flutter_material_pickers: ^3.5.0
   http: ^1.1.0
   url_launcher: ^6.1.12
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +52,18 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/icon.png"
+  background_color_ios: "#292020"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+flutter_native_splash:
+  color: "#292020"
+  image: "assets/images/splash.png"
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

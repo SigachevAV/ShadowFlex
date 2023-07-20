@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/screens/info/adeptus_all_info.dart';
+import 'package:shadow_flex/screens/info/matrix_all_info.dart';
+import 'package:shadow_flex/screens/info/spells_all_info.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/drawer_sf.dart';
@@ -39,6 +41,24 @@ class _InfoScreenState extends State<InfoScreen> {
                           AdeptusInfoAllScreen()));
             },
             child: TextLeftMargin(text: "Способности адепта")),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          MatrixAllInfoScreen()));
+            },
+            child: TextLeftMargin(text: "Матричные действия")),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          SpellsAllInfoScreen()));
+            },
+            child: TextLeftMargin(text: "Заклинания")),
         Container(
           height: 30,
         ),
