@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/models/setup_var.dart';
+import 'package:shadow_flex/my_flutter_app_icons.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
 import 'package:shadow_flex/widgets/underline_display_row.dart';
@@ -26,35 +27,127 @@ class _AbillytyRowState extends State<AbillytyRow> {
   SetupVar setupVar = SetupVar();
   int stat = 0;
 
+  void ShowRolledDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        List<int> roll = heroData.Roll(widget.index, 0);
+        int hits = roll.removeAt(0);
+        List<Widget> result = List.empty(growable: true);
+        for (var i = 0; i < roll.length / 6; i++) {
+          List<Widget> temp = List.empty(growable: true);
+          for (var j = 0; j < 6; j++) {
+            if (i * 6 + j >= roll.length) {
+              break;
+            }
+
+            switch (roll[i * 6 + j]) {
+              case 6:
+                temp.add(Icon(
+                  MyFlutterApp.dice_six_,
+                  size: 40,
+                  color: ColorShemeMine().GetAkcent(),
+                ));
+                break;
+              case 5:
+                temp.add(Icon(
+                  MyFlutterApp.dice_five_,
+                  size: 40,
+                  color: ColorShemeMine().GetAkcent(),
+                ));
+                break;
+              case 4:
+                temp.add(Icon(
+                  MyFlutterApp.dice_four_,
+                  size: 40,
+                  color: ColorShemeMine().GetCardColor(),
+                ));
+                break;
+              case 3:
+                temp.add(Icon(
+                  MyFlutterApp.dice_three_,
+                  size: 40,
+                  color: ColorShemeMine().GetCardColor(),
+                ));
+                break;
+              case 2:
+                temp.add(Icon(
+                  MyFlutterApp.dice_two_,
+                  size: 40,
+                  color: ColorShemeMine().GetCardColor(),
+                ));
+                break;
+              case 1:
+                temp.add(Icon(
+                  MyFlutterApp.dice_one_,
+                  size: 40,
+                  color: Colors.red,
+                ));
+                break;
+              default:
+                break;
+            }
+          }
+
+          result.add(Container(
+            margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: temp,
+            ),
+          ));
+        }
+        String resultStatus = '';
+        switch (hits) {
+          case -1:
+            resultStatus = "Glitch";
+            break;
+          case -2:
+            resultStatus = "Critical Glitch";
+            break;
+          default:
+            resultStatus = "Hits: " + hits.toString();
+            break;
+        }
+
+        log(roll.toString());
+        return Dialog(
+          backgroundColor: ColorShemeMine().GetBackgroundDark(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Text(
+                      resultStatus,
+                      style: MyTextStyle().GetTextHeder(),
+                    ),
+                  ),
+                ] +
+                result +
+                [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Close',
+                      style: MyTextStyle().GetTextMiniAkcent(),
+                    ),
+                  ),
+                ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
           if (setupVar.rollMode) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                List<int> roll = heroData.Roll(widget.index, 0);
-                int hits = roll.removeAt(0);
-                log(roll.toString());
-                return Dialog(
-                  backgroundColor: ColorShemeMine().GetBackgroundDark(),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Hits: " + hits.toString()),
-                      Text(roll.toString()),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
+            ShowRolledDialog();
           } else {
             showMaterialNumberPicker(
               context: context,

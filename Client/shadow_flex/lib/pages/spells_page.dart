@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shadow_flex/models/adept.dart';
 import 'package:shadow_flex/widgets/data_card.dart';
-import 'package:shadow_flex/widgets/matrix_data_row.dart';
 import 'package:shadow_flex/widgets/text_left_margin.dart';
 import 'package:shadow_flex/models/spell.dart';
-
 import 'package:shadow_flex/models/hero.dart';
 import 'package:shadow_flex/style/color_sheme.dart';
 import 'package:shadow_flex/style/test_style.dart';
@@ -26,7 +24,8 @@ class _SpellsPageState extends State<SpellsPage> {
         Container(
           height: 20,
         ),
-        const TextLeftMargin(text: 'Заклинания / Заготовки / Ритуалы / Сложные формы'),
+        const TextLeftMargin(
+            text: 'Заклинания / Заготовки / Ритуалы / Сложные формы'),
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Builder(builder: spellsBuilder),
@@ -53,60 +52,62 @@ class _SpellsPageState extends State<SpellsPage> {
                   String tempExhaust = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(height: 10),
-                        //TODO ADD FORM
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempName = value;
-                            }),
-                            title: "Название"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempType = value;
-                            }),
-                            title: "Тип"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempDistance = value;
-                            }),
-                            title: "Дистанция"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempDuration = value;
-                            }),
-                            title: "Длительность"),
-                        InputTextFF(
-                            isNumerical: true,
-                            onChange: ((value) {
-                              tempExhaust = value;
-                            }),
-                            title: "Истощение"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Закрыть',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                HeroData().AddSpell(Spell(tempName, tempType,
-                                    tempDistance, tempDuration, tempExhaust));
-                                Navigator.pop(context);
-                                setState(() {});
-                              },
-                              child: Text('Добавить',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(height: 10),
+                          //TODO ADD FORM
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempName = value;
+                              }),
+                              title: "Название"),
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempType = value;
+                              }),
+                              title: "Тип"),
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempDistance = value;
+                              }),
+                              title: "Дистанция"),
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempDuration = value;
+                              }),
+                              title: "Длительность"),
+                          InputTextFF(
+                              isNumerical: true,
+                              onChange: ((value) {
+                                tempExhaust = value;
+                              }),
+                              title: "Истощение"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Закрыть',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  HeroData().AddSpell(Spell(tempName, tempType,
+                                      tempDistance, tempDuration, tempExhaust));
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text('Добавить',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -140,50 +141,52 @@ class _SpellsPageState extends State<SpellsPage> {
                   String tempNote = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(height: 10),
-                        //TODO ADD FORM
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempName = value;
-                            }),
-                            title: "Название"),
-                        InputTextFF(
-                            isNumerical: true,
-                            onChange: ((value) {
-                              tempLevel = value;
-                            }),
-                            title: "Уровень"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempNote = value;
-                            }),
-                            title: "Заметки"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Закрыть',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                HeroData().AddAdept(
-                                    Adept(tempName, tempLevel, tempNote));
-                                Navigator.pop(context);
-                                setState(() {});
-                              },
-                              child: Text('Добавить',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(height: 10),
+                          //TODO ADD FORM
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempName = value;
+                              }),
+                              title: "Название"),
+                          InputTextFF(
+                              isNumerical: true,
+                              onChange: ((value) {
+                                tempLevel = value;
+                              }),
+                              title: "Уровень"),
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempNote = value;
+                              }),
+                              title: "Заметки"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Закрыть',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  HeroData().AddAdept(
+                                      Adept(tempName, tempLevel, tempNote));
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text('Добавить',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -239,14 +242,11 @@ class _SpellsPageState extends State<SpellsPage> {
       result.add(GestureDetector(
         onTap: () => RemoveAdept(adepts[i]),
         child: DataCardWidget(
-          heder: adepts[i].name,
-          bigData: ['Уровень', adepts[i].level],
-          smolData: (adepts[i].note != '') ?
-          [
-            'Заметки',
-            adepts[i].note
-          ] : const []
-        ),
+            heder: adepts[i].name,
+            bigData: ['Уровень', adepts[i].level],
+            smolData: (adepts[i].note != '')
+                ? ['Заметки', adepts[i].note]
+                : const []),
       ));
     }
 

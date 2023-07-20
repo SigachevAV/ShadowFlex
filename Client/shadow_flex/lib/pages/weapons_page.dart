@@ -29,68 +29,70 @@ class _WeaponsPageState extends State<WeaponsPage> {
         String tempRS = '';
         return Dialog(
           backgroundColor: ColorShemeMine().GetBackgroundDark(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(height: 10),
-              InputTextFF(
-                  onChange: (value) {
-                    tempName = value;
-                  },
-                  title: 'Имя'),
-              InputTextFF(
-                  isNumerical: true,
-                  onChange: (value) {
-                    tempDF = value;
-                  },
-                  title: 'СУ'),
-              InputTextFF(
-                  isNumerical: true,
-                  onChange: (value) {
-                    tempAmmo = value;
-                  },
-                  title: 'Боезапас'),
-              InputTextFF(
-                  onChange: (value) {
-                    tempRait = value;
-                  },
-                  title: 'Рейтинг атаки'),
-              InputTextFF(
-                  onChange: (value) {
-                    tempRS = value;
-                  },
-                  title: 'Режимы стрельбы'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(height: 10),
+                InputTextFF(
+                    onChange: (value) {
+                      tempName = value;
                     },
-                    child: Text(
-                      'Закрыть',
-                      style: MyTextStyle().GetTextMiniAkcent(),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      try {
-                        HeroData().AddWeapon(Weapon(
-                            tempAmmo, tempDF, tempRait, tempName, tempRS));
-                      } on Exception catch (e) {
+                    title: 'Имя'),
+                InputTextFF(
+                    isNumerical: true,
+                    onChange: (value) {
+                      tempDF = value;
+                    },
+                    title: 'СУ'),
+                InputTextFF(
+                    isNumerical: true,
+                    onChange: (value) {
+                      tempAmmo = value;
+                    },
+                    title: 'Боезапас'),
+                InputTextFF(
+                    onChange: (value) {
+                      tempRait = value;
+                    },
+                    title: 'Рейтинг атаки'),
+                InputTextFF(
+                    onChange: (value) {
+                      tempRS = value;
+                    },
+                    title: 'Режимы стрельбы'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
                         Navigator.pop(context);
-                      }
-                      setState(() {});
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Добавить',
-                      style: MyTextStyle().GetTextMiniAkcent(),
+                      },
+                      child: Text(
+                        'Закрыть',
+                        style: MyTextStyle().GetTextMiniAkcent(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    TextButton(
+                      onPressed: () {
+                        try {
+                          HeroData().AddWeapon(Weapon(
+                              tempAmmo, tempDF, tempRait, tempName, tempRS));
+                        } on Exception catch (e) {
+                          Navigator.pop(context);
+                        }
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Добавить',
+                        style: MyTextStyle().GetTextMiniAkcent(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -106,58 +108,60 @@ class _WeaponsPageState extends State<WeaponsPage> {
         String tempMelee = '';
         return Dialog(
           backgroundColor: ColorShemeMine().GetBackgroundDark(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(height: 10),
-              InputTextFF(
-                  onChange: (value) {
-                    tempName = value;
-                  },
-                  title: 'Имя'),
-              InputTextFF(
-                  isNumerical: true,
-                  onChange: (value) {
-                    tempDF = value;
-                  },
-                  title: 'СУ'),
-              InputTextFF(
-                  isNumerical: true,
-                  onChange: (value) {
-                    tempMelee = value;
-                  },
-                  title: 'Вплотную'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(height: 10),
+                InputTextFF(
+                    onChange: (value) {
+                      tempName = value;
                     },
-                    child: Text(
-                      'Закрыть',
-                      style: MyTextStyle().GetTextMiniAkcent(),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      try {
-                        HeroData().AddMeleeWeapon(
-                            MeleeWeapon(tempDF, tempMelee, tempName));
-                      } on Exception catch (e) {
+                    title: 'Имя'),
+                InputTextFF(
+                    isNumerical: true,
+                    onChange: (value) {
+                      tempDF = value;
+                    },
+                    title: 'СУ'),
+                InputTextFF(
+                    isNumerical: true,
+                    onChange: (value) {
+                      tempMelee = value;
+                    },
+                    title: 'Вплотную'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
                         Navigator.pop(context);
-                      }
-                      setState(() {});
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Добавить',
-                      style: MyTextStyle().GetTextMiniAkcent(),
+                      },
+                      child: Text(
+                        'Закрыть',
+                        style: MyTextStyle().GetTextMiniAkcent(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    TextButton(
+                      onPressed: () {
+                        try {
+                          HeroData().AddMeleeWeapon(
+                              MeleeWeapon(tempDF, tempMelee, tempName));
+                        } on Exception catch (e) {
+                          Navigator.pop(context);
+                        }
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Добавить',
+                        style: MyTextStyle().GetTextMiniAkcent(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

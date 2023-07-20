@@ -50,50 +50,52 @@ class _ArmorsPageState extends State<ArmorsPage> {
                   String tempEffect = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(height: 10),
-                        //TODO ADD FORM
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempName = value;
-                            }),
-                            title: "Название"),
-                        InputTextFF(
-                            isNumerical: true,
-                            onChange: ((value) {
-                              tempRating = value;
-                            }),
-                            title: "Рейтинг"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempEffect = value;
-                            }),
-                            title: "Эффект"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Закрыть',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                HeroData().AddArmor(
-                                    Armor(tempName, tempRating, tempEffect));
-                                Navigator.pop(context);
-                                setState(() {});
-                              },
-                              child: Text('Добавить',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(height: 10),
+                          //TODO ADD FORM
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempName = value;
+                              }),
+                              title: "Название"),
+                          InputTextFF(
+                              isNumerical: true,
+                              onChange: ((value) {
+                                tempRating = value;
+                              }),
+                              title: "Рейтинг"),
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempEffect = value;
+                              }),
+                              title: "Эффект"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Закрыть',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  HeroData().AddArmor(
+                                      Armor(tempName, tempRating, tempEffect));
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text('Добавить',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -128,59 +130,61 @@ class _ArmorsPageState extends State<ArmorsPage> {
                   String tempNote = '';
                   return Dialog(
                     backgroundColor: ColorShemeMine().GetBackgroundDark(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(height: 10),
-                        //TODO ADD FORM
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempName = value;
-                            }),
-                            title: "Название"),
-                        InputTextFF(
-                            isNumerical: true,
-                            onChange: ((value) {
-                              tempRating = value;
-                            }),
-                            title: "Рейтинг"),
-                        InputTextFF(
-                            isNumerical: true,
-                            onChange: ((value) {
-                              tempEntity = value;
-                            }),
-                            title: "Сущность"),
-                        InputTextFF(
-                            onChange: ((value) {
-                              tempNote = value;
-                            }),
-                            title: "Заметки"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Закрыть',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                HeroData().AddAugmentation(Augmentation(
-                                    tempName,
-                                    tempRating,
-                                    tempEntity,
-                                    tempNote));
-                                Navigator.pop(context);
-                                setState(() {});
-                              },
-                              child: Text('Добавить',
-                                  style: MyTextStyle().GetTextMiniAkcent()),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(height: 10),
+                          //TODO ADD FORM
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempName = value;
+                              }),
+                              title: "Название"),
+                          InputTextFF(
+                              isNumerical: true,
+                              onChange: ((value) {
+                                tempRating = value;
+                              }),
+                              title: "Рейтинг"),
+                          InputTextFF(
+                              isNumerical: true,
+                              onChange: ((value) {
+                                tempEntity = value;
+                              }),
+                              title: "Сущность"),
+                          InputTextFF(
+                              onChange: ((value) {
+                                tempNote = value;
+                              }),
+                              title: "Заметки"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Закрыть',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  HeroData().AddAugmentation(Augmentation(
+                                      tempName,
+                                      tempRating,
+                                      tempEntity,
+                                      tempNote));
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text('Добавить',
+                                    style: MyTextStyle().GetTextMiniAkcent()),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

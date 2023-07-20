@@ -299,9 +299,8 @@ class HeroData {
       roll.add(0);
       return roll;
     }
-    roll.add(0);
     for (var i = 0; i < pool; i++) {
-      int temp = Random().nextInt(5) + 1;
+      int temp = Random().nextInt(6) + 1;
       if (temp > 4) {
         hits += 1;
       }
@@ -310,6 +309,9 @@ class HeroData {
       }
       roll.add(temp);
     }
+    roll.sort();
+    roll = roll.reversed.toList();
+    roll.insert(0, 0);
     if (ones == pool ~/ 2 + 1) {
       roll[0] = -1;
     } else if (ones > pool ~/ 2 + 1) {
