@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:shadow_flex/services/api_constants.dart';
-import 'package:shadow_flex/models/info_models/adept.dart';
 import 'package:shadow_flex/models/info_models/matrix.dart';
 
 class MatrixService {

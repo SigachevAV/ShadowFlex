@@ -2,19 +2,18 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:shadow_flex/models/info_models/spell.dart';
 import 'package:shadow_flex/services/api_constants.dart';
-import 'package:shadow_flex/models/info_models/adept.dart';
-import 'package:shadow_flex/models/info_models/matrix.dart';
 
-class MatrixService {
-  Future<Map<String, List<MatrixInfo>>?> getAll() async {
-    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.matrixEndPoint)
+class SpellsService {
+  Future<Map<String, List<SpellInfo>>?> getAll() async {
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.spellsEndPoint)
         .replace(
             queryParameters: {ApiConstants.langParam: ApiConstants.language});
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        return matrixInfoMapFromJson(utf8.decode(response.bodyBytes));
+        return spellInfoMapFromJson(utf8.decode(response.bodyBytes));
       }
     } catch (e) {
       log(e.toString());
@@ -22,16 +21,16 @@ class MatrixService {
     return null;
   }
 
-  Future<MatrixInfo?> getById(int id) async {
+  Future<SpellInfo?> getById(int id) async {
     var url =
-        Uri.parse('${ApiConstants.baseUrl}${ApiConstants.matrixEndPoint}/$id')
+        Uri.parse('${ApiConstants.baseUrl}${ApiConstants.spellsEndPoint}/$id')
             .replace(queryParameters: {
       ApiConstants.langParam: ApiConstants.language
     });
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        return MatrixInfo.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        return SpellInfo.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       }
     } catch (e) {
       log(e.toString());
@@ -39,8 +38,8 @@ class MatrixService {
     return null;
   }
 
-  Future<Map<String, List<MatrixInfo>>?> getByName(String name) async {
-    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.matrixEndPoint + ApiConstants.searchRoute)
+  Future<Map<String, List<SpellInfo>>?> getByName(String name) async {
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.spellsEndPoint + ApiConstants.searchRoute)
         .replace(
             queryParameters: {
               ApiConstants.langParam: ApiConstants.language,
@@ -49,7 +48,7 @@ class MatrixService {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        return matrixInfoMapFromJson(utf8.decode(response.bodyBytes));
+        return spellInfoMapFromJson(utf8.decode(response.bodyBytes));
       }
     } catch (e) {
       log(e.toString());

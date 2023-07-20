@@ -3,8 +3,9 @@ import 'dart:convert';
 Map<String, List<SpellInfo>> spellInfoMapFromJson(String str) {
 	var decoded = jsonDecode(str) as Map;
 	Map<String, List<SpellInfo>> result = Map();
-	List<SpellInfo> temp = List.empty(growable: true);
+	List<SpellInfo> temp;
 	for(var key in decoded.keys) {
+    temp = List.empty(growable: true);
 		for (var element in decoded[key]) {
 			temp.add(SpellInfo.fromJson(element));
 		}
