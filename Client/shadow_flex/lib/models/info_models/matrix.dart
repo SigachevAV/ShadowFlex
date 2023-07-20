@@ -1,13 +1,11 @@
-import 'dart:collection';
 import 'dart:convert';
-
-import 'package:flutter/widgets.dart';
 
 Map<String, List<MatrixInfo>> matrixInfoMapFromJson(String str) {
 	var decoded = jsonDecode(str) as Map;
 	Map<String, List<MatrixInfo>> result = Map();
-	List<MatrixInfo> temp = List.empty(growable: true);
+	List<MatrixInfo> temp;
 	for(var key in decoded.keys) {
+    temp = List.empty(growable: true);
 		for (var element in decoded[key]) {
 			temp.add(MatrixInfo.fromJson(element));
 		}
