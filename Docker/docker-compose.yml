@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  api:
+    image: 'api:latest'
+    build:
+      context: ./api
+    container_name: api
+    depends_on: 
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=ShadowFlexDB
+      - DB_USER=postgres
+      - DB_PASSWORD=y6hRkhWo
+    ports: 
+      - 8080:8080
+    restart: always
+    profiles: 
+      - prod
+      
+  filler:
+    image: 'filler:latest'
+    build:
+      context: ./filler
+    container_name: filler
+    depends_on: 
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=ShadowFlexDB
+      - DB_USER=postgres
+      - DB_PASSWORD=y6hRkhWo
+      - SECURITY_USER=admin
+      - SECURITY_PASSWORD=W74dXbFh
+    ports: 
+      - 80:8080
+    restart: always
+    profiles: 
+      - fill
+      
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - db
+    ports:
+      - 8081:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@shadowflex.com
+      PGADMIN_DEFAULT_PASSWORD: hAEm0LZ5
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
+    profiles: 
+      - fill
+
+  db:
+    image: 'postgres:latest'
+    build:
+      context: ./db
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=y6hRkhWo
+      - POSTGRES_DB=ShadowFlexDB
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+#     - ./schema:/docker-entrypoint-initdb.d      
+      
+volumes:
+  pgdata:
+  pgadmindata:
+    

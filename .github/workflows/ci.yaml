@@ -1,0 +1,89 @@
+
+  name: CI
+  on:
+    pull_request:
+        branches:
+          - master
+          - dev
+    push: 
+        branches:
+          - master
+          - dev
+  jobs:
+    flutter_test:
+        name: Run flutter tests
+        runs-on: ubuntu-latest
+        env:
+          working-directory: ./Client/shadow_flex
+        steps: 
+          - uses: actions/checkout@v2
+          - uses: actions/setup-java@v1
+            with:
+              java-version: "12.x"
+          - run: pwd
+            working-directory: ${{env.working-directory}}
+          - run: ls
+            working-directory: ${{env.working-directory}}
+          - uses: subosito/flutter-action@v1
+            with:
+              channel: "stable"
+          - run: flutter pub get
+            working-directory: ${{env.working-directory}}
+          - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+            working-directory: ${{env.working-directory}}
+          - run: flutter test
+            working-directory: ${{env.working-directory}}
+    java_build_server:
+      runs-on: ubuntu-latest
+      env:
+        working-directory: ./Server
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+        - name: Build with Maven
+          run: mvn -B package --file pom.xml
+          working-directory: ${{env.working-directory}}
+#        - name: Move package
+#          run: cp ./target/*.jar ../Docker/api/
+#          working-directory: ${{env.working-directory}}
+#        - name: Commit and push build
+#          uses: devops-infra/action-commit-push@v0.9.2
+#          with:
+#            github_token: ${{ secrets.GIT_TOKEN }}
+#            commit_prefix: "[AUTO-COMMIT]"
+#            commit_message: "server jar moved to Docker"
+# Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+
+    java_build_filler:
+      runs-on: ubuntu-latest
+      env:
+        working-directory: ./DB-Filler
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+        - name: Build with Maven
+          run: mvn -B package --file pom.xml
+          working-directory: ${{env.working-directory}}
+#        - name: Move package
+#          run: cp ./target/*.jar ../Docker/filler/
+#          working-directory: ${{env.working-directory}}
+#        - name: Commit and push build
+#          uses: devops-infra/action-commit-push@v0.9.2
+#          with:
+#            github_token: ${{ secrets.GIT_TOKEN }}
+#            commit_prefix: "[AUTO-COMMIT]"
+#            commit_message: "filler jar moved to Docker"
+# Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+          
+                    
+          
