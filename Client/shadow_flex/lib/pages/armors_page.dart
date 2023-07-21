@@ -215,6 +215,8 @@ class _ArmorsPageState extends State<ArmorsPage> {
           child: DataCardWidget(heder: armors[i].name, bigData: [
             'Рейтинг',
             armors[i].rating,
+            '',
+            '',
             'Эффект',
             armors[i].effect,
           ])));

@@ -25,15 +25,20 @@ class _DataCardWidgetState extends State<DataCardWidget> {
         if (i * 4 + j >= widget.bigData.length) {
           break;
         }
+        if (widget.bigData[i * 4 + j] == '') {
+          continue;
+        }
         temp.add(
-          Container(
-              margin: EdgeInsets.fromLTRB(((j % 2 == 0) ? 10 : 5), 0, 0, 5),
-              child: Text(
-                widget.bigData[i * 4 + j],
-                style: (j % 2 == 0)
-                    ? MyTextStyle().GetTextDecoration()
-                    : MyTextStyle().GetTextAkcentBold(),
-              )),
+          Flexible(
+            child: Container(
+                margin: EdgeInsets.fromLTRB(((j % 2 == 0) ? 10 : 5), 0, 0, 5),
+                child: Text(
+                  widget.bigData[i * 4 + j],
+                  style: (j % 2 == 0)
+                      ? MyTextStyle().GetTextDecoration()
+                      : MyTextStyle().GetTextAkcentBold(),
+                )),
+          ),
         );
       }
       bigRes.add(Row(

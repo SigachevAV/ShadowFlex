@@ -40,45 +40,46 @@ class _AbillytyRowState extends State<AbillytyRow> {
             if (i * 6 + j >= roll.length) {
               break;
             }
+            Widget? tempIcon;
 
             switch (roll[i * 6 + j]) {
               case 6:
-                temp.add(Icon(
+                tempIcon = (Icon(
                   MyFlutterApp.dice_six_,
                   size: 40,
                   color: ColorShemeMine().GetAkcent(),
                 ));
                 break;
               case 5:
-                temp.add(Icon(
+                tempIcon = (Icon(
                   MyFlutterApp.dice_five_,
                   size: 40,
                   color: ColorShemeMine().GetAkcent(),
                 ));
                 break;
               case 4:
-                temp.add(Icon(
+                tempIcon = (Icon(
                   MyFlutterApp.dice_four_,
                   size: 40,
                   color: ColorShemeMine().GetCardColor(),
                 ));
                 break;
               case 3:
-                temp.add(Icon(
+                tempIcon = (Icon(
                   MyFlutterApp.dice_three_,
                   size: 40,
                   color: ColorShemeMine().GetCardColor(),
                 ));
                 break;
               case 2:
-                temp.add(Icon(
+                tempIcon = (Icon(
                   MyFlutterApp.dice_two_,
                   size: 40,
                   color: ColorShemeMine().GetCardColor(),
                 ));
                 break;
               case 1:
-                temp.add(Icon(
+                tempIcon = (Icon(
                   MyFlutterApp.dice_one_,
                   size: 40,
                   color: Colors.red,
@@ -87,12 +88,15 @@ class _AbillytyRowState extends State<AbillytyRow> {
               default:
                 break;
             }
+            temp.add(Container(
+              margin: EdgeInsets.all(1),
+              child: tempIcon,
+            ));
           }
 
           result.add(Container(
             margin: EdgeInsets.fromLTRB(5, 10, 5, 10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: temp,
             ),
           ));

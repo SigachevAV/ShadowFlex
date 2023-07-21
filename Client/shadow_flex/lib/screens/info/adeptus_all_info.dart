@@ -51,6 +51,9 @@ class _AdeptusInfoAllScreenState extends State<AdeptusInfoAllScreen> {
   }
 
   Widget futureBuilder(BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.hasError) {
+      return TextLeftMargin(text: "Пиздец " + snapshot.error.toString());
+    }
     if (!snapshot.hasData) {
       return TextLeftMargin(text: "Загрузка");
     }
