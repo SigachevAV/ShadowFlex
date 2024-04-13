@@ -26,6 +26,7 @@
             working-directory: ${{env.working-directory}}
           - uses: subosito/flutter-action@v1
             with:
+              flutter-version: 3.10.5
               channel: "stable"
           - run: flutter pub get
             working-directory: ${{env.working-directory}}
